@@ -563,7 +563,20 @@ $ /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples/tomcat_measur
 16-Feb-2018 14:45:44.603 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 18317 ms
                       6006236 560472 550080 KB 
 
-pmap --read-rc-from=/c/Users/D046063/public_html/hotspot/FOSDEM2018/git/examples/pmap_slides.rc `pgrep -f tomcat`| less
+$ /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples/tomcat_measure.sh 5 "-Xshare:on -XX:+UseAppCDS -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/tmp/tomcat_cl4cds.jsa"
+16-Feb-2018 14:50:45.985 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 17953 ms
+                      6043244 623932 615501 KB 
+16-Feb-2018 14:51:26.752 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 18501 ms
+                      6044272 658360 649929 KB 
+16-Feb-2018 14:52:06.598 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 17723 ms
+                      6045300 573684 565253 KB 
+16-Feb-2018 14:52:46.966 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 17462 ms
+                      6045300 619712 611281 KB 
+16-Feb-2018 14:53:27.908 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 17738 ms
+                      6044272 628384 619953 KB 
+
+
+pmap - - read-rc-from=/c/Users/D046063/public_html/hotspot/FOSDEM2018/git/examples/pmap_slides.rc `pgrep -f tomcat`| less
 
 
 CATALINA_OPTS="-Djava.security.edg=file:/dev/./urandom" $CATALINA_HOME/bin/catalina.sh start
@@ -591,6 +604,21 @@ CATALINA_OPTS="-Djava.security.edg=file:/dev/./urandom" $CATALINA_HOME/bin/catal
             <li>Can share only one class if loaded by several class loaders</li>
             <li>No bytecode-rewriting (slow interpreter)</li>
           </ul>
+        </section>
+
+        <section>
+
+          <h2><a href="https://bugs.openjdk.java.net/browse/JDK-8194759">8194759: Support caching class mirror objects</a></h2>
+
+          <ul>
+            <li>Currently under review for Java 11</li>
+          </ul>
+        </section>
+
+        <section>
+
+          <h2>Class Data Sharing in OpenJ9</h2>
+
         </section>
 
 
