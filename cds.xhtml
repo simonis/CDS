@@ -157,55 +157,70 @@
 
         <section class="demo">
 
-          <section>
+          <section class="demo">
 
             <h2>Class representation in the HotSpot VM</h2>
 
             <div width="100%" style="position: relative; margin: 0 0 0 0px;">
-              <div class="" style="position: static;">
+              <div class="" style="position: static; width: 100%">
                 <object data="images/CodeCacheMetaspaceHeap_1.svg" type="image/svg+xml"
-                        style="width: 80%;">&nbsp;</object>
+                        style="width: 90%;">&nbsp;</object>
               </div>
               <div class="fragment" data-fragment-index="1" style="position: absolute; left: 0; top: 0; width: 100%">
                 <object data="images/CodeCacheMetaspaceHeap_2.svg" type="image/svg+xml"
-                        style="width: 80%;">&nbsp;</object>
+                        style="width: 90%;">&nbsp;</object>
               </div>
               <div class="fragment" data-fragment-index="2" style="position: absolute; left: 0; top: 0; width: 100%">
                 <object data="images/CodeCacheMetaspaceHeap_3.svg" type="image/svg+xml"
-                        style="width: 80%;">&nbsp;</object>
+                        style="width: 90%;">&nbsp;</object>
               </div>
               <div class="fragment" data-fragment-index="3" style="position: absolute; left: 0; top: 0; width: 100%">
                 <object data="images/CodeCacheMetaspaceHeap_4.svg" type="image/svg+xml"
-                        style="width: 80%;">&nbsp;</object>
+                        style="width: 90%;">&nbsp;</object>
               </div>
               <div class="fragment" data-fragment-index="4" style="position: absolute; left: 0; top: 0; width: 100%">
                 <object data="images/CodeCacheMetaspaceHeap_5.svg" type="image/svg+xml"
-                        style="width: 80%;">&nbsp;</object>
+                        style="width: 90%;">&nbsp;</object>
               </div>
               <div class="fragment" data-fragment-index="5" style="position: absolute; left: 0; top: 0; width: 100%">
                 <object data="images/CodeCacheMetaspaceHeap_6.svg" type="image/svg+xml"
-                        style="width: 80%;">&nbsp;</object>
+                        style="width: 90%;">&nbsp;</object>
               </div>
               <div class="fragment" data-fragment-index="6" style="position: absolute; left: 0; top: 0; width: 100%">
                 <object data="images/CodeCacheMetaspaceHeap_7.svg" type="image/svg+xml"
-                        style="width: 80%;">&nbsp;</object>
+                        style="width: 90%;">&nbsp;</object>
               </div>
               <div class="fragment" data-fragment-index="7" style="position: absolute; left: 0; top: 0; width: 100%">
                 <object data="images/CodeCacheMetaspaceHeap_8.svg" type="image/svg+xml"
-                        style="width: 80%;">&nbsp;</object>
+                        style="width: 90%;">&nbsp;</object>
               </div>
               <div class="fragment" data-fragment-index="8" style="position: absolute; left: 0; top: 0; width: 100%">
                 <object data="images/CodeCacheMetaspaceHeap_9.svg" type="image/svg+xml"
-                        style="width: 80%;">&nbsp;</object>
+                        style="width: 90%;">&nbsp;</object>
               </div>
               <div class="fragment" data-fragment-index="9" style="position: absolute; left: 0; top: 0; width: 100%">
                 <object data="images/CodeCacheMetaspaceHeap_10.svg" type="image/svg+xml"
-                        style="width: 80%;">&nbsp;</object>
+                        style="width: 90%;">&nbsp;</object>
               </div>
-
               <div class="fragment" data-fragment-index="10" style="position: absolute; left: 0; top: 0; width: 100%">
-                <object data="images/CodeCacheMetaspaceHeap.svg" type="image/svg+xml"
-                        style="width: 80%;">&nbsp;</object>
+                <object data="images/CodeCacheMetaspaceHeap_11.svg" type="image/svg+xml"
+                        style="width: 90%;">&nbsp;</object>
+              </div>
+              <div class="fragment" data-fragment-index="11" style="position: absolute; left: 0; top: 0; width: 100%">
+                <object data="images/CodeCacheMetaspaceHeap_12.svg" type="image/svg+xml"
+                        style="width: 90%;">&nbsp;</object>
+              </div>
+              <div class="fragment" data-fragment-index="12" style="position: absolute; left: 0; top: 0; width: 100%">
+                <object data="images/CodeCacheMetaspaceHeap_13.svg" type="image/svg+xml"
+                        style="width: 90%;">&nbsp;</object>
+              </div>
+              <div class="fragment" data-fragment-index="13" style="position: absolute; left: 0; top: 0; width: 100%">
+                <object data="images/CodeCacheMetaspaceHeap_14.svg" type="image/svg+xml"
+                        style="width: 90%;">&nbsp;</object>
+              </div>
+              <div class="fragment" data-fragment-index="14" style="position: absolute; left: 0; top: 0; width: 100%">
+                <object data="images/CodeCacheMetaspaceHeap_15.svg" type="image/svg+xml"
+                        style="width: 90%;">&nbsp;</object>
               </div>
 
             </div>
@@ -252,7 +267,7 @@ total    :  <span class="fragment highlight-border" data-fragment-index="12">184
 
             <h2>CDS Basics - Using the Archive</h2>
 
-            <pre class="big noshadow" style="height:100%; margin: 0; display: block" data-trim="true">
+            <pre class="big noshadow" style="height:100%; margin: 0;" data-trim="true">
               <code class="java" data-trim="true" data-noescape="true" style="height:100%">
 package io.simonis;
 
@@ -282,10 +297,10 @@ $ </span><span class="fragment">java -Xshare:on <span class="fragment highlight-
 <span class="fragment">[class,load] io.simonis.HelloCDS2 source: <span class="fragment highlight-current-border">file:/examples/bin/</span>
 HelloCDS</span>
 <span class="fragment">$ java -Xshare:on -Xlog:class+load io.simonis.HelloCDS \
-      | grep "shared objects file" | wc</span>
+      | <span class="fragment highlight-current-border">grep "shared objects file"</span> | wc</span>
     <span class="fragment">477    2862   40977
 $ </span><span class="fragment">java -Xshare:on -Xlog:class+load io.simonis.HelloCDS \
-      | grep -v "shared objects file" | wc</span>
+      | <span class="fragment highlight-current-border">grep -v "shared objects file"</span> | wc</span>
       <span class="fragment">5      17     424</span>
               </code>
             </pre>
@@ -297,27 +312,27 @@ $ </span><span class="fragment">java -Xshare:on -Xlog:class+load io.simonis.Hell
 
             <pre class="big noshadow" style="height:100%; margin: 0;" data-trim="true">
               <code class="terminal" data-trim="true" data-noescape="true" style="height:100%;">
-$ time -f "%e sec\n" java -Xshare:off io.simonis.HelloCDS
-Hello CDS
+$ time -f "%e sec\n" java <span class="fragment highlight-current-border">-Xshare:off</span> io.simonis.HelloCDS
+<span class="fragment">Hello CDS
 0.162 sec
-$ time -f "%e sec\n" java -Xshare:on  io.simonis.HelloCDS          
-Hello CDS
-0.148 sec
+$</span> <span class="fragment">time -f "%e sec\n" java <span class="fragment highlight-current-border">-Xshare:on</span>  io.simonis.HelloCDS          </span>
+<span class="fragment">Hello CDS
+0.148 sec</span>
               </code>
             </pre>
 
-            <p>About 9% overall performance improvement</p>
+            <p class="fragment">About 9% overall performance improvement</p>
 
-            <pre class="big noshadow" style="height:100%; margin: 0;" data-trim="true">
+            <pre class="big noshadow fragment" style="height:100%; margin: 0;" data-trim="true">
               <code class="terminal" data-trim="true" data-noescape="true" style="height:100%;">
-$ java -Xshare:off -Xlog:class+load io.simonis.HelloCDS
-[0,164s][class,load] io.simonis.HelloCDS source: file:/examples/bin
-$ java -Xshare:on  -Xlog:class+load io.simonis.HelloCDS
-[0,143s][class,load] io.simonis.HelloCDS source: file:/examples/bin
+$ java <span class="fragment highlight-current-border">-Xshare:off</span> <span class="fragment highlight-current-border">-Xlog:class+load</span> io.simonis.HelloCDS
+<span class="fragment">[0,164s][class,load] io.simonis.HelloCDS source: file:/examples/bin
+$</span> <span class="fragment">java <span class="fragment highlight-current-border">-Xshare:on</span>  -Xlog:class+load io.simonis.HelloCDS</span>
+<span class="fragment">[0,143s][class,load] io.simonis.HelloCDS source: file:/examples/bin</span>
               </code>
             </pre>
 
-            <p>Application class loads about 13% faster</p>
+            <p class="fragment">Application class loads about 13% faster</p>
           </section>
 
           <section class="demo">
@@ -360,7 +375,7 @@ $</span><span class="fragment" data-fragment-index="2"> pmap -X `pgrep -f HelloC
             <pre class="big noshadow" style="height:100%; margin: 0;" data-trim="true">
               <code class="terminal" data-trim="true" data-noescape="true" style="height:100%;">
 $ CATALINA_OPTS="<span class="fragment highlight-current-border">-Xshare:on</span> \
-                 -Xlog:class+load:file=/tmp/tomcat.classtrace" \
+                 <span class="fragment highlight-current-border">-Xlog:class+load:file=/tmp/tomcat.classtrace</span>" \
   catalina.sh start
 $ <span class="fragment">wc /tmp/tomcat.classtrace</span>
   <span class="fragment"><span class="fragment highlight-border">12644</span>   50575 2075264 /tmp/tomcat.classtrace
@@ -421,7 +436,7 @@ $</span> <span class="fragment">CATALINA_OPTS="<span class="fragment highlight-c
             <h2>AppCDS - Class List Format</h2>
 
             <ul>
-              <li><code>-XX:DumpLoadedClassList=...</code> creates a trivial class list:
+              <li><code>-XX:DumpLoadedClassList=...</code> creates a trivial class list:<br/>
 
                 <pre class="big noshadow" style="height:100%; margin: 0;" data-trim="true">
                   <code class="terminal" data-trim="true" data-noescape="true" style="height:100%;">
@@ -429,17 +444,17 @@ $ cat /tmp/tomcat_appcds.cls
 java/lang/Object
 java/lang/String                                          
 ...
-<span class="fragment highlight-current-border">org/apache/catalina/startup/Bootstrap</span>
+<span class="fragment highlight-current-border" data-fragment-index="1">org/apache/catalina/startup/Bootstrap</span>
                   </code>
                 </pre>
               </li>
-              <li class="fragment">The format for classes loaded by custom class loaders isn't specified anywhere, except:
-                <a href="http://hg.openjdk.java.net/jdk/jdk/file/tip/src/hotspot/share/classfile/classListParser.cpp">classListParser.cpp</a>
+              <li class="fragment" data-fragment-index="2">The format for classes loaded by custom class loaders isn't specified<br/> anywhere, except in
+                <a href="http://hg.openjdk.java.net/jdk/jdk/file/tip/src/hotspot/share/classfile/classListParser.cpp">classListParser.cpp</a><br/>
 
-                <pre class="big noshadow" style="height:100%; margin: 0;" data-trim="true">
+                <pre class="big noshadow fragment" data-fragment-index="3" style="height:100%; margin: 0;" data-trim="true">
                   <code class="terminal" data-trim="true" data-noescape="true" style="height:100%;">
 CLASSNAME [ ID ]?
-CLASSNAME ID super: ID [ interface: [ ID ]+ ]? source: URL
+CLASSNAME ID <span class="fragment highlight-current-border" data-fragment-index="5">super: ID</span> [ <span class="fragment highlight-current-border" data-fragment-index="5">interface: [ ID ]+</span> ]? <span class="fragment highlight-current-border" data-fragment-index="4">source: URL</span>
                   </code>
                 </pre>
               </li>
@@ -451,32 +466,32 @@ CLASSNAME ID super: ID [ interface: [ ID ]+ ]? source: URL
             <h2>Creating a Class List for Custom Loaders</h2>
 
             <ul>
-              <li><code>-Xlog:class+load=debug</code> has all we need:
+              <li><code>-Xlog:class+load<span class="fragment highlight-current-border" data-fragment-index="1">=debug</span></code> has all the information we need:<br/>
 
-                <pre class="big noshadow" style="height:100%; margin: 0;" data-trim="true">
+                <pre class="big noshadow fragment" data-fragment-index="2" style="height:100%; margin: 0;" data-trim="true">
                   <code class="terminal" data-trim="true" data-noescape="true" style="height:100%;">
 $ CATALINA_OPTS="-Xlog:class+load=debug" catalina.sh start
-[..] <span class="fragment highlight-current-border">java.lang.Object source: jrt:/java.base</span>
-[..]  klass: 0x100000eb0 super: 0x000000000 <span class="fragment highlight-current-border">loader: [NULL class loader]</span>
+<span class="fragment" data-fragment-index="3">[info ] <span class="fragment highlight-current-border" data-fragment-index="4">java.lang.Object</span> <span class="fragment highlight-current-border" data-fragment-index="4">source: jrt:/java.base</span>
+[debug]  klass: <span class="fragment highlight-current-border" data-fragment-index="9">0x100000eb0</span> super: 0x000000000 <span class="fragment highlight-current-border" data-fragment-index="5">loader: [NULL class loader]</span>
 ....
-[..] <span class="fragment highlight-current-border">java.sql.Timestamp source: jrt:/java.sql</span>
-[..]  klass: 0x100096c30 super: 0x100091a00 \
-      <span class="fragment highlight-current-border">loader: [0xff0172600 a 'ClassLoaders$PlatformClassLoader']</span>
+[info ] <span class="fragment highlight-current-border" data-fragment-index="6">java.sql.Timestamp</span> <span class="fragment highlight-current-border" data-fragment-index="6">source: jrt:/java.sql</span>
+[debug]  klass: 0x100096c30 super: 0x100091a00 \
+         <span class="fragment highlight-current-border" data-fragment-index="7">loader: [0xff0172600 a 'ClassLoaders$PlatformClassLoader']</span>
 ....
-[..] <span class="fragment highlight-current-border">org.apache.catalina.Server source: file:catalina.jar</span>
-[..]  klass: 0x1000e6410 <span class="fragment highlight-current-border">super: 0x100000eb0</span> <span class="fragment highlight-current-border">interfaces: 0x1000e6238</span> \
-      <span class="fragment highlight-current-border">loader: [0xff0310fb0 a 'java/net/URLClassLoader']</span>
+[info ] <span class="fragment highlight-current-border" data-fragment-index="8">org.apache.catalina.Server</span> <span class="fragment highlight-current-border" data-fragment-index="8">source: file:catalina.jar</span>
+[debug]  klass: 0x1000e6410 <span class="fragment highlight-current-border" data-fragment-index="9">super: 0x100000eb0</span> <span class="fragment highlight-current-border" data-fragment-index="10">interfaces: 0x1000e6238</span> \
+         <span class="fragment highlight-current-border" data-fragment-index="11">loader: [0xff0310fb0 a 'java/net/URLClassLoader']</span></span>
                   </code>
                 </pre>
               </li>
-              <li class="fragment">From this we can easily create:
+              <li class="fragment" data-fragment-index="12">From this output we can easily create:<br/>
 
                 <pre class="big noshadow" style="height:100%; margin: 0;" data-trim="true">
                   <code class="terminal" data-trim="true" data-noescape="true" style="height:100%;">
-java/lang/Object           id: 0x100000eb0
-java/sql/Timestamp         id: 0x100096c30
-org/apache/catalina/Server id: 0x1000e6410 super: 0x100000eb0 \
-                           interfaces: 0x1000e6238 source: catalina.jar
+<span class="fragment highlight-current-border" data-fragment-index="13">java/lang/Object</span>           <span class="fragment highlight-current-border" data-fragment-index="13">id: 0x100000eb0</span>
+<span class="fragment highlight-current-border" data-fragment-index="14">java/sql/Timestamp </span>        <span class="fragment highlight-current-border" data-fragment-index="14">id: 0x100096c30</span>
+<span class="fragment highlight-current-border" data-fragment-index="15">org/apache/catalina/Server</span> <span class="fragment highlight-current-border border-no-bottom" data-fragment-index="15">id: 0x1000e6410 super: 0x100000eb0 \        </span>
+                           <span class="fragment highlight-current-border border-no-top   " data-fragment-index="15">interfaces: 0x1000e6238 source: catalina.jar</span>
                   </code>
                 </pre>
               </li>
@@ -487,13 +502,13 @@ org/apache/catalina/Server id: 0x1000e6410 super: 0x100000eb0 \
 
             <h2><code><a href="https://github.com/simonis/cl4cds">cl4cds</a></code></h2>
 
-            <code>cl4cds</code> converts a class log to a CDS class list:
+            <code>cl4cds</code> converts a class log into a CDS class list:
 
                 <pre class="big noshadow" style="height:100%; margin: 0;" data-trim="true">
                   <code class="terminal" data-trim="true" data-noescape="true" style="height:100%;">
 $ CATALINA_OPTS="<span class="fragment highlight-current-border">-Xlog:class+load=debug:file=tomcat_dbg.clstrace</span>" \
   catalina.sh start
-$ <span class="fragment">java io.simonis.cl4cds <span class="fragment highlight-current-border">tomcat_dbg.clstrace</span> <span class="fragment highlight-current-border">tomcat_cl4cds.cls</span>
+$ <span class="fragment"><span class="fragment highlight-current-border">java io.simonis.cl4cds</span> <span class="fragment highlight-current-border">tomcat_dbg.clstrace</span> <span class="fragment highlight-current-border">tomcat_cl4cds.cls</span>
 $</span><span class="fragment"> CATALINA_OPTS="<span class="fragment highlight-current-border">-Xshare:dump</span> -XX:+UseAppCDS \
                  <span class="fragment highlight-current-border">-XX:SharedClassListFile=tomcat_cl4cds.cls</span> \
                  -XX:+UnlockDiagnosticVMOptions \
@@ -513,6 +528,54 @@ $</span><span class="fragment"> grep "shared objects " tomcat_cl4cds.clstrace | 
                   </code>
                 </pre>
           </section>
+
+<!--
+
+Skipping java.lang.invoke.BoundMethodHandle$Species_LII from __JVM_DefineClass__ - reason: dynamically generated class
+Skipping jdk.internal.reflect.GeneratedMethodAccessor1 from __JVM_DefineClass__ - reason: dynamically generated class
+Skipping com.sun.proxy.$Proxy0 from __JVM_DefineClass__ - reason: dynamically generated class
+
+Skipping org.slf4j.Logger from /share/software/Java/apache-tomcat-9.0.2/webapps/ngrinder-controller-3.4.1/WEB-INF/lib/slf4j-api-1.6.4.jar - reason: class is pre 1.5
+
+Skipping org.ngrinder.infra.spring.Redirect404DispatcherServlet from /share/software/Java/apache-tomcat-9.0.2/webapps/ngrinder-controller-3.4.1/WEB-INF/classes/ - reason: loaded from class file (try '-Dio.simonis.cl4cds.dumpFromClassFile=true')
+
+Skipping org.slf4j.impl.StaticLoggerBinder from /share/software/Java/apache-tomcat-9.0.2/webapps/ngrinder-controller-3.4.1/WEB-INF/lib/logback-classic-1.0.0.jar - reason: failed dependencies
+
+$ /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples/tomcat_measure.sh 5
+16-Feb-2018 14:38:34.851 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 18840 ms
+                      5989256 572544 563985 KB 
+16-Feb-2018 14:39:16.051 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 19467 ms
+                      6002124 599876 589484 KB 
+16-Feb-2018 14:39:55.655 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 18411 ms
+                      5989256 600472 592014 KB 
+16-Feb-2018 14:40:35.948 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 18142 ms
+                      5991312 622492 613929 KB 
+16-Feb-2018 14:41:17.925 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 19419 ms
+                      5985144 665980 657421 KB 
+16-Feb-2018 14:43:02.200 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 18407 ms
+                      5990280 627868 619305 KB 
+16-Feb-2018 14:43:43.513 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 19007 ms
+                      5988228 625600 617037 KB 
+16-Feb-2018 14:44:24.130 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 19071 ms
+                      5989256 636224 627665 KB 
+16-Feb-2018 14:45:04.853 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 19093 ms
+                      6004180 676396 666004 KB 
+16-Feb-2018 14:45:44.603 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 18317 ms
+                      6006236 560472 550080 KB 
+
+pmap --read-rc-from=/c/Users/D046063/public_html/hotspot/FOSDEM2018/git/examples/pmap_slides.rc `pgrep -f tomcat`| less
+
+
+CATALINA_OPTS="-Djava.security.edg=file:/dev/./urandom" $CATALINA_HOME/bin/catalina.sh start
+
+16-Feb-2018 11:04:09.878 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 19368 ms
+16-Feb-2018 11:09:11.988 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 19600 ms
+
+         Address Perm    Size    Rss    Pss Mapping
+                      5996964 642776 638454 KB
+                      5989768 578628 574310 KB 
+
+-->
 
         </section>
 
