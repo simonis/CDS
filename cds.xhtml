@@ -118,41 +118,60 @@
         </section>
 
         <section>
-          <h2>Class Data Sharing</h2>
 
-          <ul>
-            <li>Cache preprocessed class metadata on disc</li>
-            <li>Improve startup performance</li>
-            <li>Reduce memory footprint</li>
-          </ul>
-        </section>
+          <section>
+            <h2>Containers and Microservices everywhere</h2>
 
-        <section>
-          <h2>Short History of CDS in the HotSpot VM</h2>
+            <ul>
+              <li>Small footprint</li>
+              <li>Fast startup</li>
+            </ul>
+          </section>
 
-          <ul>
-            <li>Introduced 2004 with <a href="https://docs.oracle.com/javase/1.5.0/docs/guide/vm/class-data-sharing.html">JDK 1.5</a>
-              <ul>
-                <li>Only for Client VM, only Serial GC</li>
-                <li>Only system classes</li>
-              </ul>
-            </li>
-            <li>Part of the initial OpenJDK 6/7 contribution</li>
-            <li>Since OpenJDK 9 / <a href="https://docs.oracle.com/javase/9/vm/class-data-sharing.htm#JSJVM-GUID-0260F857-A70E-4399-A1DF-A5766BE33285">JDK 9</a>:
-              <ul>
-                <li>Support for Server VM</li>
-                <li>Support for G1, Serial, Parallel and ParallelOld GCs</li>
-                <li>Support for shared strings (only with G1, non-Windows)</li>
-                <li>Support for application classes
-                  (<a href="https://docs.oracle.com/javase/9/tools/java.htm#JSWOR-GUID-31503FCE-93D0-4175-9B4F-F6A738B2F4C4">commercial Oracle JDK feature</a>)</li>
-              </ul>
-            </li>
-            <li>Coming with OpenJDK 10:
-              <ul>
-                <li><a href="http://openjdk.java.net/jeps/31">JEP 310: Application Class-Data Sharing</a></li>
-              </ul>
-            </li>
-          </ul>
+          <section>
+            <h2>Class Data Sharing &amp; Ahead of Time Compilation</h2>
+
+            <ul>
+              <li>CDS: Cache preprocessed class metadata on disc</li>
+              <li>AOT: Cache precompiled Java code on disc</li>
+              <li>Improve startup performance</li>
+              <li>Reduce memory footprint</li>
+            </ul>
+          </section>
+
+
+          <section>
+            <h2>Short History of CDS in the HotSpot VM</h2>
+
+            <ul>
+              <li class="fragment">Introduced 2004 with <a href="https://docs.oracle.com/javase/1.5.0/docs/guide/vm/class-data-sharing.html">JDK 1.5</a>
+                <ul>
+                  <li>Only for Client VM, only Serial GC</li>
+                  <li>Only system classes</li>
+                </ul>
+              </li>
+              <li class="fragment">Part of the initial OpenJDK 6/7 contribution</li>
+              <li class="fragment">Since OpenJDK 9 / <a href="https://docs.oracle.com/javase/9/vm/class-data-sharing.htm#JSJVM-GUID-0260F857-A70E-4399-A1DF-A5766BE33285">JDK 9</a>:
+                <ul>
+                  <li>Support for Server VM</li>
+                  <li>Support for G1, Serial, Parallel and ParallelOld GCs</li>
+                  <li>Support for shared strings (only with G1, non-Windows)</li>
+                  <li>Support for application classes
+                    (<a href="https://docs.oracle.com/javase/9/tools/java.htm#JSWOR-GUID-31503FCE-93D0-4175-9B4F-F6A738B2F4C4">commercial Oracle JDK feature</a>)</li>
+                </ul>
+              </li>
+              <li class="fragment">Coming with OpenJDK 10:
+                <ul>
+                  <li><a href="http://openjdk.java.net/jeps/31">JEP 310: Application Class-Data Sharing</a></li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>The Footprint/Performance Uncertainty Principle</h2>
+
+          </section>
         </section>
 
         <section class="demo">
@@ -530,6 +549,226 @@ $</span><span class="fragment"> grep "shared objects " tomcat_cl4cds.clstrace | 
           </section>
 
 <!--
+
+Create HotSpot CDS archive in docker container:
+===============================================
+docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8091:8080 -it - -rm -m 500m cds_demo_ojdk:latest /bin/bash
+
+/examples/tomcat_measure.sh 1 "-XX:TieredStopAtLevel=1 -XX:CICompilerCount=1 -Xmx64m -Xms64m -Xlog:class+load=debug:file=/tmp/tomcat_dbg.clstrace"
+
+java -cp /examples/cl4cds-1.0.0-SNAPSHOT.jar io.simonis.cl4cds /tmp/tomcat_dbg.clstrace /tmp/tomcat_cl4cds.cls
+
+/examples/tomcat_measure.sh 1 "-XX:TieredStopAtLevel=1 -XX:CICompilerCount=1 -Xmx64m -Xms64m -XX:+UseG1GC -Xshare:dump -XX:+UseAppCDS -XX:SharedClassListFile=/tmp/tomcat_cl4cds.cls -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/tmp/tomcat_cl4cds.jsa"
+
+Number of classes 9694
+    instance classes   =  9602
+    obj array classes  =    84
+    type array classes =     8
+Updating ConstMethods ... done. 
+Removing unshareable information ... done. 
+Scanning all metaspace objects ... 
+Allocating RW objects ... 
+Allocating RO objects ... 
+Relocating embedded pointers ... 
+Relocating external roots ... 
+Dumping symbol table ...
+Dumping String objects to closed archive heap region ...
+Dumping objects to open archive heap region ...
+Relocating SystemDictionary::_well_known_klasses[] ... 
+Removing java_mirror ... done. 
+mc  space:     13264 [  0.0% of total] out of     16384 bytes [ 81.0% used] at 0x0000000800000000
+rw  space:  22873296 [ 22.1% of total] out of  22876160 bytes [100.0% used] at 0x0000000800004000
+ro  space:  40262480 [ 38.9% of total] out of  40263680 bytes [100.0% used] at 0x00000008015d5000
+md  space:      6160 [  0.0% of total] out of      8192 bytes [ 75.2% used] at 0x0000000803c3b000
+od  space:  36699784 [ 35.4% of total] out of  36700160 bytes [100.0% used] at 0x0000000803c3d000
+st0 space:    417792 [  0.4% of total] out of    417792 bytes [100.0% used] at 0x00000000ff400000
+st1 space:   3145728 [  3.0% of total] out of   3145728 bytes [100.0% used] at 0x00000000ff500000
+oa0 space:    176128 [  0.2% of total] out of    176128 bytes [100.0% used] at 0x00000000ff300000
+total    : 103594632 [100.0% of total] out of 103604224 bytes [100.0% used]
+
+
+Create OpenJ9 CDS archive in docker container:
+==============================================
+docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8091:8080 -it - -rm -m 500m cds_demo_oj9:latest /bin/bash
+
+/examples/tomcat_measure.sh 1 "-Xquickstart -Xmx64m -Xms64m -Xscmx128m -Xshareclasses:cacheDir=/tmp/tomcat_sa,name=tomcat,noaot,nojitdata,verbose -Xnoaot"
+
+java -Xshareclasses:cacheDir=/tmp/tomcat_sa,name=tomcat,printStats
+
+Current statistics for cache "tomcat": 
+
+Cache created with:
+	-Xnolinenumbers                      = false
+	BCI Enabled                          = true
+	Restrict Classpaths                  = false
+	Feature                              = cr
+
+Cache contains only classes with line numbers
+
+base address                         = 0x00007FFFA4059000
+end address                          = 0x00007FFFAC000000
+allocation pointer                   = 0x00007FFFA5C1E7D8
+
+cache size                           = 134217120
+softmx bytes                         = 134217120
+free bytes                           = 93735312
+ROMClass bytes                       = 29120472
+AOT bytes                            = 256
+Reserved space for AOT bytes         = -1
+Maximum space for AOT bytes          = -1
+JIT data bytes                       = 0
+Reserved space for JIT data bytes    = -1
+Maximum space for JIT data bytes     = -1
+Zip cache bytes                      = 0
+Data bytes                           = 363936
+Metadata bytes                       = 290200
+Metadata % used                      = 0%
+Class debug area size                = 10706944
+Class debug area used bytes          = 5234970
+Class debug area % used              = 48%
+
+# ROMClasses                         = 11921
+# AOT Methods                        = 0
+# Classpaths                         = 5
+# URLs                               = 0
+# Tokens                             = 0
+# Zip caches                         = 0
+# Stale classes                      = 0
+% Stale classes                      = 0%
+
+Cache is 30% full
+
+
+(1) docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8091:8080 -i -x-rm -m 500m cds_demo_ojdk:latest /examples/tomcat_measure.sh 1 "-Xint -Xmx64m -Xms64m -Xshare:on -XX:+UseAppCDS -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/opt/tomcat_sa/tomcat_cl4cds.jsa"
+
+(2) docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8090:8080 -i -x-rm -m 500m cds_demo_ojdk:latest /examples/tomcat_measure.sh 1 "-Xint -Xmx64m -Xms64m -Xshare:on -XX:+UseAppCDS -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/opt/tomcat_sa/tomcat_cl4cds.jsa"
+
+(3) docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8080:8080 -i -x-rm -m 500m cds_demo_ojdk:latest /examples/tomcat_measure.sh 1 "-Xint -Xmx64m -Xms64m -Xshare:off -XX:+UseAppCDS -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/opt/tomcat_sa/tomcat_cl4cds.jsa"
+
+CONTAINER           CPU %               MEM USAGE / LIMIT   MEM %               NET I/O             BLOCK I/O           PIDS
+1c567fbd3e5f        2.23%               200.2MiB / 500MiB   40.03%              424kB / 6.54kB      45.1kB / 840kB      0      (3)
+4dff19a42e28        6.19%               164.1MiB / 500MiB   32.81%              425kB / 6.43kB      86kB / 840kB        0      (2)
+9bd6557f0d98        3.98%               164.9MiB / 500MiB   32.98%              425kB / 6.7kB       4.1kB / 836kB       0      (1)
+
+CONTAINER           CPU %               MEM USAGE / LIMIT   MEM %               NET I/O             BLOCK I/O           PIDS
+1c567fbd3e5f        5.26%               209.8MiB / 500MiB   41.95%              424kB / 6.54kB      45.1kB / 840kB      0
+4dff19a42e28        2.98%               173.2MiB / 500MiB   34.63%              425kB / 6.43kB      86kB / 840kB        0
+9bd6557f0d98        2.89%               173.9MiB / 500MiB   34.78%              425kB / 6.7kB       4.1kB / 836kB       0
+
+OpenJ9
+======
+(1) docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8091:8080 -i -x-rm -m 500m cds_demo_oj9:latest /examples/tomcat_measure.sh 1 "-Xmx64m -Xms64m -Xscmx128m -Xshareclasses:cacheDir=/opt/tomcat_sa,name=tomcat,noaot,nojitdata,verbose -Xint -Xnoaot -Xnojit"
+
+(2) docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8090:8080 -i -x-rm -m 500m cds_demo_oj9:latest /examples/tomcat_measure.sh 1 "-Xmx64m -Xms64m -Xscmx128m -Xshareclasses:cacheDir=/opt/tomcat_sa,name=tomcat,noaot,nojitdata,verbose -Xint -Xnoaot -Xnojit"
+
+(3) docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8080:8080 -i -x-rm -m 500m cds_demo_oj9:latest /examples/tomcat_measure.sh 1 "-Xmx64m -Xms64m -Xscmx128m -Xshareclasses:none -Xint -Xnoaot -Xnojit"
+
+CONTAINER           CPU %               MEM USAGE / LIMIT   MEM %               NET I/O             BLOCK I/O           PIDS
+6d2e95e90154        1.53%               150.9MiB / 500MiB   30.18%              425kB / 6.77kB      28.7kB / 840kB      0     (3)
+1e595c6d8bb4        2.13%               124.5MiB / 500MiB   24.89%              423kB / 6.07kB      53.2kB / 840kB      0     (2)
+7d01485605be        2.17%               124.6MiB / 500MiB   24.93%              424kB / 6.4kB       0B / 840kB          0     (1)
+
+CONTAINER           CPU %               MEM USAGE / LIMIT   MEM %               NET I/O             BLOCK I/O           PIDS
+6d2e95e90154        3.69%               155.6MiB / 500MiB   31.12%              425kB / 6.77kB      28.7kB / 840kB      0
+1e595c6d8bb4        5.25%               129.3MiB / 500MiB   25.86%              424kB / 6.07kB      53.2kB / 840kB      0
+7d01485605be        2.89%               129.2MiB / 500MiB   25.83%              424kB / 6.4kB       0B / 840kB          0
+
+
+cat /sys/fs/cgroup/memory/docker/72ea9bf5ec4bb653ed42378099b2cdbef723f204d62222e3cb9705728d58702a/memory.stat
+
+curl -x-unix-socket /var/run/docker.sock http://docker/containers/72ea9bf5ec4b/stats?stream=false
+
+docker stats -x-no-stream
+CONTAINER           CPU %               MEM USAGE / LIMIT   MEM %               NET I/O             BLOCK I/O           PIDS
+72ea9bf5ec4b        0.94%               215.1MiB / 500MiB   43.01%              427kB / 6.92kB      868kB / 840kB       0
+
+"-Xquickstart -Xmx64m -Xms64m -Xscmx128m -Xshareclasses:cacheDir=/tmp/xxx,name=tomcat,noaot,nojitdata,verbose -Xnoaot"
+
+Create OpenJ9 jimage:
+=====================
+/share/software/Java/openJ9_jdk9-b181/bin/jlink -x-module-path /share/software/Java/openJ9_jdk9-b181/jmods -x-add-modules java.instrument,java.management,java.naming,java.security.jgss,java.sql,java.xml.ws -x-strip-debug -x-compress=2 -x-output /tmp/oj9
+mv /tmp/oj9/lib/server /tmp/oj9/lib/j9vm
+cp /share/software/Java/openJ9_jdk9-b181/lib/compressedrefs/lib* /tmp/oj9/lib/
+
+simonis@simonis:/tmp$ JAVA_HOME=/share/software/Java/openJ9_jdk9-b181 /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples/tomcat_measure.sh 5 "-Xquickstart -Xmx64m -Xms64m"
+19-Feb-2018 11:53:03.824 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 16099 ms
+                      2963224 212184 200569 KB 
+19-Feb-2018 11:53:22.442 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 16608 ms
+                      2948560 199180 189485 KB 
+19-Feb-2018 11:53:41.380 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 16531 ms
+                      2949080 196952 187257 KB 
+19-Feb-2018 11:54:00.408 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 16589 ms
+                      2932440 196628 186933 KB 
+19-Feb-2018 11:54:19.104 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 16196 ms
+                      2932700 196548 186853 KB 
+simonis@simonis:/tmp$ JAVA_HOME=/share/software/Java/openJ9_jdk9-b181 /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples/tomcat_measure.sh 5 "-Xquickstart -Xmx64m -Xms64m"
+19-Feb-2018 14:18:58.598 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 16784 ms
+                      2932176 196832 187094 KB 
+19-Feb-2018 14:19:16.927 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 16113 ms
+                      2932696 196736 186998 KB 
+19-Feb-2018 14:19:36.479 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 16719 ms
+                      2948564 200324 190586 KB 
+19-Feb-2018 14:19:55.444 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 16763 ms
+                      2948564 203256 193628 KB 
+19-Feb-2018 14:20:13.889 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 16301 ms
+                      2932700 196796 187168 KB 
+
+simonis@simonis:/tmp$ JAVA_HOME=/share/software/Java/openJ9_jdk9-b181 /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples/tomcat_measure.sh 5 "-Xquickstart -Xmx64m -Xms64m -Xscmx256m -Xshareclasses:verbose -Xshareclasses:noaot -Xshareclasses:nojitdata"
+19-Feb-2018 14:25:16.751 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 19371 ms
+                      3225312 237000 227246 KB 
+19-Feb-2018 14:25:33.059 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 14591 ms
+                      3206636 225172 215418 KB 
+19-Feb-2018 14:25:49.733 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 14296 ms
+                      3223544 226944 217306 KB 
+19-Feb-2018 14:26:06.749 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 14455 ms
+                      3222764 237044 227286 KB 
+19-Feb-2018 14:26:21.943 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 13592 ms
+                      3206640 225888 216137 KB 
+simonis@simonis:/tmp$ JAVA_HOME=/share/software/Java/openJ9_jdk9-b181 /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples/tomcat_measure.sh 5 "-Xquickstart -Xmx64m -Xms64m -Xscmx256m -Xshareclasses:verbose -Xshareclasses:noaot -Xshareclasses:nojitdata"
+19-Feb-2018 14:26:49.003 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 13686 ms
+                      3206636 226688 217050 KB 
+19-Feb-2018 14:27:05.188 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 13702 ms
+                      3206636 227920 218184 KB 
+19-Feb-2018 14:27:21.027 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 13482 ms
+                      3206636 230304 220691 KB 
+19-Feb-2018 14:27:37.104 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 13646 ms
+                      3206640 229184 219525 KB 
+19-Feb-2018 14:27:53.062 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 13517 ms
+                      3207160 231864 222213 KB 
+simonis@simonis:/tmp$ JAVA_HOME=/share/software/Java/openJ9_jdk9-b181 /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples/tomcat_measure.sh 5 "-Xquickstart -Xmx64m -Xms64m -Xscmx256m -Xshareclasses:verbose -Xshareclasses:noaot -Xshareclasses:nojitdata"
+19-Feb-2018 14:29:30.032 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 13798 ms
+                      3206636 233044 223311 KB 
+19-Feb-2018 14:29:46.330 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 13784 ms
+                      3223020 243312 233674 KB 
+19-Feb-2018 14:30:02.132 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 13606 ms
+                      3223020 244496 234837 KB 
+19-Feb-2018 14:30:17.984 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 13362 ms
+                      3207160 237320 227555 KB 
+19-Feb-2018 14:30:34.549 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 14034 ms
+                      3222764 239712 229968 KB 
+
+simonis@simonis:/tmp$ JAVA_HOME=/share/software/Java/openJ9_jdk9-b181 /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples/tomcat_measure.sh 5 "-Xquickstart -Xmx64m -Xms64m -Xscmx256m -Xshareclasses:verbose -Xshareclasses:noaot -Xshareclasses:nojitdata -Xnoaot"
+19-Feb-2018 14:36:24.340 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 16621 ms
+                      3203052 231264 221643 KB 
+19-Feb-2018 14:36:43.364 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 16409 ms
+                      3219436 241256 231635 KB 
+19-Feb-2018 14:37:02.522 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 16651 ms
+                      3219436 232380 222759 KB 
+19-Feb-2018 14:37:21.444 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 16566 ms
+                      3219436 233212 223591 KB 
+19-Feb-2018 14:37:40.325 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 16518 ms
+                      3234360 235804 224252 KB 
+simonis@simonis:/tmp$ JAVA_HOME=/share/software/Java/openJ9_jdk9-b181 /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples/tomcat_measure.sh 5 "-Xquickstart -Xmx64m -Xms64m -Xscmx256m -Xshareclasses:verbose -Xshareclasses:noaot -Xshareclasses:nojitdata -Xnoaot"
+19-Feb-2018 14:38:12.367 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 16644 ms
+                      3219436 236060 226447 KB 
+19-Feb-2018 14:38:31.562 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 16726 ms
+                      3218916 241380 231759 KB 
+19-Feb-2018 14:38:50.429 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 16718 ms
+                      3202532 235012 225399 KB 
+19-Feb-2018 14:39:09.394 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 16766 ms
+                      3217456 237232 225680 KB 
+19-Feb-2018 14:39:28.338 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 16745 ms
+                      3204076 238464 228843 KB 
 
 Skipping java.lang.invoke.BoundMethodHandle$Species_LII from __JVM_DefineClass__ - reason: dynamically generated class
 Skipping jdk.internal.reflect.GeneratedMethodAccessor1 from __JVM_DefineClass__ - reason: dynamically generated class

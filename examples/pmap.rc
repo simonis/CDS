@@ -7,7 +7,7 @@
 
 # To enable a field uncomment its entry
 
-#Perm
+Perm
 #Offset
 #Device
 #Inode
