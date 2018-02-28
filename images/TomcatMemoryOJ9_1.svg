@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="37cm" height="12cm" viewBox="-56 265 724 235" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #eee8d5" x1="-2.08754" y1="480.056" x2="630.264" y2="480.001"/>
+    <polygon style="fill: #eee8d5" points="637.764,480 627.764,485.001 630.264,480.001 627.763,475.001 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #eee8d5" points="637.764,480 627.764,485.001 630.264,480.001 627.763,475.001 "/>
+  </g>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #eee8d5" x1="-2.59356" y1="480.942" x2="-2.68634" y2="335.135"/>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #eee8d5" x1="100" y1="484" x2="100.089" y2="475.94"/>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #eee8d5" x1="200" y1="484" x2="200.09" y2="475.942"/>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #eee8d5" x1="400" y1="484" x2="400.09" y2="475.942"/>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #eee8d5" x1="500" y1="484" x2="500.09" y2="475.942"/>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #eee8d5" x1="600" y1="484" x2="600.09" y2="475.942"/>
+  <g>
+    <rect style="fill: #93a1a1" x="0" y="440" width="442.766" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #ff0000" x="0" y="440" width="442.766" height="20"/>
+  </g>
+  <g>
+    <rect style="fill: #93a1a1" x="0" y="416.5" width="352.442" height="20.3185"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #0000ff" x="0" y="416.5" width="352.442" height="20.3185"/>
+  </g>
+  <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="450.102" y="454.438">
+    <tspan x="450.102" y="454.438">221</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="358.86" y="431.056">
+    <tspan x="358.86" y="431.056">176</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:700" x="90.0744" y="496.728">
+    <tspan x="90.0744" y="496.728">50</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:700" x="187.175" y="495.638">
+    <tspan x="187.175" y="495.638">100</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="300" y="500">
+    <tspan x="300" y="500"></tspan>
+  </text>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #eee8d5" x1="300" y1="484" x2="300.09" y2="475.942"/>
+  <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:700" x="286.802" y="495.368">
+    <tspan x="286.802" y="495.368">150</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:700" x="386.716" y="495.368">
+    <tspan x="386.716" y="495.368">200</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:700" x="487.72" y="495.18">
+    <tspan x="487.72" y="495.18">250</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:700" x="587.174" y="495.552">
+    <tspan x="587.174" y="495.552">300</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="647.65" y="484.489">
+    <tspan x="647.65" y="484.489">mb</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #eee8d5;text-anchor:end;font-family:monospace;font-style:normal;font-weight:700" x="-8.87654" y="437.453">
+    <tspan x="-8.87654" y="437.453">docker</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #eee8d5;text-anchor:end;font-family:monospace;font-style:normal;font-weight:700" x="-8.71272" y="449.389">
+    <tspan x="-8.71272" y="449.389">stats</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:700" x="-8.23144" y="494.505">
+    <tspan x="-8.23144" y="494.505">0</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="28.7797" y="301.204">
+    <tspan x="28.7797" y="301.204"></tspan>
+  </text>
+  <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="27.7573" y="305.362">
+    <tspan x="27.7573" y="305.362">OpenJDK / -Xshare:off</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="27.4421" y="280.819">
+    <tspan x="27.4421" y="280.819">OpenJDK / -Xshare:on</tspan>
+  </text>
+  <g>
+    <rect style="fill: #93a1a1" x="0" y="290" width="20" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #ff0000" x="0" y="290" width="20" height="20"/>
+  </g>
+  <g>
+    <rect style="fill: #93a1a1" x="0" y="266.854" width="20" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #0000ff" x="0" y="266.854" width="20" height="20"/>
+  </g>
+</svg>

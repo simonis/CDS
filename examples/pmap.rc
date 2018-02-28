@@ -18,7 +18,7 @@ Shared_Clean
 Shared_Dirty
 Private_Clean
 Private_Dirty
-#Referenced
+Referenced
 #Anonymous
 #AnonHugePages
 #Swap

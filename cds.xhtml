@@ -139,39 +139,39 @@
             </ul>
           </section>
 
-
-          <section>
-            <h2>Short History of CDS in the HotSpot VM</h2>
-
-            <ul>
-              <li class="fragment">Introduced 2004 with <a href="https://docs.oracle.com/javase/1.5.0/docs/guide/vm/class-data-sharing.html">JDK 1.5</a>
-                <ul>
-                  <li>Only for Client VM, only Serial GC</li>
-                  <li>Only system classes</li>
-                </ul>
-              </li>
-              <li class="fragment">Part of the initial OpenJDK 6/7 contribution</li>
-              <li class="fragment">Since OpenJDK 9 / <a href="https://docs.oracle.com/javase/9/vm/class-data-sharing.htm#JSJVM-GUID-0260F857-A70E-4399-A1DF-A5766BE33285">JDK 9</a>:
-                <ul>
-                  <li>Support for Server VM</li>
-                  <li>Support for G1, Serial, Parallel and ParallelOld GCs</li>
-                  <li>Support for shared strings (only with G1, non-Windows)</li>
-                  <li>Support for application classes
-                    (<a href="https://docs.oracle.com/javase/9/tools/java.htm#JSWOR-GUID-31503FCE-93D0-4175-9B4F-F6A738B2F4C4">commercial Oracle JDK feature</a>)</li>
-                </ul>
-              </li>
-              <li class="fragment">Coming with OpenJDK 10:
-                <ul>
-                  <li><a href="http://openjdk.java.net/jeps/31">JEP 310: Application Class-Data Sharing</a></li>
-                </ul>
-              </li>
-            </ul>
-          </section>
-
-          <section>
+          <section class="demo">
             <h2>The Footprint/Performance Uncertainty Principle</h2>
 
           </section>
+        </section>
+
+
+        <section class="demo">
+          <h2>Short History of CDS in the HotSpot VM</h2>
+
+          <ul>
+            <li class="fragment">Introduced 2004 with <a href="https://docs.oracle.com/javase/1.5.0/docs/guide/vm/class-data-sharing.html">JDK 1.5</a>
+              <ul>
+                <li>Only for Client VM, only Serial GC</li>
+                <li>Only system classes</li>
+              </ul>
+            </li>
+            <li class="fragment">Part of the initial OpenJDK 6/7 contribution</li>
+            <li class="fragment">Since OpenJDK 9 / <a href="https://docs.oracle.com/javase/9/vm/class-data-sharing.htm#JSJVM-GUID-0260F857-A70E-4399-A1DF-A5766BE33285">JDK 9</a>:
+              <ul>
+                <li>Support for Server VM</li>
+                <li>Support for G1, Serial, Parallel and ParallelOld GCs</li>
+                <li>Support for shared strings (only with G1, non-Windows)</li>
+                <li>Support for application classes
+                  (<a href="https://docs.oracle.com/javase/9/tools/java.htm#JSWOR-GUID-31503FCE-93D0-4175-9B4F-F6A738B2F4C4">commercial Oracle JDK feature</a>)</li>
+              </ul>
+            </li>
+            <li class="fragment">Coming with OpenJDK 10:
+              <ul>
+                <li><a href="http://openjdk.java.net/jeps/31">JEP 310: Application Class-Data Sharing</a></li>
+              </ul>
+            </li>
+          </ul>
         </section>
 
         <section class="demo">
@@ -548,7 +548,7 @@ $</span><span class="fragment"> grep "shared objects " tomcat_cl4cds.clstrace | 
                 </pre>
           </section>
 
-<!--
+<span style="visibility: hidden;">
 
 Create HotSpot CDS archive in docker container:
 ===============================================
@@ -639,6 +639,9 @@ Class debug area % used              = 48%
 Cache is 30% full
 
 
+HotSpot Benchmarks (without G1)
+==================
+
 (1) docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8091:8080 -i -x-rm -m 500m cds_demo_ojdk:latest /examples/tomcat_measure.sh 1 "-Xint -Xmx64m -Xms64m -Xshare:on -XX:+UseAppCDS -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/opt/tomcat_sa/tomcat_cl4cds.jsa"
 
 (2) docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8090:8080 -i -x-rm -m 500m cds_demo_ojdk:latest /examples/tomcat_measure.sh 1 "-Xint -Xmx64m -Xms64m -Xshare:on -XX:+UseAppCDS -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/opt/tomcat_sa/tomcat_cl4cds.jsa"
@@ -655,13 +658,196 @@ CONTAINER           CPU %               MEM USAGE / LIMIT   MEM %               
 4dff19a42e28        2.98%               173.2MiB / 500MiB   34.63%              425kB / 6.43kB      86kB / 840kB        0
 9bd6557f0d98        2.89%               173.9MiB / 500MiB   34.78%              425kB / 6.7kB       4.1kB / 836kB       0
 
-OpenJ9
-======
-(1) docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8091:8080 -i -x-rm -m 500m cds_demo_oj9:latest /examples/tomcat_measure.sh 1 "-Xmx64m -Xms64m -Xscmx128m -Xshareclasses:cacheDir=/opt/tomcat_sa,name=tomcat,noaot,nojitdata,verbose -Xint -Xnoaot -Xnojit"
+docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8080:8080 -i -x-rm -m 500m cds_demo_ojdk:latest /examples/tomcat_measure.sh 11 "-XX:TieredStopAtLevel=1 -XX:CICompilerCount=1 -Xmx64m -Xms64m -Xshare:on -XX:+UseAppCDS -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/opt/tomcat_sa/tomcat_cl4cds.jsa"
 
-(2) docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8090:8080 -i -x-rm -m 500m cds_demo_oj9:latest /examples/tomcat_measure.sh 1 "-Xmx64m -Xms64m -Xscmx128m -Xshareclasses:cacheDir=/opt/tomcat_sa,name=tomcat,noaot,nojitdata,verbose -Xint -Xnoaot -Xnojit"
+(15729+15051+15050+15373+15351+14951+14772+15372+14897+15234)/10
+15178
 
-(3) docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8080:8080 -i -x-rm -m 500m cds_demo_oj9:latest /examples/tomcat_measure.sh 1 "-Xmx64m -Xms64m -Xscmx128m -Xshareclasses:none -Xint -Xnoaot -Xnojit"
+docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8080:8080 -i -x-rm -m 500m cds_demo_ojdk:latest /examples/tomcat_measure.sh 11 "-XX:TieredStopAtLevel=1 -XX:CICompilerCount=1 -Xmx64m -Xms64m -Xshare:off"
+
+(15850+15522+15393+15529+15708+15844+15690+15570+15548+16217)/10
+15687
+
+
+HotSpot Benchmarks (with G1)
+==================
+
+(1) docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8091:8080 -i --rm -m 500m cds_demo_ojdk:latest /examples/tomcat_measure.sh 1 "-Xint -Xmx64m -Xms64m -XX:+UseG1GC -Xshare:on -XX:+UseAppCDS -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/opt/tomcat_sa/tomcat_cl4cds.jsa"  (PID 22322)
+
+(2) docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8090:8080 -i --rm -m 500m cds_demo_ojdk:latest /examples/tomcat_measure.sh 1 "-Xint -Xmx64m -Xms64m -XX:+UseG1GC -Xshare:on -XX:+UseAppCDS -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/opt/tomcat_sa/tomcat_cl4cds.jsa"  (PID 22982)
+
+(3) docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8080:8080 -i --rm -m 500m cds_demo_ojdk:latest /examples/tomcat_measure.sh 1 "-Xint -Xmx64m -Xms64m -XX:+UseG1GC -Xshare:off -XX:+UseAppCDS -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/opt/tomcat_sa/tomcat_cl4cds.jsa" (PID 23693)
+
+CONTAINER           CPU %               MEM USAGE / LIMIT   MEM %               NET I/O             BLOCK I/O           PIDS
+77d960c7a8b4        1.47%               164.3MiB / 500MiB   32.85%              423kB / 6.11kB      0B / 836kB          0
+
+CONTAINER           CPU %               MEM USAGE / LIMIT   MEM %               NET I/O             BLOCK I/O           PIDS
+5e35f512b41c        3.23%               217.5MiB / 500MiB   43.51%              424kB / 6.33kB      0B / 836kB          0  (3)
+b88085462057        3.74%               172.3MiB / 500MiB   34.46%              424kB / 6.22kB      0B / 836kB          0  (2)
+77d960c7a8b4        3.54%               174.6MiB / 500MiB   34.92%              424kB / 6.11kB      0B / 836kB          0  (1)
+
+22322:   /opt/jdk/bin/java -Djava.util.logging.config.file=/opt/apache-tomcat-9.0.2/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Djava.security.egd=file:/dev/./urandom -Xint -Xmx64m -Xms64m -XX:+UseG1GC -Xshare:on -XX:+UseAppCDS -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/opt/tomcat_sa/tomcat_cl4cds.jsa -Dignore.endorsed.dirs= -classpath /opt/apache-tomcat-9.0.2/bi
+         Address Perm    Size    Rss    Pss Shared_Clean Shared_Dirty Private_Clean Private_Dirty Referenced Mapping
+        00400000 r-xp       4      4      1            4            0             0             0          4 /opt/jdk/bin/java
+        00601000 r--p       4      4      4            0            0             0             4          4 /opt/jdk/bin/java
+        00602000 rw-p       4      4      4            0            0             0             4          4 /opt/jdk/bin/java
+        00603000 rw-p     132     60     60            0            0             0            60         60 [heap]
+        fc000000 rw-p   52224  52224  52224            0            0             0         52224      52224 
+        ff300000 rw-p     172    172    160           24            0             0           148        172 /opt/tomcat_sa/tomcat_cl4cds.jsa
+        ff32b000 rw-p     852      0      0            0            0             0             0          0 
+        ff400000 rw-p     408    408    204          408            0             0             0        408 /opt/tomcat_sa/tomcat_cl4cds.jsa
+        ff466000 rw-p     616      0      0            0            0             0             0          0 
+        ff500000 rw-p    3072   3072   1536         3072            0             0             0       3072 /opt/tomcat_sa/tomcat_cl4cds.jsa
+        ff800000 rw-p    8192   8192   8192            0            0             0          8192       8192 
+       800000000 rwxp      16     16     16            0            0             0            16         16 /opt/tomcat_sa/tomcat_cl4cds.jsa
+       800004000 rw-p   22340  22340  21518         1644            0             0         20696      22224 /opt/tomcat_sa/tomcat_cl4cds.jsa
+       8015d5000 r--p   39320  39320  19660        39320            0             0             0      39320 /opt/tomcat_sa/tomcat_cl4cds.jsa
+       803c3b000 rw-p       8      8      8            0            0             0             8          8 /opt/tomcat_sa/tomcat_cl4cds.jsa
+       803c3d000 r--p   35840  35840  17920        35840            0             0             0      35840 /opt/tomcat_sa/tomcat_cl4cds.jsa
+       840000000 rw-p    3328   3204   3204            0            0             0          3204       3200 
+       840340000 ---p 1045248      0      0            0            0             0             0          0 
+
+After killing 22982 and 23693:
+
+22322:   /opt/jdk/bin/java -Djava.util.logging.config.file=/opt/apache-tomcat-9.0.2/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Djava.security.egd=file:/dev/./urandom -Xint -Xmx64m -Xms64m -XX:+UseG1GC -Xshare:on -XX:+UseAppCDS -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/opt/tomcat_sa/tomcat_cl4cds.jsa -Dignore.endorsed.dirs= -classpath /opt/apache-tomcat-9.0.2/bi
+         Address Perm    Size    Rss    Pss Shared_Clean Shared_Dirty Private_Clean Private_Dirty Referenced Mapping
+        00400000 r-xp       4      4      4            0            0             4             0          4 /opt/jdk/bin/java
+        00601000 r--p       4      4      4            0            0             0             4          4 /opt/jdk/bin/java
+        00602000 rw-p       4      4      4            0            0             0             4          4 /opt/jdk/bin/java
+        00603000 rw-p     132     60     60            0            0             0            60         60 [heap]
+        fc000000 rw-p   52224  52224  52224            0            0             0         52224      52220 
+        ff300000 rw-p     172    172    172            0            0            24           148        172 /opt/tomcat_sa/tomcat_cl4cds.jsa
+        ff32b000 rw-p     852      0      0            0            0             0             0          0 
+        ff400000 rw-p     408    408    408            0            0           408             0        408 /opt/tomcat_sa/tomcat_cl4cds.jsa
+        ff466000 rw-p     616      0      0            0            0             0             0          0 
+        ff500000 rw-p    3072   3072   3072            0            0          3072             0       3072 /opt/tomcat_sa/tomcat_cl4cds.jsa
+        ff800000 rw-p    8192   8192   8192            0            0             0          8192       8192 
+       800000000 rwxp      16     16     16            0            0             0            16         16 /opt/tomcat_sa/tomcat_cl4cds.jsa
+       800004000 rw-p   22340  22340  22340            0            0          1644         20696      22248 /opt/tomcat_sa/tomcat_cl4cds.jsa
+       8015d5000 r--p   39320  39320  39320            0            0         39320             0      39320 /opt/tomcat_sa/tomcat_cl4cds.jsa
+       803c3b000 rw-p       8      8      8            0            0             0             8          8 /opt/tomcat_sa/tomcat_cl4cds.jsa
+       803c3d000 r--p   35840  35840  35840            0            0         35840             0      35840 /opt/tomcat_sa/tomcat_cl4cds.jsa
+       840000000 rw-p    3328   3204   3204            0            0             0          3204       3188 
+       840340000 ---p 1045248      0      0            0            0             0             0          0 
+
+(1) docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8091:8080 -i --rm -m 500m cds_demo_ojdk:latest /examples/tomcat_measure.sh 1 "-Xint -Xmx64m -Xms64m -XX:+UseG1GC -Xshare:on -XX:+UseAppCDS -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/opt/tomcat_sa/tomcat_cl4cds.jsa"  (PID 1508)
+
+(2) docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8090:8080 -i --rm -m 500m cds_demo_ojdk:latest /examples/tomcat_measure.sh 1 "-Xint -Xmx64m -Xms64m -XX:+UseG1GC -Xshare:on -XX:+UseAppCDS -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/opt/tomcat_sa/tomcat_cl4cds.jsa"  (PID 1750)
+
+(3) docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8080:8080 -i --rm -m 500m cds_demo_ojdk:latest /examples/tomcat_measure.sh 1 "-Xint -Xmx64m -Xms64m -XX:+UseG1GC -Xshare:off -XX:+UseAppCDS -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/opt/tomcat_sa/tomcat_cl4cds.jsa" (PID 1993)
+
+
+CONTAINER           CPU %               MEM USAGE / LIMIT   MEM %               NET I/O             BLOCK I/O           PIDS
+fd41c34a085e        2.97%               207.7MiB / 500MiB   41.54%              423kB / 5.89kB      0B / 836kB          0
+4e205647ee0f        3.25%               163MiB / 500MiB     32.59%              424kB / 6.49kB      0B / 836kB          0
+e007e650adb9        3.35%               163.4MiB / 500MiB   32.67%              425kB / 6.65kB      32.8kB / 840kB      0
+
+CONTAINER           CPU %               MEM USAGE / LIMIT   MEM %               NET I/O             BLOCK I/O           PIDS
+fd41c34a085e        5.28%               221.2MiB / 500MiB   44.24%              425kB / 5.89kB      0B / 836kB          0
+4e205647ee0f        3.73%               176MiB / 500MiB     35.21%              426kB / 6.49kB      0B / 836kB          0
+e007e650adb9        4.59%               176.5MiB / 500MiB   35.30%              426kB / 6.65kB      32.8kB / 840kB      0
+
+1508:   /opt/jdk/bin/java -Djava.util.logging.config.file=/opt/apache-tomcat-9.0.2/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Djava.security.egd=file:/dev/./urandom -Xint -Xmx64m -Xms64m -XX:+UseG1GC -Xshare:on -XX:+UseAppCDS -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/opt/tomcat_sa/tomcat_cl4cds.jsa -Dignore.endorsed.dirs= -classpath /opt/apache-tomcat-9.0.2/bi
+         Address Perm    Size    Rss    Pss Shared_Clean Shared_Dirty Private_Clean Private_Dirty Referenced Mapping
+        00400000 r-xp       4      4      1            4            0             0             0          4 /opt/jdk/bin/java
+        00601000 r--p       4      4      4            0            0             0             4          4 /opt/jdk/bin/java
+        00602000 rw-p       4      4      4            0            0             0             4          0 /opt/jdk/bin/java
+        00603000 rw-p     132     88     88            0            0             0            88         84 [heap]
+        fc000000 rw-p   52224  52224  52224            0            0             0         52224      52224 
+        ff300000 rw-p     172    172    160           24            0             0           148        172 /opt/tomcat_sa/tomcat_cl4cds.jsa
+        ff32b000 rw-p     852      0      0            0            0             0             0          0 
+        ff400000 rw-p     408    408    204          408            0             0             0        408 /opt/tomcat_sa/tomcat_cl4cds.jsa
+        ff466000 rw-p     616      0      0            0            0             0             0          0 
+        ff500000 rw-p    3072   3072   1536         3072            0             0             0       3072 /opt/tomcat_sa/tomcat_cl4cds.jsa
+        ff800000 rw-p    8192   8192   8192            0            0             0          8192       8192 
+       800000000 rwxp      16     16     16            0            0             0            16         16 /opt/tomcat_sa/tomcat_cl4cds.jsa
+       800004000 rw-p   22340  22340  21520         1640            0             0         20700      22016 /opt/tomcat_sa/tomcat_cl4cds.jsa
+       8015d5000 r--p   39320  39320  19660        39320            0             0             0      39320 /opt/tomcat_sa/tomcat_cl4cds.jsa
+       803c3b000 rw-p       8      8      8            0            0             0             8          8 /opt/tomcat_sa/tomcat_cl4cds.jsa
+       803c3d000 r--p   35840  35840  17920        35840            0             0             0      35840 /opt/tomcat_sa/tomcat_cl4cds.jsa
+       840000000 rw-p    3328   3204   3204            0            0             0          3204       3204 
+       840340000 ---p 1045248      0      0            0            0             0             0          0 
+                      ======= ====== ====== ============ ============ ============= ============= ========== 
+                      3941460 280800 221471       108632            0           112        172056     273492 KB 
+
+1508:   /opt/jdk/bin/java -Djava.util.logging.config.file=/opt/apache-tomcat-9.0.2/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Djava.security.egd=file:/dev/./urandom -Xint -Xmx64m -Xms64m -XX:+UseG1GC -Xshare:on -XX:+UseAppCDS -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/opt/tomcat_sa/tomcat_cl4cds.jsa -Dignore.endorsed.dirs= -classpath /opt/apache-tomcat-9.0.2/bi
+         Address Perm    Size    Rss    Pss Shared_Clean Shared_Dirty Private_Clean Private_Dirty Referenced Mapping
+        00400000 r-xp       4      4      4            0            0             4             0          4 /opt/jdk/bin/java
+        00601000 r--p       4      4      4            0            0             0             4          4 /opt/jdk/bin/java
+        00602000 rw-p       4      4      4            0            0             0             4          0 /opt/jdk/bin/java
+        00603000 rw-p     132     88     88            0            0             0            88         84 [heap]
+        fc000000 rw-p   52224  52224  52224            0            0             0         52224      52224 
+        ff300000 rw-p     172    172    172            0            0            24           148        172 /opt/tomcat_sa/tomcat_cl4cds.jsa
+        ff32b000 rw-p     852      0      0            0            0             0             0          0 
+        ff400000 rw-p     408    408    408            0            0           408             0        408 /opt/tomcat_sa/tomcat_cl4cds.jsa
+        ff466000 rw-p     616      0      0            0            0             0             0          0 
+        ff500000 rw-p    3072   3072   3072            0            0          3072             0       3072 /opt/tomcat_sa/tomcat_cl4cds.jsa
+        ff800000 rw-p    8192   8192   8192            0            0             0          8192       8192 
+       800000000 rwxp      16     16     16            0            0             0            16         16 /opt/tomcat_sa/tomcat_cl4cds.jsa
+       800004000 rw-p   22340  22340  22340            0            0          1640         20700      22016 /opt/tomcat_sa/tomcat_cl4cds.jsa
+       8015d5000 r--p   39320  39320  39320            0            0         39320             0      39320 /opt/tomcat_sa/tomcat_cl4cds.jsa
+       803c3b000 rw-p       8      8      8            0            0             0             8          8 /opt/tomcat_sa/tomcat_cl4cds.jsa
+       803c3d000 r--p   35840  35840  35840            0            0         35840             0      35840 /opt/tomcat_sa/tomcat_cl4cds.jsa
+       840000000 rw-p    3328   3204   3204            0            0             0          3204       3204 
+       840340000 ---p 1045248      0      0            0            0             0             0          0 
+                      ======= ====== ====== ============ ============ ============= ============= ========== 
+                      3941460 280804 279958         1688            0        107056        172060     273556 KB 
+
+1993:   /opt/jdk/bin/java -Djava.util.logging.config.file=/opt/apache-tomcat-9.0.2/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.han
+dler.pkgs=org.apache.catalina.webresources -Djava.security.egd=file:/dev/./urandom -Xint -Xmx64m -Xms64m -XX:+UseG1GC -Xshare:off -XX:+UseAppCDS -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/opt/tomcat_sa/tomcat_cl4cds
+.jsa -Dignore.endorsed.dirs= -classpath /opt/apache-tomcat-9.0.2/b
+         Address Perm    Size    Rss    Pss Shared_Clean Shared_Dirty Private_Clean Private_Dirty Referenced Mapping
+        00400000 r-xp       4      4      1            4            0             0             0          4 /opt/jdk/bin/java
+        00601000 r--p       4      4      4            0            0             0             4          4 /opt/jdk/bin/java
+        00602000 rw-p       4      4      4            0            0             0             4          4 /opt/jdk/bin/java
+        00603000 rw-p     132    104    104            0            0             0           104         56 [heap]
+        fc000000 rw-p   74288  74228  74228            0            0             0         74228      74228 
+       10088c000 ---p 1039824      0      0            0            0             0             0          0 
+                      ======= ====== ====== ============ ============ ============= ============= ========== 
+                      3880800 249176 230013        28300            0          3056        217820     237724 KB 
+
+5783:   /opt/jdk/bin/java -Djava.util.logging.config.file=/opt/apache-tomcat-9.0.2/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Djava.security.egd=file:/dev/./urandom -Xint -Xmx64m -Xms64m -XX:+UseG1GC -Xshare:off -XX:+UseAppCDS -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/opt/tomcat_sa/tomcat_cl4cds.jsa -Dignore.endorsed.dirs= -classpath /opt/apache-tomcat-9.0.2/b
+         Address Perm    Size    Rss    Pss Shared_Clean Shared_Dirty Private_Clean Private_Dirty Referenced Mapping
+        00400000 r-xp       4      4      2            4            0             0             0          4 /opt/jdk/bin/java
+        00601000 r--p       4      4      4            0            0             0             4          4 /opt/jdk/bin/java
+        00602000 rw-p       4      4      4            0            0             0             4          0 /opt/jdk/bin/java
+        00603000 rw-p     132     56     56            0            0             0            56         56 [heap]
+        fc000000 rw-p   74288  74220  74220            0            0             0         74220      74220 
+       10088c000 ---p 1039824      0      0            0            0             0             0          0 
+                      ======= ====== ====== ============ ============ ============= ============= ========== 
+                      3880800 248004 233431        28300            0          3056        216648     243800 KB 
+
+5783:   /opt/jdk/bin/java -Djava.util.logging.config.file=/opt/apache-tomcat-9.0.2/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Djava.security.egd=file:/dev/./urandom -Xint -Xmx64m -Xms64m -XX:+UseG1GC -Xshare:off -XX:+UseAppCDS -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/opt/tomcat_sa/tomcat_cl4cds.jsa -Dignore.endorsed.dirs= -classpath /opt/apache-tomcat-9.0.2/b
+         Address Perm    Size    Rss    Pss Shared_Clean Shared_Dirty Private_Clean Private_Dirty Referenced Mapping
+        00400000 r-xp       4      4      4            0            0             4             0          4 /opt/jdk/bin/java
+        00601000 r--p       4      4      4            0            0             0             4          4 /opt/jdk/bin/java
+        00602000 rw-p       4      4      4            0            0             0             4          0 /opt/jdk/bin/java
+        00603000 rw-p     132     56     56            0            0             0            56         56 [heap]
+        fc000000 rw-p   74288  74220  74220            0            0             0         74220      74220 
+       10088c000 ---p 1039824      0      0            0            0             0             0          0 
+                      ======= ====== ====== ============ ============ ============= ============= ========== 
+                      3880800 248004 247158         1688            0         29668        216648     243800 KB 
+
+
+docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8090:8080 -i --rm -m 500m cds_demo_ojdk:latest /examples/tomcat_measure.sh 11 "-XX:TieredStopAtLevel=1 -XX:CICompilerCount=1 -Xmx64m -Xms64m -XX:+UseG1GC -Xshare:on -XX:+UseAppCDS -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/opt/tomcat_sa/tomcat_cl4cds.jsa"
+
+(17437+17334+17159+17232+17089+17245+17150+17072+17212+17396)/10
+17232
+
+docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8080:8080 -i --rm -m 500m cds_demo_ojdk:latest /examples/tomcat_measure.sh 11 "-XX:TieredStopAtLevel=1 -XX:CICompilerCount=1 -Xmx64m -Xms64m -XX:+UseG1GC -Xshare:off -XX:+UseAppCDS -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/opt/tomcat_sa/tomcat_cl4cds.jsa"
+
+(17577+19170+17816+17092+17901+17687+17351+17486+17768+17883)/10
+17773
+
+
+OpenJ9 Benchmarks
+=================
+
+(1) docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8091:8080 -i -x-rm -m 500m cds_demo_oj9:latest /examples/tomcat_measure.sh 1 "-Xmx64m -Xms64m -Xscmx128m -Xshareclasses:cacheDir=/opt/tomcat_sa,name=tomcat,noaot,nojitdata,verbose -Xint -Xnoaot -Xnojit"  (PID 3768)
+
+(2) docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8090:8080 -i -x-rm -m 500m cds_demo_oj9:latest /examples/tomcat_measure.sh 1 "-Xmx64m -Xms64m -Xscmx128m -Xshareclasses:cacheDir=/opt/tomcat_sa,name=tomcat,noaot,nojitdata,verbose -Xint -Xnoaot -Xnojit"  (PID 5003)
+
+(3) docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8080:8080 -i -x-rm -m 500m cds_demo_oj9:latest /examples/tomcat_measure.sh 1 "-Xmx64m -Xms64m -Xscmx128m -Xshareclasses:none -Xint -Xnoaot -Xnojit"                                                         (PID 5386)
 
 CONTAINER           CPU %               MEM USAGE / LIMIT   MEM %               NET I/O             BLOCK I/O           PIDS
 6d2e95e90154        1.53%               150.9MiB / 500MiB   30.18%              425kB / 6.77kB      28.7kB / 840kB      0     (3)
@@ -672,6 +858,206 @@ CONTAINER           CPU %               MEM USAGE / LIMIT   MEM %               
 6d2e95e90154        3.69%               155.6MiB / 500MiB   31.12%              425kB / 6.77kB      28.7kB / 840kB      0
 1e595c6d8bb4        5.25%               129.3MiB / 500MiB   25.86%              424kB / 6.07kB      53.2kB / 840kB      0
 7d01485605be        2.89%               129.2MiB / 500MiB   25.83%              424kB / 6.4kB       0B / 840kB          0
+
+
+
+3768:   /opt/jdk-9+181/bin/java -Djava.util.logging.config.file=/opt/apache-tomcat-9.0.2/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protoc
+ol.handler.pkgs=org.apache.catalina.webresources -Djava.security.egd=file:/dev/./urandom -Xmx64m -Xms64m -Xscmx128m -Xshareclasses:cacheDir=/opt/tomcat_sa,name=tomcat,noaot,nojitdata,verbose -Xint -Xnoaot -Xnojit -Dignore.endo
+rsed.dirs= -classpath /opt/apache-tomcat-9.0.2/bin/bootstrap.jar:/
+         Address Perm    Size    Rss    Pss Shared_Clean Shared_Dirty Private_Clean Private_Dirty Referenced Mapping
+        00400000 r-xp       4      4      1            4            0             0             0          4 /opt/jdk-9+181/bin/java
+        00601000 r--p       4      4      4            0            0             0             4          0 /opt/jdk-9+181/bin/java
+        00602000 rw-p       4      4      4            0            0             0             4          4 /opt/jdk-9+181/bin/java
+        00603000 rw-p     132    116    116            0            0             0           116        116 [heap]
+        00624000 rw-p   51200  24376  24376            0            0             0         24376      24256 [heap]
+        03824000 ---p  153600      0      0            0            0             0             0          0 
+        fbff1000 ---p      60      0      0            0            0             0             0          0 
+        fc000000 rw-p   65536  63488  63488            0            0             0         63488      63488 
+    7fffde614000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffde615000 r--s   29332  29332  29332            0            0         29332             0      29236 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe02ba000 rw-s   90992      0      0            0            0             0             0          0 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5b96000 r--s      28     28     28            0            0            28             0         28 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5b9d000 rw-s       8      8      8            0            0             8             0          8 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5b9f000 r--s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5ba0000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5ba1000 r--s      16     16     16            0            0            16             0         16 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5ba5000 rw-s      12     12     12            0            0            12             0         12 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5ba8000 r--s       8      8      8            0            0             8             0          8 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5baa000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bab000 r--s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bac000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bad000 r--s      24     24     24            0            0            24             0         24 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bb3000 rw-s       8      8      8            0            0             8             0          8 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bb5000 r--s      12     12     12            0            0            12             0         12 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bb8000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bb9000 r--s      12     12     12            0            0            12             0         12 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bbc000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bbd000 r--s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bbe000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bbf000 r--s      44     44     44            0            0            44             0         44 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bca000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bcb000 r--s      20     20     20            0            0            20             0         20 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bd0000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bd1000 r--s      36     36     36            0            0            36             0         36 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bda000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bdb000 r--s    2132   2132   2132            0            0          2132             0       2132 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5df0000 rw-s    5340      0      0            0            0             0             0          0 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe6327000 r--s    2996   2560   2560            0            0          2560             0       2560 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe6614000 r--s  138388  16304   5857        16304            0             0             0      16096 /opt/jdk-9+181/lib/modules
+    7fffeed39000 r-xp     100     64     21           64            0             0             0         64 /opt/jdk-9+181/lib/libjimage.so
+    7fffeed52000 ---p    2048      0      0            0            0             0             0          0 /opt/jdk-9+181/lib/libjimage.so
+    7fffeef52000 r--p       8      8      8            0            0             0             8          8 /opt/jdk-9+181/lib/libjimage.so
+    7fffeef54000 rw-p       4      4      4            0            0             0             4          4 /opt/jdk-9+181/lib/libjimage.so
+    7ffff77f5000 r-xp    1792   1696    343         1696            0             0             0       1696 /lib/x86_64-linux-gnu/libc-2.23.so
+    7ffff79b5000 ---p    2048      0      0            0            0             0             0          0 /lib/x86_64-linux-gnu/libc-2.23.so
+    7ffff7bb5000 r--p      16     16     16            0            0             0            16         16 /lib/x86_64-linux-gnu/libc-2.23.so
+    7ffff7bb9000 rw-p       8      8      8            0            0             0             8          8 /lib/x86_64-linux-gnu/libc-2.23.so
+    7ffff7bbb000 rw-p      16     16     16            0            0             0            16         16 
+    7ffff7bbf000 r-xp      92     92     30           92            0             0             0         92 /opt/jdk-9+181/lib/jli/libjli.so
+    7ffff7bd6000 ---p    2044      0      0            0            0             0             0          0 /opt/jdk-9+181/lib/jli/libjli.so
+    7ffff7dd5000 r--p       4      4      4            0            0             0             4          4 /opt/jdk-9+181/lib/jli/libjli.so
+    7ffff7dd6000 rw-p       4      4      4            0            0             0             4          4 /opt/jdk-9+181/lib/jli/libjli.so
+                      ======= ====== ====== ============ ============ ============= ============= ========== 
+                      2722488 184164 167064        25956            0         34388        123820     181776 KB 
+
+5003:   /opt/jdk-9+181/bin/java -Djava.util.logging.config.file=/opt/apache-tomcat-9.0.2/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Djava.security.egd=file:/dev/./urandom -Xmx64m -Xms64m -Xscmx128m -Xshareclasses:cacheDir=/opt/tomcat_sa,name=tomcat,noaot,nojitdata,verbose -Xint -Xnoaot -Xnojit -Dignore.endorsed.dirs= -classpath /opt/apache-tomcat-9.0.2/bin/bootstrap.jar:/
+         Address Perm    Size    Rss    Pss Shared_Clean Shared_Dirty Private_Clean Private_Dirty Referenced Mapping
+        00400000 r-xp       4      4      1            4            0             0             0          4 /opt/jdk-9+181/bin/java
+        00601000 r--p       4      4      4            0            0             0             4          4 /opt/jdk-9+181/bin/java
+        00602000 rw-p       4      4      4            0            0             0             4          0 /opt/jdk-9+181/bin/java
+        00603000 rw-p     132     28     28            0            0             0            28         28 [heap]
+        00624000 rw-p   51200  24376  24376            0            0             0         24376      24320 [heap]
+        03824000 ---p  153600      0      0            0            0             0             0          0 
+        fbff1000 ---p      60      0      0            0            0             0             0          0 
+        fc000000 rw-p   65536  63488  63488            0            0             0         63488      63488 
+    7fffde614000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffde615000 r--s   29332  29332  29332            0            0         29332             0      29236 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe02ba000 rw-s   90992      0      0            0            0             0             0          0 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5b96000 r--s      28     28     28            0            0            28             0         28 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5b9d000 rw-s       8      8      8            0            0             8             0          8 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5b9f000 r--s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5ba0000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5ba1000 r--s      16     16     16            0            0            16             0         16 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5ba5000 rw-s      12     12     12            0            0            12             0         12 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5ba8000 r--s       8      8      8            0            0             8             0          8 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5baa000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bab000 r--s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bac000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bad000 r--s      24     24     24            0            0            24             0         24 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bb3000 rw-s       8      8      8            0            0             8             0          8 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bb5000 r--s      12     12     12            0            0            12             0         12 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bb8000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bb9000 r--s      12     12     12            0            0            12             0         12 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bbc000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bbd000 r--s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bbe000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bbf000 r--s      44     44     44            0            0            44             0         44 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bca000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bcb000 r--s      20     20     20            0            0            20             0         20 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bd0000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bd1000 r--s      36     36     36            0            0            36             0         36 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bda000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bdb000 r--s    2132   2132   2132            0            0          2132             0       2132 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5df0000 rw-s    5340      0      0            0            0             0             0          0 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe6614000 r--s  138388  16304   5857        16304            0             0             0      16060 /opt/jdk-9+181/lib/modules
+    7fffeed39000 r-xp     100     64     21           64            0             0             0         64 /opt/jdk-9+181/lib/libjimage.so
+    7fffeed52000 ---p    2048      0      0            0            0             0             0          0 /opt/jdk-9+181/lib/libjimage.so
+    7fffeef52000 r--p       8      8      8            0            0             0             8          8 /opt/jdk-9+181/lib/libjimage.so
+    7fffeef54000 rw-p       4      4      4            0            0             0             4          4 /opt/jdk-9+181/lib/libjimage.so
+    7ffff77f5000 r-xp    1792   1696    343         1696            0             0             0       1696 /lib/x86_64-linux-gnu/libc-2.23.so
+    7ffff79b5000 ---p    2048      0      0            0            0             0             0          0 /lib/x86_64-linux-gnu/libc-2.23.so
+    7ffff7bb5000 r--p      16     16     16            0            0             0            16         12 /lib/x86_64-linux-gnu/libc-2.23.so
+    7ffff7bb9000 rw-p       8      8      8            0            0             0             8          8 /lib/x86_64-linux-gnu/libc-2.23.so
+    7ffff7bbb000 rw-p      16     16     16            0            0             0            16         16 
+    7ffff7bbf000 r-xp      92     92     30           92            0             0             0         92 /opt/jdk-9+181/lib/jli/libjli.so
+    7ffff7bd6000 ---p    2044      0      0            0            0             0             0          0 /opt/jdk-9+181/lib/jli/libjli.so
+    7ffff7dd5000 r--p       4      4      4            0            0             0             4          4 /opt/jdk-9+181/lib/jli/libjli.so
+    7ffff7dd6000 rw-p       4      4      4            0            0             0             4          4 /opt/jdk-9+181/lib/jli/libjli.so
+                      ======= ====== ====== ============ ============ ============= ============= ========== 
+                      2722488 184296 167196        25956            0         34388        123952     181460 KB 
+
+5386:   /opt/jdk-9+181/bin/java -Djava.util.logging.config.file=/opt/apache-tomcat-9.0.2/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Djava.security.egd=file:/dev/./urandom -Xmx64m -Xms64m -Xscmx128m -Xshareclasses:none -Xint -Xnoaot -Xnojit -Dignore.endorsed.dirs= -classpath /opt/apache-tomcat-9.0.2/bin/boot
+strap.jar:/opt/apache-tomcat-9.0.2/bin/tomcat-juli.jar -Dcatalina.
+         Address Perm    Size    Rss    Pss Shared_Clean Shared_Dirty Private_Clean Private_Dirty Referenced Mapping
+        00400000 r-xp       4      4      1            4            0             0             0          4 /opt/jdk-9+181/bin/java
+        00601000 r--p       4      4      4            0            0             0             4          4 /opt/jdk-9+181/bin/java
+        00602000 rw-p       4      4      4            0            0             0             4          4 /opt/jdk-9+181/bin/java
+        00603000 rw-p     132     80     80            0            0             0            80         60 [heap]
+        00624000 rw-p   51200  24368  24368            0            0             0         24368      24280 [heap]
+        03824000 ---p  153600      0      0            0            0             0             0          0 
+        fbff1000 ---p      60      0      0            0            0             0             0          0 
+        fc000000 rw-p   65536  63488  63488            0            0             0         63488      63488 
+                      ======= ====== ====== ============ ============ ============= ============= ========== 
+                      2587408 177772 162206        22888            0          3100        151784     173512 KB 
+
+After killing 5003 and 5386:
+
+3768:   /opt/jdk-9+181/bin/java -Djava.util.logging.config.file=/opt/apache-tomcat-9.0.2/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Djava.security.egd=file:/dev/./urandom -Xmx64m -Xms64m -Xscmx128m -Xshareclasses:cacheDir=/opt/tomcat_sa,name=tomcat,noaot,nojitdata,verbose -Xint -Xnoaot -Xnojit -Dignore.endorsed.dirs= -classpath /opt/apache-tomcat-9.0.2/bin/bootstrap.jar:/
+         Address Perm    Size    Rss    Pss Shared_Clean Shared_Dirty Private_Clean Private_Dirty Referenced Mapping
+        00400000 r-xp       4      4      4            0            0             4             0          4 /opt/jdk-9+181/bin/java
+        00601000 r--p       4      4      4            0            0             0             4          0 /opt/jdk-9+181/bin/java
+        00602000 rw-p       4      4      4            0            0             0             4          4 /opt/jdk-9+181/bin/java
+        00603000 rw-p     132    116    116            0            0             0           116        116 [heap]
+        00624000 rw-p   51200  24376  24376            0            0             0         24376      24236 [heap]
+        03824000 ---p  153600      0      0            0            0             0             0          0 
+        fbff1000 ---p      60      0      0            0            0             0             0          0 
+        fc000000 rw-p   65536  63488  63488            0            0             0         63488      63488 
+    7fffde614000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffde615000 r--s   29332  29332  29332            0            0         29332             0      29224 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe02ba000 rw-s   90992      0      0            0            0             0             0          0 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5b96000 r--s      28     28     28            0            0            28             0         28 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5b9d000 rw-s       8      8      8            0            0             8             0          8 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5b9f000 r--s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5ba0000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5ba1000 r--s      16     16     16            0            0            16             0         16 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5ba5000 rw-s      12     12     12            0            0            12             0         12 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5ba8000 r--s       8      8      8            0            0             8             0          8 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5baa000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bab000 r--s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bac000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bad000 r--s      24     24     24            0            0            24             0         24 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bb3000 rw-s       8      8      8            0            0             8             0          8 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bb5000 r--s      12     12     12            0            0            12             0         12 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bb8000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bb9000 r--s      12     12     12            0            0            12             0         12 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bbc000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bbd000 r--s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bbe000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bbf000 r--s      44     44     44            0            0            44             0         44 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bca000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bcb000 r--s      20     20     20            0            0            20             0         20 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bd0000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bd1000 r--s      36     36     36            0            0            36             0         36 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bda000 rw-s       4      4      4            0            0             4             0          4 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5bdb000 r--s    2132   2132   2132            0            0          2132             0       2132 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe5df0000 rw-s    5340      0      0            0            0             0             0          0 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe6327000 r--s    2996   2560   2560            0            0          2560             0       2560 /opt/tomcat_sa/C290M5F1A64P_tomcat_G35
+    7fffe6614000 r--s  138388  16304  16304            0            0         16304             0      16004 /opt/jdk-9+181/lib/modules
+    7fffeed39000 r-xp     100     64     64            0            0            64             0         64 /opt/jdk-9+181/lib/libjimage.so
+    7fffeed52000 ---p    2048      0      0            0            0             0             0          0 /opt/jdk-9+181/lib/libjimage.so
+    7fffeef52000 r--p       8      8      8            0            0             0             8          8 /opt/jdk-9+181/lib/libjimage.so
+    7fffeef54000 rw-p       4      4      4            0            0             0             4          4 /opt/jdk-9+181/lib/libjimage.so
+    7ffff77f5000 r-xp    1792   1696   1030         1332            0           364             0       1696 /lib/x86_64-linux-gnu/libc-2.23.so
+    7ffff79b5000 ---p    2048      0      0            0            0             0             0          0 /lib/x86_64-linux-gnu/libc-2.23.so
+    7ffff7bb5000 r--p      16     16     16            0            0             0            16         16 /lib/x86_64-linux-gnu/libc-2.23.so
+    7ffff7bb9000 rw-p       8      8      8            0            0             0             8          8 /lib/x86_64-linux-gnu/libc-2.23.so
+    7ffff7bbb000 rw-p      16     16     16            0            0             0            16         16 
+    7ffff7bbf000 r-xp      92     92     92            0            0            92             0         92 /opt/jdk-9+181/lib/jli/libjli.so
+    7ffff7bd6000 ---p    2044      0      0            0            0             0             0          0 /opt/jdk-9+181/lib/jli/libjli.so
+    7ffff7dd5000 r--p       4      4      4            0            0             0             4          4 /opt/jdk-9+181/lib/jli/libjli.so
+    7ffff7dd6000 rw-p       4      4      4            0            0             0             4          4 /opt/jdk-9+181/lib/jli/libjli.so
+                      ======= ====== ====== ============ ============ ============= ============= ========== 
+                      2722488 186084 185240         1684            0         58660        125740     183452 KB 
+
+docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8091:8080 -i --rm -m 500m cds_demo_oj9:latest /examples/tomcat_measure.sh 11 "-Xquickstart -Xmx64m -Xms64m -Xscmx128m -Xshareclasses:cacheDir=/opt/tomcat_sa,name=tomcat,noaot,nojitdata,verbose -Xnoaot"
+
+(18654+18884+18887+18697+17852+18508+19411+19153+18242+18518)/10
+18680
+
+docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8091:8080 -i --rm -m 500m cds_demo_oj9:latest /examples/tomcat_measure.sh 11 "-Xquickstart -Xmx64m -Xms64m -Xscmx128m -Xshareclasses:none -Xnoaot"
+
+(19250+18684+18427+18868+18501+18133+18339+17942+18473+19185)/10
+18580
 
 
 cat /sys/fs/cgroup/memory/docker/72ea9bf5ec4bb653ed42378099b2cdbef723f204d62222e3cb9705728d58702a/memory.stat
@@ -827,8 +1213,33 @@ CATALINA_OPTS="-Djava.security.edg=file:/dev/./urandom" $CATALINA_HOME/bin/catal
                       5996964 642776 638454 KB
                       5989768 578628 574310 KB 
 
--->
+</span>
 
+          <section class="demo">
+            <h2>Memory savings with CDS/AppCDS</h2>
+
+            <div width="100%" style="position: relative; margin: 0 0 0 0px;">
+              <div class="" style="position: static; width: 100%">
+                <object data="images/TomcatMemoryOJDK_1.svg" type="image/svg+xml"
+                        style="width: 90%;">&nbsp;</object>
+              </div>
+              <div class="fragment" data-fragment-index="1" style="position: absolute; left: 0; top: 0; width: 100%">
+                <object data="images/TomcatMemoryOJDK_2.svg" type="image/svg+xml"
+                        style="width: 90%;">&nbsp;</object>
+              </div>
+              <div class="fragment" data-fragment-index="2" style="position: absolute; left: 0; top: 0; width: 100%">
+                <object data="images/TomcatMemoryOJDK_3.svg" type="image/svg+xml"
+                        style="width: 90%;">&nbsp;</object>
+              </div>
+            </div>
+            <div  width="100%" style="font-size: medium; text-align:left;">
+              Running tomcat 9.0.2 with ngrinder 3.4.1 on OpenJDK 10 in an Ubuntu 16.04
+              Docker container with CDS archive at <code>/opt/tomcat_cl4cds.jsa</code><br/>
+              and Address Randomization switched off (i.e. <code>`sudo sh -c "echo 0 > /proc/sys/kernel/randomize_va_space"`</code>)<br/>
+              <pre style="box-shadow: none; padding: 0; font-size: initial;">CATALINA_OPTS="-Xint -Xmx64m -Xms64m -XX:+UseG1GC -Djava.security.egd=file:/dev/./urandom
+               -XX:+UseAppCDS -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/opt/tomcat_cl4cds.jsa" catalina.sh start</pre>
+            </div>
+          </section>
         </section>
 
         <section>
@@ -856,8 +1267,36 @@ CATALINA_OPTS="-Djava.security.edg=file:/dev/./urandom" $CATALINA_HOME/bin/catal
 
         <section>
 
-          <h2>Class Data Sharing in OpenJ9</h2>
+          <section>
+            <h2>Class Data Sharing in OpenJ9</h2>
 
+            API / Modified URLClassLoader
+          </section>
+
+
+          <section class="demo">
+            <h2>Memory savings with CDS/AppCDS</h2>
+
+            <div width="100%" style="position: relative; margin: 0 0 0 0px;">
+              <div class="" style="position: static; width: 100%">
+                <object data="images/TomcatMemoryOJ9_1.svg" type="image/svg+xml"
+                        style="width: 90%;">&nbsp;</object>
+              </div>
+              <div class="fragment" data-fragment-index="1" style="position: absolute; left: 0; top: 0; width: 100%">
+                <object data="images/TomcatMemoryOJ9_2.svg" type="image/svg+xml"
+                        style="width: 90%;">&nbsp;</object>
+              </div>
+            </div>
+            <div  width="100%" style="font-size: medium; text-align:left; margin: 20px auto 0;">
+              tomcat 9.0.2 &amp; ngrinder 3.4.1 on OpenJDK 10 / OpenJ9 9 in an Ubuntu 16.04
+              Docker container with CDS archives at <code>/opt/tomcat_cl4cds.jsa</code> &amp; <code>/opt/tomcat/C290M5F1A64P_tomcat_G35</code><br/>
+              and Address Randomization switched off (i.e. <code>`sudo sh -c "echo 0 > /proc/sys/kernel/randomize_va_space"`</code>)<br/>
+              <pre style="box-shadow: none; padding: 0; margin: 20px auto 0; font-size: initial;">CATALINA_OPTS="-Xint -Xmx64m -Xms64m -XX:+UseG1GC -Djava.security.egd=file:/dev/./urandom
+               -XX:+UseAppCDS -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/opt/tomcat_cl4cds.jsa" catalina.sh start</pre>
+              <pre class="fragment" data-fragment-index="1" style="box-shadow: none; padding: 0; font-size: initial;">CATALINA_OPTS="-Xint -Xmx64m -Xms64m -Djava.security.egd=file:/dev/./urandom
+               -Xshareclasses:cacheDir=/opt/tomcat,name=tomcat,noaot,nojitdata -Xnoaot -Xnojit" catalina.sh start</pre>
+            </div>
+          </section>
         </section>
 
 
