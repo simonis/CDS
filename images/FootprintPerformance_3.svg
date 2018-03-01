@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="24cm" height="14cm" viewBox="-8 234 475 269" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #eee8d5" x1="0" y1="480" x2="370.264" y2="480"/>
+    <polygon style="fill: #eee8d5" points="377.764,480 367.764,485 370.264,480 367.764,475 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #eee8d5" points="377.764,480 367.764,485 370.264,480 367.764,475 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #eee8d5" x1="0" y1="480" x2="-0.230163" y2="264.464"/>
+    <polygon style="fill: #eee8d5" points="-0.238172,256.964 4.7725,266.959 -0.230163,264.464 -5.22749,266.969 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #eee8d5" points="-0.238172,256.964 4.7725,266.959 -0.230163,264.464 -5.22749,266.969 "/>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="300" y="500">
+    <tspan x="300" y="500"></tspan>
+  </text>
+  <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="385.858" y="484.425">
+    <tspan x="385.858" y="484.425">Performance</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="28.7716" y="231.204">
+    <tspan x="28.7716" y="231.204"></tspan>
+  </text>
+  <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="-5.82515" y="246.843">
+    <tspan x="-5.82515" y="246.843">Native Memory</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:700" x="11.8525" y="499.986">
+    <tspan x="11.8525" y="499.986">Interpreted</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:700" x="137.01" y="499.279">
+    <tspan x="137.01" y="499.279">Client (C1)</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:700" x="252.268" y="499.279">
+    <tspan x="252.268" y="499.279">Tiered (C1+C2)</tspan>
+  </text>
+  <line style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #00a300" x1="15.7416" y1="440.003" x2="93.5232" y2="440.71"/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #00a300" points="131,372.828 144.435,389.799 157.163,368.586 172.012,379.899 186.154,367.879 203.124,385.556 213.024,374.242 "/>
+</svg>

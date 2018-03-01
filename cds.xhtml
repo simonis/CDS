@@ -129,6 +129,11 @@
           </section>
 
           <section>
+            <h2>Native vs. Java Applications</h2>
+
+          </section>
+
+          <section>
             <h2>Class Data Sharing &amp; Ahead of Time Compilation</h2>
 
             <ul>
@@ -137,11 +142,6 @@
               <li>Improve startup performance</li>
               <li>Reduce memory footprint</li>
             </ul>
-          </section>
-
-          <section class="demo">
-            <h2>The Footprint/Performance Uncertainty Principle</h2>
-
           </section>
         </section>
 
@@ -637,6 +637,57 @@ Class debug area % used              = 48%
 % Stale classes                      = 0%
 
 Cache is 30% full
+
+Create OpenJ9 CDS archive with AOT/JIT:
+=======================================
+JAVA_HOME=/share/software/Java/openJ9_jdk9-b181 CATALINA_HOME=/share/software/Java/apache-tomcat-9.0.2 /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples/tomcat_measure.sh 1 "-Xquickstart -Xmx64m -Xms64m -Xscmx128m -Xshareclasses:cacheDir=/tmp/tomcat,name=tomcat,verbose"
+
+/share/software/Java/openJ9_jdk9-b181/bin/java -Xshareclasses:cacheDir=/tmp/tomcat,name=tomcat,printStats
+
+Current statistics for cache "tomcat":
+
+Cache created with:
+        -Xnolinenumbers                      = false
+        BCI Enabled                          = true
+        Restrict Classpaths                  = false
+        Feature                              = cr
+
+Cache contains only classes with line numbers
+
+base address                         = 0x00007FFFA4059000
+end address                          = 0x00007FFFAC000000
+allocation pointer                   = 0x00007FFFA5B11260
+
+cache size                           = 134217120
+softmx bytes                         = 134217120
+free bytes                           = 80991164
+ROMClass bytes                       = 28017248
+AOT bytes                            = 13330160
+Reserved space for AOT bytes         = -1
+Maximum space for AOT bytes          = -1
+JIT data bytes                       = 99072
+Reserved space for JIT data bytes    = -1
+Maximum space for JIT data bytes     = -1
+Zip cache bytes                      = 0
+Data bytes                           = 363936
+Metadata bytes                       = 708596
+Metadata % used                      = 1%
+Class debug area size                = 10706944
+Class debug area used bytes          = 5041880
+Class debug area % used              = 47%
+
+# ROMClasses                         = 11589
+# AOT Methods                        = 6329
+# Classpaths                         = 5
+# URLs                               = 0
+# Tokens                             = 0
+# Zip caches                         = 0
+# Stale classes                      = 0
+% Stale classes                      = 0%
+
+Cache is 39% full
+
+Cache is accessible to current user = true
 
 
 HotSpot Benchmarks (without G1)
@@ -1240,7 +1291,113 @@ CATALINA_OPTS="-Djava.security.edg=file:/dev/./urandom" $CATALINA_HOME/bin/catal
                -XX:+UseAppCDS -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/opt/tomcat_cl4cds.jsa" catalina.sh start</pre>
             </div>
           </section>
+
+          <section class="demo">
+            <h2>The HotSpot Footprint/Performance Uncertainty Principle</h2>
+
+            <div width="100%" style="position: relative; margin: 0 0 0 0px;">
+              <div class="" style="position: static; width: 100%">
+                <object data="images/FootprintPerformance_1.svg" type="image/svg+xml"
+                        style="width: 80%;">&nbsp;</object>
+              </div>
+              <div class="fragment" data-fragment-index="1" style="position: absolute; left: 0; top: 0; width: 100%">
+                <object data="images/FootprintPerformance_2.svg" type="image/svg+xml"
+                        style="width: 80%;">&nbsp;</object>
+              </div>
+              <div class="fragment" data-fragment-index="2" style="position: absolute; left: 0; top: 0; width: 100%">
+                <object data="images/FootprintPerformance_3.svg" type="image/svg+xml"
+                        style="width: 80%;">&nbsp;</object>
+              </div>
+              <div class="fragment" data-fragment-index="3" style="position: absolute; left: 0; top: 0; width: 100%">
+                <object data="images/FootprintPerformance_4.svg" type="image/svg+xml"
+                        style="width: 80%;">&nbsp;</object>
+              </div>
+            </div>
+          </section>
         </section>
+
+
+<span style="visibility: hidden;">
+https://docs.oracle.com/javase/9/tools/java.htm#JSWOR-GUID-31503FCE-93D0-4175-9B4F-F6A738B2F4C4
+
+
+
+Sharing a Shared Archive Across Multiple Application Processes
+
+You can share the same archive file across multiple applications processes. This reduces memory usage because the archive is memory-mapped into the address space of the processes. The operating system automatically shares the read-only pages across these processes.
+
+The following steps demonstrate how to create a common archive that can be shared by different applications. Only the classes from common.jar are archived in the common.jsa (step 3). Classes from hello.jar and hi.jar are not archived in this particular example because they are not in the -cp path during the archiving step (step 3).
+
+To include classes from hello.jar and hi.jar, the .jar files must be added to the -cp path.
+
+    Create a list of all classes used by the Hello application and another list for the Hi application:
+
+    java -XX:+UnlockCommercialFeatures -XX:DumpLoadedClassList=hello.classlist -XX:+UseAppCDS -cp common.jar:hello.jar Hello
+
+    java -XX:+UnlockCommercialFeatures -XX:DumpLoadedClassList=hi.classlist -XX:+UseAppCDS -cp common.jar:hi.jar Hi
+
+    Create a single list of classes used by all the applications that will share the shared archive file.
+
+    Oracle Solaris, Linux, and OS X:: The following commands combine the files hello.classlist and hi.classlist into one file, common.classlist:
+
+    cat hello.classlist hi.classlist > common.classlist
+
+    Windows: The following commands combine the files hello.classlist and hi.classlist into one file, common.classlist:
+
+    type hello.classlist hi.classlist > common.classlist
+
+    Create a shared archive, named common.jsa, that contains all the classes in common.classlist:
+
+     java -XX:+UnlockCommercialFeatures -Xshare:dump -XX:SharedArchiveFile=common.jsa -XX:+UseAppCDS -XX:SharedClassListFile=common.classlist -cp common.jar:hello.jar:hi.jar
+
+    The value of the -cp parameter is the common class path prefix shared by the Hello and Hi applications.
+
+    Run the Hello and Hi applications with the same shared archive:
+
+     java -XX:+UnlockCommercialFeatures -Xshare:on -XX:SharedArchiveFile=common.jsa -XX:+UseAppCDS -cp common.jar:hello.jar:hi.jar Hello 
+
+    java -XX:+UnlockCommercialFeatures -Xshare:on -XX:SharedArchiveFile=common.jsa -XX:+UseAppCDS -cp common.jar:hello.jar:hi.jar Hi
+
+Specifying Additional Shared Data Added to an Archive File
+
+ -XX:SharedArchiveConfigFile=shared_config_file
+
+The option is used to specify additional shared data added to the archive file. In JDK 9, it supports strings and symbols. The string data and symbol data should be generated by the jcmd tool attaching to a running JVM process. See jcmd.
+
+The following is an example of the string and symbol dumping command in jcmd: 
+
+ jcmd pid VM.stringtable -verbose  
+ jcmd pid VM.symboltable -verbose
+
+The following is an example of a configuration file:
+
+VERSION: 1.0
+@SECTION: String
+7: test123
+1: *
+8: segments
+@SECTION: Symbol
+10 -1: linkMethod
+
+In the configuration file example:
+
+    The string entries under @SECTION: String use the following format:
+
+    length: string  
+
+    The @SECTION: Symbol entry uses the following format:
+
+     length refcount: symbol
+
+    The refcount for a shared symbol is always -1.
+
+@SECTION specifies the type of the section that follows it. All data within the section must be the same type that's specified by @SECTION. Different types of data can’t be mixed. Multiple separated data sections for the same type specified by different @SECTION are allowed within one shared_config_file .
+
+
+SharedClassUtil::read_extra_data() in share/classfile/sharedClassUtil.cpp
+
+</span>
+
 
         <section>
 
@@ -1268,9 +1425,49 @@ CATALINA_OPTS="-Djava.security.edg=file:/dev/./urandom" $CATALINA_HOME/bin/catal
         <section>
 
           <section>
-            <h2>Class Data Sharing in OpenJ9</h2>
+            <h2>Class Data Sharing in IBM J9 / Eclipse OpenJ9</h2>
 
-            API / Modified URLClassLoader
+            <ul>
+              <li>Intruduced in <a href="https://www.ibm.com/support/knowledgecenter/en/SSYKE2_6.0.0/com.ibm.java.doc.user.lnx.60/user/shc_overview.html">IBM SDK 6.0</a></li>
+              <li>JIT and AOT artifacts can be shared as well!</li>
+              <li>Supports custom class loaders through an <a href="https://www.ibm.com/support/knowledgecenter/SSYKE2_9.0.0/com.ibm.java.multiplatform.90.doc/user/adaptingclassloaders.html">API</a>
+                <ul>
+                  <li>Class loaders extending <code><a href="https://github.com/ibmruntimes/openj9-openjdk-jdk9/blob/openj9/jdk/src/java.base/share/classes/java/net/URLClassLoader.java">URLClassLoader</a></code> work out of the box</li>
+                </ul>
+              </li>
+              <li>Available in <a href="https://www.eclipse.org/openj9/">Eclipse OpenJ9</a></li>
+              <li>Highly customizable (<code><a href="https://www.ibm.com/support/knowledgecenter/en/SSYKE2_9.0.0/com.ibm.java.multiplatform.90.doc/user/sharedclassesxoptions.html">-Xshareclasses</a></code>, ..)</li>
+            </ul>
+          </section>
+
+          <section class="demo">
+
+            <h2>Eclipse OpenJ9 CDS with Tomcat 9 &amp; nGrinder</h2>
+
+            <pre class="big noshadow" style="height:100%; margin: 0;" data-trim="true">
+              <code class="terminal" data-trim="true" data-noescape="true" style="height:100%;">
+$ CATALINA_OPTS="<span class="fragment highlight-current-border">-Xscmx128m</span> <span class="fragment highlight-current-border">-Xshareclasses</span>:<span class="fragment highlight-current-border">cacheDir=/tmp/tomcat</span>,<span class="fragment highlight-current-border">name=tomcat</span>,verbose" \
+  catalina.sh start
+<span class="fragment">[-Xshareclasses persistent cache enabled]
+JVMSHRC236I Created shared classes persistent cache tomcat
+JVMSHRC246I Attached shared classes persistent cache tomcat
+JVMSHRC168I Total shared class bytes read=3738038. Total bytes stored=47196956
+$</span><span class="fragment"> ls -l /tmp/tomcat
+-rw-r----- 1 simonis simonis 134217728 Feb 23 17:44 C290M5F1A64P_tomcat_G35
+$</span><span class="fragment"> java -Xshareclasses:cacheDir=/tmp/tomcat,name=tomcat,<span class="fragment highlight-current-border">printStats</span></span>
+<span class="fragment">Current statistics for cache "tomcat":
+cache size                           = 134_217_120
+free bytes                           =  80_991_164
+ROMClass bytes                       =  <span class="fragment highlight-current-border">28_017_248</span>
+AOT bytes                            =  <span class="fragment highlight-current-border">13_330_160</span>
+JIT data bytes                       =      <span class="fragment highlight-current-border">99_072</span>
+Data bytes                           =     363_936
+Metadata bytes                       =     70_8596
+# ROMClasses                         =      11_589
+# AOT Methods                        =       6_329
+Cache is 39% full</span>
+              </code>
+            </pre>
           </section>
 
 
