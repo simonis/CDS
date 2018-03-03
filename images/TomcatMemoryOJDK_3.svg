@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
-<svg width="37cm" height="16cm" viewBox="-56 195 724 305" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="37cm" height="16cm" viewBox="-56 185 724 314" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <g>
     <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #eee8d5" x1="-2.08753" y1="480.056" x2="630.264" y2="480.001"/>
     <polygon style="fill: #eee8d5" points="637.764,480 627.764,485.001 630.264,480.001 627.763,475.001 "/>
@@ -12,20 +12,6 @@
   <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #eee8d5" x1="400" y1="484" x2="400.09" y2="475.942"/>
   <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #eee8d5" x1="500" y1="484" x2="500.09" y2="475.942"/>
   <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #eee8d5" x1="600" y1="484" x2="600.09" y2="475.942"/>
-  <g>
-    <rect style="fill: #93a1a1" x="0" y="440" width="442.766" height="20"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #ff0000" x="0" y="440" width="442.766" height="20"/>
-  </g>
-  <g>
-    <rect style="fill: #93a1a1" x="0" y="416.5" width="352.442" height="20.3185"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #0000ff" x="0" y="416.5" width="352.442" height="20.3185"/>
-  </g>
-  <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="450.102" y="454.439">
-    <tspan x="450.102" y="454.439">221</tspan>
-  </text>
-  <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="358.861" y="431.056">
-    <tspan x="358.861" y="431.056">176</tspan>
-  </text>
   <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:700" x="90.0743" y="496.729">
     <tspan x="90.0743" y="496.729">50</tspan>
   </text>
@@ -51,100 +37,133 @@
   <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="647.651" y="484.488">
     <tspan x="647.651" y="484.488">mb</tspan>
   </text>
-  <text font-size="12.8" style="fill: #eee8d5;text-anchor:end;font-family:monospace;font-style:normal;font-weight:700" x="-8.87653" y="437.452">
-    <tspan x="-8.87653" y="437.452">docker</tspan>
-  </text>
-  <text font-size="12.8" style="fill: #eee8d5;text-anchor:end;font-family:monospace;font-style:normal;font-weight:700" x="-8.71272" y="449.389">
-    <tspan x="-8.71272" y="449.389">stats</tspan>
-  </text>
   <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:700" x="-4.41468" y="495.05">
     <tspan x="-4.41468" y="495.05">0</tspan>
   </text>
-  <rect style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #ff0000" x="-0.00809657" y="220" width="20" height="20"/>
-  <rect style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #0000ff" x="-0.280702" y="196.818" width="20" height="20"/>
-  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="28.7715" y="231.204">
-    <tspan x="28.7715" y="231.204"></tspan>
-  </text>
-  <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="22.0925" y="235.362">
-    <tspan x="22.0925" y="235.362">-Xshare:off</tspan>
-  </text>
-  <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="21.7771" y="211.526">
-    <tspan x="21.7771" y="211.526">-Xshare:on</tspan>
+  <g>
+    <rect style="fill: #93a1a1" x="0" y="453.108" width="442.766" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #ff0000" x="0" y="453.108" width="442.766" height="20"/>
+  </g>
+  <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="450.102" y="467.547">
+    <tspan x="450.102" y="467.547">221</tspan>
   </text>
   <g>
-    <rect style="fill: #800080" x="0" y="356.729" width="340" height="20"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 8.29377e-39; stroke: #000000" x="0" y="356.729" width="340" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #ff0000" x="0.707045" y="187.627" width="20" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #0000ff" x="120.707" y="187.627" width="20" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="29.4867" y="198.83">
+      <tspan x="29.4867" y="198.83"></tspan>
+    </text>
+    <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="22.8076" y="202.989">
+      <tspan x="22.8076" y="202.989">-Xshare:off</tspan>
+    </text>
+    <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="142.765" y="202.334">
+      <tspan x="142.765" y="202.334">-Xshare:on</tspan>
+    </text>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #009cff" x="240.707" y="187.627" width="20" height="20"/>
+    <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="262.765" y="202.334">
+      <tspan x="262.765" y="202.334">-Xshare:on + Strings/Symb</tspan>
+    </text>
   </g>
   <g>
-    <rect style="fill: #800080" x="0" y="380" width="432.607" height="20"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 8.29377e-39; stroke: #ff0000" x="0" y="380" width="432.607" height="20"/>
+    <g>
+      <rect style="fill: #93a1a1" x="0" y="429.608" width="352.442" height="20.3185"/>
+      <rect style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #0000ff" x="0" y="429.608" width="352.442" height="20.3185"/>
+    </g>
+    <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="358.861" y="444.163">
+      <tspan x="358.861" y="444.163">176</tspan>
+    </text>
   </g>
   <g>
-    <rect style="fill: #00a300" x="487.809" y="379.352" width="8" height="20"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 8.29377e-39; stroke: #00a300" x="487.809" y="379.352" width="8" height="20"/>
+    <rect style="fill: #93a1a1" x="-0.0220045" y="406.011" width="342.721" height="20.3185"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #009cff" x="-0.0220045" y="406.011" width="342.721" height="20.3185"/>
   </g>
-  <g>
-    <rect style="fill: #00a300" x="552" y="356.729" width="8" height="20"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 8.29377e-39; stroke: #000000" x="552" y="356.729" width="8" height="20"/>
-  </g>
-  <g>
-    <rect style="fill: #ffa500" x="432.607" y="380" width="55.1136" height="20"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 8.29377e-39; stroke: #ff0000" x="432.607" y="380" width="55.1136" height="20"/>
-  </g>
-  <g>
-    <rect style="fill: #ffa500" x="340" y="356.729" width="212" height="20"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 8.29377e-39; stroke: #000000" x="340" y="356.729" width="212" height="20"/>
-  </g>
-  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="580" y="380">
-    <tspan x="580" y="380"></tspan>
-  </text>
-  <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="568.122" y="372.158">
-    <tspan x="568.122" y="372.158">280</tspan>
-  </text>
-  <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="312.33" y="371.09">
-    <tspan x="312.33" y="371.09">172</tspan>
-  </text>
-  <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="525.328" y="370.861">
-    <tspan x="525.328" y="370.861">107</tspan>
-  </text>
-  <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="503.93" y="394.852">
-    <tspan x="503.93" y="394.852">248</tspan>
-  </text>
-  <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="405.05" y="394.432">
-    <tspan x="405.05" y="394.432">216</tspan>
-  </text>
-  <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="469.566" y="393.784">
-    <tspan x="469.566" y="393.784">29</tspan>
-  </text>
-  <text font-size="12.8" style="fill: #eee8d5;text-anchor:end;font-family:monospace;font-style:normal;font-weight:700" x="-9.50037" y="376.737">
-    <tspan x="-9.50037" y="376.737">pmap</tspan>
-  </text>
-  <text font-size="12.8" style="fill: #eee8d5;text-anchor:end;font-family:monospace;font-style:normal;font-weight:700" x="-9.30334" y="390.993">
-    <tspan x="-9.30334" y="390.993">RSS</tspan>
+  <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="348.837" y="422.555">
+    <tspan x="348.837" y="422.555">171</tspan>
   </text>
   <g>
-    <rect style="fill: #800080" x="140" y="198.055" width="20" height="20"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 8.29377e-39; stroke: #000000" x="140" y="198.055" width="20" height="20"/>
+    <text font-size="12.8" style="fill: #eee8d5;text-anchor:end;font-family:monospace;font-style:normal;font-weight:700" x="-9.20071" y="436.944">
+      <tspan x="-9.20071" y="436.944">docker</tspan>
+    </text>
+    <text font-size="12.8" style="fill: #eee8d5;text-anchor:end;font-family:monospace;font-style:normal;font-weight:700" x="-9.0369" y="448.881">
+      <tspan x="-9.0369" y="448.881">stats</tspan>
+    </text>
   </g>
-  <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="165.187" y="211.022">
-    <tspan x="165.187" y="211.022">Priv_Dirty</tspan>
+  <g>
+    <rect style="fill: #800080" x="0" y="220" width="20" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 8.29377e-39; stroke: #000000" x="0" y="220" width="20" height="20"/>
+  </g>
+  <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="25.187" y="232.968">
+    <tspan x="25.187" y="232.968">Priv_Dirty</tspan>
   </text>
   <g>
-    <rect style="fill: #ffa500" x="260.785" y="197.375" width="20" height="20"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 8.29377e-39; stroke: #000000" x="260.785" y="197.375" width="20" height="20"/>
+    <rect style="fill: #ffa500" x="120" y="220" width="20" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 8.29377e-39; stroke: #000000" x="120" y="220" width="20" height="20"/>
   </g>
-  <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="285.972" y="210.343">
-    <tspan x="285.972" y="210.343">Priv_Clean</tspan>
+  <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="145.972" y="232.288">
+    <tspan x="145.972" y="232.288">Priv_Clean</tspan>
   </text>
   <g>
-    <rect style="fill: #00a300" x="381.384" y="198.023" width="20" height="20"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 8.29377e-39; stroke: #000000" x="381.384" y="198.023" width="20" height="20"/>
+    <rect style="fill: #00a300" x="240" y="220" width="20" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 8.29377e-39; stroke: #000000" x="240" y="220" width="20" height="20"/>
   </g>
-  <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="406.571" y="210.991">
-    <tspan x="406.571" y="210.991">Shared_Clean</tspan>
+  <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="266.571" y="232.936">
+    <tspan x="266.571" y="232.936">Shared_Clean</tspan>
   </text>
-  <rect style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #ff0000" x="0" y="380" width="496.798" height="20"/>
-  <rect style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #0000ff" x="0" y="356.729" width="560" height="20"/>
+  <g>
+    <g>
+      <rect style="fill: #800080" x="0" y="351.378" width="340" height="20"/>
+      <rect style="fill: none; fill-opacity:0; stroke-width: 8.29377e-39; stroke: #000000" x="0" y="351.378" width="340" height="20"/>
+    </g>
+    <g>
+      <rect style="fill: #800080" x="0" y="374.649" width="432.607" height="20"/>
+      <rect style="fill: none; fill-opacity:0; stroke-width: 8.29377e-39; stroke: #ff0000" x="0" y="374.649" width="432.607" height="20"/>
+    </g>
+    <g>
+      <rect style="fill: #00a300" x="487.809" y="374.001" width="8" height="20"/>
+      <rect style="fill: none; fill-opacity:0; stroke-width: 8.29377e-39; stroke: #00a300" x="487.809" y="374.001" width="8" height="20"/>
+    </g>
+    <g>
+      <rect style="fill: #00a300" x="552" y="351.378" width="8" height="20"/>
+      <rect style="fill: none; fill-opacity:0; stroke-width: 8.29377e-39; stroke: #000000" x="552" y="351.378" width="8" height="20"/>
+    </g>
+    <g>
+      <rect style="fill: #ffa500" x="432.607" y="374.649" width="55.1136" height="20"/>
+      <rect style="fill: none; fill-opacity:0; stroke-width: 8.29377e-39; stroke: #ff0000" x="432.607" y="374.649" width="55.1136" height="20"/>
+    </g>
+    <g>
+      <rect style="fill: #ffa500" x="340" y="351.378" width="212" height="20"/>
+      <rect style="fill: none; fill-opacity:0; stroke-width: 8.29377e-39; stroke: #000000" x="340" y="351.378" width="212" height="20"/>
+    </g>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="580" y="374.649">
+      <tspan x="580" y="374.649"></tspan>
+    </text>
+    <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="568.122" y="366.807">
+      <tspan x="568.122" y="366.807">280</tspan>
+    </text>
+    <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="312.33" y="365.739">
+      <tspan x="312.33" y="365.739">172</tspan>
+    </text>
+    <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="525.328" y="365.51">
+      <tspan x="525.328" y="365.51">107</tspan>
+    </text>
+    <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="503.93" y="389.501">
+      <tspan x="503.93" y="389.501">248</tspan>
+    </text>
+    <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="405.05" y="389.081">
+      <tspan x="405.05" y="389.081">216</tspan>
+    </text>
+    <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="469.566" y="388.433">
+      <tspan x="469.566" y="388.433">29</tspan>
+    </text>
+    <text font-size="12.8" style="fill: #eee8d5;text-anchor:end;font-family:monospace;font-style:normal;font-weight:700" x="-9.50037" y="371.573">
+      <tspan x="-9.50037" y="371.573">pmap</tspan>
+    </text>
+    <text font-size="12.8" style="fill: #eee8d5;text-anchor:end;font-family:monospace;font-style:normal;font-weight:700" x="-9.30334" y="385.642">
+      <tspan x="-9.30334" y="385.642">RSS</tspan>
+    </text>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #ff0000" x="0" y="374.649" width="496.798" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #0000ff" x="0" y="351.378" width="560" height="20"/>
+  </g>
   <g>
     <rect style="fill: #800080" x="0" y="320" width="432.607" height="20"/>
     <rect style="fill: none; fill-opacity:0; stroke-width: 8.29377e-39; stroke: #ff0000" x="0" y="320" width="432.607" height="20"/>

@@ -587,6 +587,54 @@ oa0 space:    176128 [  0.2% of total] out of    176128 bytes [100.0% used] at 0
 total    : 103594632 [100.0% of total] out of 103604224 bytes [100.0% used]
 
 
+Create HotSpot CDS archive in docker container (with extra string/symbol file):
+-------------------------------------------------------------------------------
+docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8091:8080 -it - -rm -m 500m cds_demo_ojdk:latest /bin/bash
+
+/examples/tomcat_measure.sh 1 "-XX:TieredStopAtLevel=1 -XX:CICompilerCount=1 -Xmx64m -Xms64m -Xlog:class+load=debug:file=/tmp/tomcat_dbg.clstrace"
+
+java -cp /examples/cl4cds-1.0.0-SNAPSHOT.jar io.simonis.cl4cds /tmp/tomcat_dbg.clstrace /tmp/tomcat_cl4cds.cls
+
+jcmd `pgrep -f tomcat` VM.stringtable -verbose > /examples/docker_ojdk/tomcat_sa/stringtable.jcmd
+jcmd `pgrep -f tomcat` VM.symboltable -verbose > /examples/docker_ojdk/tomcat_sa/symboltable.jcmd
+
+combine stringtable.jcmd and symboltable.jcmd into string_symbol.cfg like this:
+
+VERSION: 1.0
+@SECTION: String
+[stringtable.jcmd]
+@SECTION: Symbol
+[symboltable.jcmd]
+
+/examples/tomcat_measure.sh 1 "-XX:TieredStopAtLevel=1 -XX:CICompilerCount=1 -Xmx64m -Xms64m -XX:+UseG1GC -Xshare:dump -XX:+UseAppCDS -XX:SharedClassListFile=/tmp/tomcat_cl4cds.cls -XX:SharedArchiveConfigFile=/examples/docker_ojdk/tomcat_sa/string_symbol.cfg -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/tmp/tomcat_cl4cds.jsa"
+
+Rewriting and linking classes: done
+Number of classes 9682
+    instance classes   =  9590
+    obj array classes  =    84
+    type array classes =     8
+Updating ConstMethods ... done. 
+Removing unshareable information ... done. 
+Scanning all metaspace objects ... 
+Allocating RW objects ... 
+Allocating RO objects ... 
+Relocating embedded pointers ... 
+Relocating external roots ... 
+Dumping symbol table ...
+Dumping String objects to closed archive heap region ...
+Dumping objects to open archive heap region ...
+Relocating SystemDictionary::_well_known_klasses[] ... 
+Removing java_mirror ... done. 
+mc  space:     13264 [  0.0% of total] out of     16384 bytes [ 81.0% used] at 0x0000000800000000
+rw  space:  22853712 [ 21.5% of total] out of  22855680 bytes [100.0% used] at 0x0000000800004000
+ro  space:  41573200 [ 39.1% of total] out of  41574400 bytes [100.0% used] at 0x00000008015d0000
+md  space:      6160 [  0.0% of total] out of      8192 bytes [ 75.2% used] at 0x0000000803d76000
+od  space:  36674096 [ 34.5% of total] out of  36675584 bytes [100.0% used] at 0x0000000803d78000
+st0 space:    819200 [  0.8% of total] out of    819200 bytes [100.0% used] at 0x00000000ff400000
+st1 space:   4194304 [  3.9% of total] out of   4194304 bytes [100.0% used] at 0x00000000ff500000
+oa0 space:    176128 [  0.2% of total] out of    176128 bytes [100.0% used] at 0x00000000ff300000
+total    : 106310064 [100.0% of total] out of 106319872 bytes [100.0% used]
+
 Create OpenJ9 CDS archive in docker container:
 ==============================================
 docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/examples -p 8091:8080 -it - -rm -m 500m cds_demo_oj9:latest /bin/bash
@@ -889,6 +937,33 @@ docker run -v /c/Users/D046063/public_html/hotspot/JBreak2018/git/CDS/examples:/
 
 (17577+19170+17816+17092+17901+17687+17351+17486+17768+17883)/10
 17773
+
+With Symbol and String sharing
+------------------------------
+
+CONTAINER           CPU %               MEM USAGE / LIMIT   MEM %               NET I/O             BLOCK I/O           PIDS
+7b1e0fc0ec28        2.10%               156.3MiB / 500MiB   31.25%              7.13kB / 2.21kB     32.8kB / 840kB      0
+
+22102:   /opt/jdk/bin/java -Djava.util.logging.config.file=/opt/apache-tomcat-9.0.2/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Djava.security.egd=file:/dev/./urandom -Xint -Xmx64m -Xms64m -XX:+UseG1GC -Xshare:on -XX:+UseAppCDS -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/opt/tomcat_sa/tomcat_cl4cds.jsa -Dignore.endorsed.dirs= -classpath /opt/apache-tomcat-9.0.2/bi
+         Address Perm    Size    Rss    Pss Shared_Clean Shared_Dirty Private_Clean Private_Dirty Referenced Mapping
+        00400000 r-xp       4      4      4            0            0             4             0          4 /opt/jdk/bin/java
+        00601000 r--p       4      4      4            0            0             0             4          4 /opt/jdk/bin/java
+        00602000 rw-p       4      4      4            0            0             0             4          4 /opt/jdk/bin/java
+        00603000 rw-p     132     44     44            0            0             0            44         44 [heap]
+        fc000000 rw-p   52224  52224  52224            0            0             0         52224      52224 
+        ff300000 rw-p     172    172    172            0            0            24           148        172 /opt/tomcat_sa/tomcat_cl4cds.jsa
+        ff32b000 rw-p     852      0      0            0            0             0             0          0 
+        ff400000 rw-p     800    800    800            0            0           800             0        800 /opt/tomcat_sa/tomcat_cl4cds.jsa
+        ff4c8000 rw-p     224      0      0            0            0             0             0          0 
+        ff500000 rw-p    4096   4096   4096            0            0          4096             0       4096 /opt/tomcat_sa/tomcat_cl4cds.jsa
+        ff900000 rw-p    7168   7168   7168            0            0             0          7168       7168 
+       800000000 rwxp      16     16     16            0            0             0            16         16 /opt/tomcat_sa/tomcat_cl4cds.jsa
+       800004000 rw-p   22320  22320  22320            0            0          2052         20268      22320 /opt/tomcat_sa/tomcat_cl4cds.jsa
+       8015d0000 r--p   40600  40600  40600            0            0         40600             0      40600 /opt/tomcat_sa/tomcat_cl4cds.jsa
+       803d76000 rw-p       8      8      8            0            0             0             8          8 /opt/tomcat_sa/tomcat_cl4cds.jsa
+       803d78000 r--p   35816  35816  35816            0            0         35816             0      35816 /opt/tomcat_sa/tomcat_cl4cds.jsa
+       840000000 rw-p    3200   2888   2888            0            0             0          2888       2888 
+       840320000 ---p 1045376      0      0            0            0             0             0          0 
 
 
 OpenJ9 Benchmarks
@@ -1265,59 +1340,165 @@ CATALINA_OPTS="-Djava.security.edg=file:/dev/./urandom" $CATALINA_HOME/bin/catal
                       5989768 578628 574310 KB 
 
 </span>
+        </section>
+
+
+        <section class="demo">
+
+<!--
+
+  // A resolved constantPool entry will contain a Klass*, otherwise a Symbol*.
+
+SymbolTable (contains all Symbols)
+
+StringTable (contains all interned Strings)
+
+oop ConstantPool::string_at_impl(const constantPoolHandle& this_cp, int which, int obj_index, TRAPS) {
+  // If the string has already been interned, this entry will be non-null
+  oop str = this_cp->resolved_references()->obj_at(obj_index);
+  assert(str != Universe::the_null_sentinel(), "");
+  if (str != NULL) return str;
+  Symbol* sym = this_cp->unresolved_string_at(which);
+  str = StringTable::intern(sym, CHECK_(NULL));
+  this_cp->string_at_put(which, obj_index, str);
+  assert(java_lang_String::is_instance(str), "must be string");
+  return str;
+}
+
+StringTable::intern(Symbol *, Thread *) : oop - /jdk-hs/share/classfile/stringTable.cpp
+	CompilerRuntime::resolve_string_by_symbol(JavaThread *, void *, const char *) : void - /jdk-hs/share/jvmci/compilerRuntime.cpp
+	ConstantPool::string_at_impl(const constantPoolHandle &, int, int, Thread *) : oop - /jdk-hs/share/oops/constantPool.cpp
+		ConstantPool::resolve_class_constants(Thread *) : void - /jdk-hs/share/oops/constantPool.cpp
+		ConstantPool::resolve_constant_at_impl(const constantPoolHandle &, int, int, bool *, Thread *) : oop - /jdk-hs/share/oops/constantPool.cpp
+			ConstantPool::find_cached_constant_at(int, bool &, Thread *) : oop - /jdk-hs/share/oops/constantPool.hpp
+			ConstantPool::resolve_cached_constant_at(int, Thread *) : oop - /jdk-hs/share/oops/constantPool.hpp
+				Bytecode_loadconstant::resolve_constant(Thread *) : oop - /jdk-hs/share/interpreter/bytecode.cpp
+					InterpreterRuntime::resolve_ldc(JavaThread *, enum Bytecodes::Code) : void - /jdk-hs/share/interpreter/interpreterRuntime.cpp
+						TemplateTable::condy_helper(Label &) : void - /jdk-hs/cpu/x86/templateTable_x86.cpp
+						TemplateTable::fast_aldc(bool) : void - /jdk-hs/cpu/x86/templateTable_x86.cpp
+							TemplateTable::initialize() : void - /jdk-hs/share/interpreter/templateTable.cpp (2 matches)
+					Runtime1::patch_code(JavaThread *, enum Runtime1::StubID) : void - /jdk-hs/share/c1/c1_Runtime1.cpp
+			ConstantPool::resolve_constant_at(int, Thread *) : oop - /jdk-hs/share/oops/constantPool.hpp
+				Bytecode_loadconstant::resolve_constant(Thread *) : oop - /jdk-hs/share/interpreter/bytecode.cpp
+					InterpreterRuntime::resolve_ldc(JavaThread *, enum Bytecodes::Code) : void - /jdk-hs/share/interpreter/interpreterRuntime.cpp
+						TemplateTable::condy_helper(Label &) : void - /jdk-hs/cpu/x86/templateTable_x86.cpp
+						TemplateTable::fast_aldc(bool) : void - /jdk-hs/cpu/x86/templateTable_x86.cpp
+					Runtime1::patch_code(JavaThread *, enum Runtime1::StubID) : void - /jdk-hs/share/c1/c1_Runtime1.cpp
+				c2v_resolveConstantInPool(JNIEnv *, jobject, jobject, jint) : jobject - /jdk-hs/share/jvmci/jvmciCompilerToVM.cpp
+			ConstantPool::resolve_possibly_cached_constant_at(int, Thread *) : oop - /jdk-hs/share/oops/constantPool.hpp
+		ConstantPool::string_at(int, int, Thread *) : oop - /jdk-hs/share/oops/constantPool.hpp
+	ConstantPool::uncached_string_at(int, Thread *) : oop - /jdk-hs/share/oops/constantPool.cpp
+		fieldDescriptor::string_initial_value(Thread *) : oop - /jdk-hs/share/runtime/fieldDescriptor.cpp
+			initialize_static_field(fieldDescriptor *, Handle, Thread *) : void - /jdk-hs/share/classfile/javaClasses.cpp
+				java_lang_Class::initialize_mirror_fields(Klass *, Handle, Handle, Thread *) : void - /jdk-hs/share/classfile/javaClasses.cpp
+					java_lang_Class::create_mirror(Klass *, Handle, Handle, Handle, Thread *) : void - /jdk-hs/share/classfile/javaClasses.cpp
+						ArrayKlass::complete_create_array_klass(ArrayKlass *, Klass *, ModuleEntry *, Thread *) : void - /jdk-hs/share/oops/arrayKlass.cpp
+						ClassFileParser::fill_instance_klass(InstanceKlass *, bool, Thread *) : void - /jdk-hs/share/classfile/classFileParser.cpp
+						java_lang_Class::fixup_mirror(Klass *, Thread *) : void - /jdk-hs/share/classfile/javaClasses.cpp
+						Klass::restore_unshareable_info(ClassLoaderData *, Handle, Thread *) : void - /jdk-hs/share/oops/klass.cpp
+	java_lang_StackTraceElement::fill_in(Handle, InstanceKlass *, const methodHandle &, int, int, Symbol *, Thread *) : void - /jdk-hs/share/classfile/javaClasses.cpp (4 matches)
+	MethodHandles::expand_MemberName(Handle, int, Thread *) : void - /jdk-hs/share/prims/methodHandles.cpp (2 matches)
+	Reflection::new_field(fieldDescriptor *, Thread *) : oop - /jdk-hs/share/runtime/reflection.cpp
+	Reflection::new_method(const methodHandle &, bool, Thread *) : oop - /jdk-hs/share/runtime/reflection.cpp
+	SystemDictionary::find_method_handle_invoker(Klass *, Symbol *, Symbol *, Klass *, Handle *, Handle *, Thread *) : methodHandle - /jdk-hs/share/classfile/systemDictionary.cpp
+-->
 
           <section class="demo">
-            <h2>Memory savings with CDS/AppCDS</h2>
 
-            <div width="100%" style="position: relative; margin: 0 0 0 0px;">
-              <div class="" style="position: static; width: 100%">
-                <object data="images/TomcatMemoryOJDK_1.svg" type="image/svg+xml"
-                        style="width: 90%;">&nbsp;</object>
-              </div>
-              <div class="fragment" data-fragment-index="1" style="position: absolute; left: 0; top: 0; width: 100%">
-                <object data="images/TomcatMemoryOJDK_2.svg" type="image/svg+xml"
-                        style="width: 90%;">&nbsp;</object>
-              </div>
-              <div class="fragment" data-fragment-index="2" style="position: absolute; left: 0; top: 0; width: 100%">
-                <object data="images/TomcatMemoryOJDK_3.svg" type="image/svg+xml"
-                        style="width: 90%;">&nbsp;</object>
-              </div>
-            </div>
-            <div  width="100%" style="font-size: medium; text-align:left;">
-              Running tomcat 9.0.2 with ngrinder 3.4.1 on OpenJDK 10 in an Ubuntu 16.04
-              Docker container with CDS archive at <code>/opt/tomcat_cl4cds.jsa</code><br/>
-              and Address Randomization switched off (i.e. <code>`sudo sh -c "echo 0 > /proc/sys/kernel/randomize_va_space"`</code>)<br/>
-              <pre style="box-shadow: none; padding: 0; font-size: initial;">CATALINA_OPTS="-Xint -Xmx64m -Xms64m -XX:+UseG1GC -Djava.security.egd=file:/dev/./urandom
-               -XX:+UseAppCDS -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/opt/tomcat_cl4cds.jsa" catalina.sh start</pre>
-            </div>
+            <h2>Sharing additional Strings and Symbols</h2>
+
+            <ul>
+              <li>Extension of <a href="http://openjdk.java.net/jeps/250">JEP 250: Store Interned Strings in CDS Archives</a></li>
+              <li>Added with AppCDS to the OpenJDK</li>
+              <li>Documentation is sparse:
+                <ul>
+                  <li><a href="https://bugs.openjdk.java.net/browse/JDK-8134448">JDK-8134448 Document XX:SharedArchiveConfigFile=&lt;shared_input_file&gt;</a></li>
+                  <li>Oracle commercial feature documentation: "<a href='https://docs.oracle.com/javase/9/tools/java.htm#JSWOR-GUID-31503FCE-93D0-4175-9B4F-F6A738B2F4C4'>Sharing a Shared Archive...</a>"</li>
+                  </ul>
+              </li>
+              <li>Have to manually assemble the <code>SharedArchiveConfigFile</code> file from the<br/>
+                <code>jcmd &lt;pid&gt; VM.stringtable -verbose</code> and<br/><code>jcmd &lt;pid&gt; VM.symboltable -verbose</code> output</li>
+            </ul>
           </section>
 
           <section class="demo">
-            <h2>The HotSpot Footprint/Performance Uncertainty Principle</h2>
 
-            <div width="100%" style="position: relative; margin: 0 0 0 0px;">
-              <div class="" style="position: static; width: 100%">
-                <object data="images/FootprintPerformance_1.svg" type="image/svg+xml"
-                        style="width: 80%;">&nbsp;</object>
-              </div>
-              <div class="fragment" data-fragment-index="1" style="position: absolute; left: 0; top: 0; width: 100%">
-                <object data="images/FootprintPerformance_2.svg" type="image/svg+xml"
-                        style="width: 80%;">&nbsp;</object>
-              </div>
-              <div class="fragment" data-fragment-index="2" style="position: absolute; left: 0; top: 0; width: 100%">
-                <object data="images/FootprintPerformance_3.svg" type="image/svg+xml"
-                        style="width: 80%;">&nbsp;</object>
-              </div>
-              <div class="fragment" data-fragment-index="3" style="position: absolute; left: 0; top: 0; width: 100%">
-                <object data="images/FootprintPerformance_4.svg" type="image/svg+xml"
-                        style="width: 80%;">&nbsp;</object>
-              </div>
-            </div>
+            <h2>Create the <code>SharedArchiveConfigFile</code></h2>
+
+            <pre class="big noshadow" style="height:100%; margin: 0;" data-trim="true">
+              <code class="terminal" data-trim="true" data-noescape="true" style="height:100%;">
+$ jcmd `pgrep -f tomcat` <span class="fragment highlight-current-border" data-fragment-index="1">VM.stringtable</span> -verbose                   
+<span class="fragment" data-fragment-index="2">1619:
+VERSION: 1.1
+<span class="fragment highlight-current-border border-no-bottom" data-fragment-index="9"><span class="fragment highlight-current-border" data-fragment-index="3">23: java.nio.file.attribute</span>                            </span>
+<span class="fragment highlight-current-border border-no-bottom-top" data-fragment-index="9">16: javax.swing.plaf                                   </span>
+<span class="fragment highlight-current-border border-no-top" data-fragment-index="9">...                                                    </span>
+$</span> <span class="fragment" data-fragment-index="4">jcmd `pgrep -f tomcat` VM.symboltable -verbose</span>
+<span class="fragment" data-fragment-index="5">1619:
+VERSION: 1.0
+<span class="fragment highlight-current-border border-no-bottom" data-fragment-index="11"><span class="fragment highlight-current-border" data-fragment-index="6">34 2: Ljava/util/List&lt;Ljava/net/Proxy;&gt;;</span>               </span>
+<span class="fragment highlight-current-border border-no-bottom-top" data-fragment-index="11">9 -1: java.net.                                        </span>
+<span class="fragment highlight-current-border border-no-top" data-fragment-index="11">...                                                    </span></span>
+              </code>
+            </pre>
+
+            <pre class="big noshadow fragment" data-fragment-index="7" style="height:100%; margin: 0;" data-trim="true">
+              <code class="terminal" data-trim="true" data-noescape="true" style="height:100%;">
+$ vi string_symbol.cfg
+<span class="fragment" data-fragment-index="8">VERSION: 1.0                                                       
+@SECTION: String</span>
+<span class="fragment" data-fragment-index="9"><span class="fragment highlight-current-border" data-fragment-index="9">&lt;output of jcmd VM.stringtable&gt;</span></span>
+<span class="fragment" data-fragment-index="10">@SECTION: Symbol</span>
+<span class="fragment" data-fragment-index="11"><span class="fragment highlight-current-border" data-fragment-index="11">&lt;output of jcmd VM.symboltable&gt;</span></span>
+              </code>
+            </pre>
+          </section>
+
+          <section class="demo">
+
+            <h2>Using the <code>SharedArchiveConfigFile</code></h2>
+
+            <pre class="big noshadow" style="height:100%; margin: 0;" data-trim="true">
+              <code class="terminal" data-trim="true" data-noescape="true" style="height:100%;">
+$<span class="fragment"> CATALINA_OPTS="<span class="fragment highlight-current-border">-Xshare:dump</span> -XX:+UseAppCDS \
+                 <span class="fragment highlight-current-border">-XX:SharedClassListFile=tomcat_cl4cds.cls</span> \
+                 -XX:+UnlockDiagnosticVMOptions \
+                 <span class="fragment highlight-current-border">-XX:SharedArchiveFile=tomcat_cl4cds.jsa</span>" \
+  catalina.sh start
+$</span><span class="fragment"> ll tomcat_cl4cds.jsa</span>
+<span class="fragment">-r--r----- 1 <span class="fragment highlight-border">102.305.792</span> Feb  3 01:48 tomcat_cl4cds.jsa
+$</span><span class="fragment"> CATALINA_OPTS="-Xshare:dump -XX:+UseAppCDS \
+                 -XX:SharedClassListFile=tomcat_cl4cds.cls \
+                 <span class="fragment highlight-current-border">-XX:SharedArchiveConfigFile=string_symbol.cfg</span> \
+                 -XX:+UnlockDiagnosticVMOptions \
+                 -XX:SharedArchiveFile=tomcat_cl4cds.jsa" \
+  catalina.sh start
+$</span><span class="fragment"> ll tomcat_cl4cds.jsa</span>
+<span class="fragment">-r--r----- 1 <span class="fragment highlight-border">106.323.968</span> Mär  2 13:15 tomcat_cl4cds.jsa</span>
+              </code>
+            </pre>
           </section>
         </section>
 
 
 <span style="visibility: hidden;">
+
+JDK-8179302 Pre-resolve constant pool string entries and cache resolved_reference arrays in CDS archive
+https://bugs.openjdk.java.net/browse/JDK-8179302
+
+JDK-8134448 Document XX:SharedArchiveConfigFile=shared_input_file
+https://bugs.openjdk.java.net/browse/JDK-8134448
+
+JDK-8015086 add interned strings to the shared archive
+https://bugs.openjdk.java.net/browse/JDK-8015086
+
+JDK-8059510 Compact symbol table layout inside shared archive
+https://bugs.openjdk.java.net/browse/JDK-8059510
+
+http://openjdk.java.net/jeps/250
+JDK-8059092 JEP 250: Store Interned Strings in CDS Archives
+https://bugs.openjdk.java.net/browse/JDK-8059092
+
 https://docs.oracle.com/javase/9/tools/java.htm#JSWOR-GUID-31503FCE-93D0-4175-9B4F-F6A738B2F4C4
 
 
@@ -1397,6 +1578,61 @@ In the configuration file example:
 SharedClassUtil::read_extra_data() in share/classfile/sharedClassUtil.cpp
 
 </span>
+
+
+
+        <section class="demo">
+
+          <section class="demo">
+            <h2>Memory savings with CDS/AppCDS</h2>
+
+            <div width="100%" style="position: relative; margin: 0 0 0 0px;">
+              <div class="" style="position: static; width: 100%">
+                <object data="images/TomcatMemoryOJDK_1.svg" type="image/svg+xml"
+                        style="width: 90%;">&nbsp;</object>
+              </div>
+              <div class="fragment" data-fragment-index="1" style="position: absolute; left: 0; top: 0; width: 100%">
+                <object data="images/TomcatMemoryOJDK_2.svg" type="image/svg+xml"
+                        style="width: 90%;">&nbsp;</object>
+              </div>
+              <div class="fragment" data-fragment-index="2" style="position: absolute; left: 0; top: 0; width: 100%">
+                <object data="images/TomcatMemoryOJDK_3.svg" type="image/svg+xml"
+                        style="width: 90%;">&nbsp;</object>
+              </div>
+            </div>
+            <div  width="100%" style="font-size: medium; text-align:left;">
+              Running tomcat 9.0.2 with ngrinder 3.4.1 on OpenJDK 10 in an Ubuntu 16.04
+              Docker container with CDS archive at <code>/opt/tomcat_cl4cds.jsa</code><br/>
+              and Address Randomization switched off (i.e. <code>`sudo sh -c "echo 0 > /proc/sys/kernel/randomize_va_space"`</code>)<br/>
+              <pre style="box-shadow: none; padding: 0; font-size: initial;">CATALINA_OPTS="-Xint -Xmx64m -Xms64m -XX:+UseG1GC -Djava.security.egd=file:/dev/./urandom
+               -XX:+UseAppCDS -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=/opt/tomcat_cl4cds.jsa" catalina.sh start</pre>
+            </div>
+          </section>
+
+          <section class="demo">
+            <h2>The HotSpot Footprint/Performance Uncertainty Principle</h2>
+
+            <div width="100%" style="position: relative; margin: 0 0 0 0px;">
+              <div class="" style="position: static; width: 100%">
+                <object data="images/FootprintPerformance_1.svg" type="image/svg+xml"
+                        style="width: 80%;">&nbsp;</object>
+              </div>
+              <div class="fragment" data-fragment-index="1" style="position: absolute; left: 0; top: 0; width: 100%">
+                <object data="images/FootprintPerformance_2.svg" type="image/svg+xml"
+                        style="width: 80%;">&nbsp;</object>
+              </div>
+              <div class="fragment" data-fragment-index="2" style="position: absolute; left: 0; top: 0; width: 100%">
+                <object data="images/FootprintPerformance_3.svg" type="image/svg+xml"
+                        style="width: 80%;">&nbsp;</object>
+              </div>
+              <div class="fragment" data-fragment-index="3" style="position: absolute; left: 0; top: 0; width: 100%">
+                <object data="images/FootprintPerformance_4.svg" type="image/svg+xml"
+                        style="width: 80%;">&nbsp;</object>
+              </div>
+            </div>
+          </section>
+
+        </section>
 
 
         <section>

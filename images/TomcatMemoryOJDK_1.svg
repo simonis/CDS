@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
-<svg width="37cm" height="16cm" viewBox="-56 195 724 305" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="37cm" height="16cm" viewBox="-56 185 724 314" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <g>
     <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #eee8d5" x1="-2.08753" y1="480.056" x2="630.264" y2="480.001"/>
     <polygon style="fill: #eee8d5" points="637.764,480 627.764,485.001 630.264,480.001 627.763,475.001 "/>
@@ -12,20 +12,6 @@
   <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #eee8d5" x1="400" y1="484" x2="400.09" y2="475.942"/>
   <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #eee8d5" x1="500" y1="484" x2="500.09" y2="475.942"/>
   <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #eee8d5" x1="600" y1="484" x2="600.09" y2="475.942"/>
-  <g>
-    <rect style="fill: #93a1a1" x="0" y="440" width="442.766" height="20"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #ff0000" x="0" y="440" width="442.766" height="20"/>
-  </g>
-  <g>
-    <rect style="fill: #93a1a1" x="0" y="416.5" width="352.442" height="20.3185"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #0000ff" x="0" y="416.5" width="352.442" height="20.3185"/>
-  </g>
-  <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="450.102" y="454.439">
-    <tspan x="450.102" y="454.439">221</tspan>
-  </text>
-  <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="358.861" y="431.056">
-    <tspan x="358.861" y="431.056">176</tspan>
-  </text>
   <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:700" x="90.0743" y="496.729">
     <tspan x="90.0743" y="496.729">50</tspan>
   </text>
@@ -51,24 +37,55 @@
   <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="647.651" y="484.488">
     <tspan x="647.651" y="484.488">mb</tspan>
   </text>
-  <text font-size="12.8" style="fill: #eee8d5;text-anchor:end;font-family:monospace;font-style:normal;font-weight:700" x="-8.87653" y="437.452">
-    <tspan x="-8.87653" y="437.452">docker</tspan>
-  </text>
-  <text font-size="12.8" style="fill: #eee8d5;text-anchor:end;font-family:monospace;font-style:normal;font-weight:700" x="-8.71272" y="449.389">
-    <tspan x="-8.71272" y="449.389">stats</tspan>
-  </text>
   <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:700" x="-4.41468" y="495.05">
     <tspan x="-4.41468" y="495.05">0</tspan>
   </text>
-  <rect style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #ff0000" x="-0.00809657" y="220" width="20" height="20"/>
-  <rect style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #0000ff" x="-0.280702" y="196.818" width="20" height="20"/>
-  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="28.7715" y="231.204">
-    <tspan x="28.7715" y="231.204"></tspan>
+  <g>
+    <rect style="fill: #93a1a1" x="0" y="453.108" width="442.766" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #ff0000" x="0" y="453.108" width="442.766" height="20"/>
+  </g>
+  <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="450.102" y="467.547">
+    <tspan x="450.102" y="467.547">221</tspan>
   </text>
-  <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="22.0925" y="235.362">
-    <tspan x="22.0925" y="235.362">-Xshare:off</tspan>
+  <g>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #ff0000" x="0.707045" y="187.627" width="20" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #0000ff" x="120.707" y="187.627" width="20" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="29.4867" y="198.83">
+      <tspan x="29.4867" y="198.83"></tspan>
+    </text>
+    <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="22.8076" y="202.989">
+      <tspan x="22.8076" y="202.989">-Xshare:off</tspan>
+    </text>
+    <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="142.765" y="202.334">
+      <tspan x="142.765" y="202.334">-Xshare:on</tspan>
+    </text>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #009cff" x="240.707" y="187.627" width="20" height="20"/>
+    <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="262.765" y="202.334">
+      <tspan x="262.765" y="202.334">-Xshare:on + Strings/Symb</tspan>
+    </text>
+  </g>
+  <g>
+    <g>
+      <rect style="fill: #93a1a1" x="0" y="429.608" width="352.442" height="20.3185"/>
+      <rect style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #0000ff" x="0" y="429.608" width="352.442" height="20.3185"/>
+    </g>
+    <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="358.861" y="444.163">
+      <tspan x="358.861" y="444.163">176</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #93a1a1" x="-0.0220045" y="406.011" width="342.721" height="20.3185"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3.52778; stroke: #009cff" x="-0.0220045" y="406.011" width="342.721" height="20.3185"/>
+  </g>
+  <text font-size="12.7998" style="fill: #eee8d5;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="348.837" y="422.555">
+    <tspan x="348.837" y="422.555">171</tspan>
   </text>
-  <text font-size="12.8" style="fill: #eee8d5;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="21.7771" y="211.526">
-    <tspan x="21.7771" y="211.526">-Xshare:on</tspan>
-  </text>
+  <g>
+    <text font-size="12.8" style="fill: #eee8d5;text-anchor:end;font-family:monospace;font-style:normal;font-weight:700" x="-9.20071" y="436.944">
+      <tspan x="-9.20071" y="436.944">docker</tspan>
+    </text>
+    <text font-size="12.8" style="fill: #eee8d5;text-anchor:end;font-family:monospace;font-style:normal;font-weight:700" x="-9.0369" y="448.881">
+      <tspan x="-9.0369" y="448.881">stats</tspan>
+    </text>
+  </g>
 </svg>
