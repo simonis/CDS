@@ -123,7 +123,7 @@
     <rect style="fill: #add8e6" x="760" y="260.666" width="150.333" height="56"/>
     <rect style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" x="760" y="260.666" width="150.333" height="56"/>
     <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="835.167" y="284.566">
-      <tspan x="835.167" y="284.566">Statics, OopMap</tspan>
+      <tspan x="835.167" y="284.566">OopMap</tspan>
       <tspan x="835.167" y="300.566">VTable, ITable</tspan>
     </text>
   </g>
@@ -148,43 +148,39 @@
     </g>
   </g>
   <g>
-    <g>
-      <g>
-        <rect style="fill: #e5e5e5" x="1000" y="100" width="140" height="40"/>
-        <rect style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" x="1000" y="100" width="140" height="40"/>
-        <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1070" y="123.9">
-          <tspan x="1070" y="123.9"></tspan>
-        </text>
-      </g>
-      <g>
-        <rect style="fill: #00a300" x="1000" y="100" width="20" height="40"/>
-        <rect style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" x="1000" y="100" width="20" height="40"/>
-        <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1010" y="123.9">
-          <tspan x="1010" y="123.9"></tspan>
-        </text>
-      </g>
-      <g>
-        <rect style="fill: #ffa500" x="1020" y="100" width="20" height="40"/>
-        <rect style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" x="1020" y="100" width="20" height="40"/>
-        <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1030" y="123.9">
-          <tspan x="1030" y="123.9"></tspan>
-        </text>
-      </g>
-    </g>
-    <text font-size="18.0622" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="1000" y="90">
-      <tspan x="1000" y="90">Class&lt;Foo&gt;</tspan>
+    <rect style="fill: #e5e5e5" x="1000" y="100" width="156.25" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" x="1000" y="100" width="156.25" height="40"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1078.13" y="123.9">
+      <tspan x="1078.13" y="123.9"></tspan>
     </text>
   </g>
+  <g>
+    <rect style="fill: #00a300" x="1000" y="100" width="20" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" x="1000" y="100" width="20" height="40"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1010" y="123.9">
+      <tspan x="1010" y="123.9"></tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffa500" x="1020" y="100" width="20" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" x="1020" y="100" width="20" height="40"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1030" y="123.9">
+      <tspan x="1030" y="123.9"></tspan>
+    </text>
+  </g>
+  <text font-size="18.0622" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="1000" y="90">
+    <tspan x="1000" y="90">Class&lt;Foo&gt;</tspan>
+  </text>
   <g>
     <polyline style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" points="910,120 955.438,120 955.438,120 988.028,120 "/>
     <polygon style="fill: #000000" points="995.528,120 985.528,125 988.028,120 985.528,115 "/>
     <polygon style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" points="995.528,120 985.528,125 988.028,120 985.528,115 "/>
   </g>
   <g>
-    <rect style="fill: #00a300" x="760.147" y="100.002" width="150" height="40"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" x="760.147" y="100.002" width="150" height="40"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="835.147" y="123.902">
-      <tspan x="835.147" y="123.902">_java_mirror</tspan>
+    <rect style="fill: #00a300" x="760.148" y="100.002" width="150" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" x="760.148" y="100.002" width="150" height="40"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="835.148" y="123.902">
+      <tspan x="835.148" y="123.902">_java_mirror</tspan>
     </text>
   </g>
   <g>

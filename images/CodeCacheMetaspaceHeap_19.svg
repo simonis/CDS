@@ -644,4 +644,112 @@
     <polygon style="fill: #000000" points="997.268,477.31 987.27,482.315 989.768,477.314 987.265,472.315 "/>
     <polygon style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" points="997.268,477.31 987.27,482.315 989.768,477.314 987.265,472.315 "/>
   </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" points="760,200 712.334,200 712.334,280 212.5,280 212.5,388.028 "/>
+    <polygon style="fill: #000000" points="212.5,395.528 207.5,385.528 212.5,388.028 217.5,385.528 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" points="212.5,395.528 207.5,385.528 212.5,388.028 217.5,385.528 "/>
+  </g>
+  <g>
+    <rect style="fill: #e5e5e5" x="100" y="479.398" width="150" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" x="100" y="479.398" width="150" height="40"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="175" y="503.298">
+      <tspan x="175" y="503.298">_constMethod</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ff9292" x="100" y="400" width="150" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" x="100" y="400" width="150" height="40"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="175" y="423.9">
+      <tspan x="175" y="423.9"></tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #e5e5e5" x="100" y="439.62" width="150" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" x="100" y="439.62" width="150" height="40"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="175" y="463.52">
+      <tspan x="175" y="463.52">_code</tspan>
+    </text>
+  </g>
+  <text font-size="18.0622" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="100" y="380">
+    <tspan x="100" y="380">Method*</tspan>
+  </text>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" points="247.102,639.918 495.304,639.918 495.304,459.576 "/>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" points="100,499.398 70.1658,499.398 70.1658,599.918 85.1297,599.918 "/>
+    <polygon style="fill: #000000" points="92.6297,599.918 82.6297,604.918 85.1297,599.918 82.6297,594.918 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" points="92.6297,599.918 82.6297,604.918 85.1297,599.918 82.6297,594.918 "/>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="136.12" y="544.462">
+    <tspan x="136.12" y="544.462"></tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="221.23" y="619.838">
+    <tspan x="221.23" y="619.838"></tspan>
+  </text>
+  <g>
+    <rect style="fill: #e5e5e5" x="97.1018" y="619.918" width="150" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" x="97.1018" y="619.918" width="150" height="40"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="172.102" y="643.818">
+      <tspan x="172.102" y="643.818">_constants</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ff9292" x="97.1018" y="579.918" width="150" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" x="97.1018" y="579.918" width="150" height="40"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="172.102" y="603.818">
+      <tspan x="172.102" y="603.818"></tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #add8e6" x="97.1018" y="659.122" width="150" height="40"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" x="97.1018" y="659.122" width="150" height="40"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="172.102" y="683.022">
+      <tspan x="172.102" y="683.022">bytecodes, tables</tspan>
+    </text>
+  </g>
+  <text font-size="18.0622" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="97.1018" y="559.918">
+    <tspan x="97.1018" y="559.918">ConstMethod*</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="217.102" y="639.918">
+    <tspan x="217.102" y="639.918"></tspan>
+  </text>
+  <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="172.102" y="679.122">
+    <tspan x="172.102" y="679.122"></tspan>
+  </text>
+  <g>
+    <g>
+      <rect style="fill: #e5e5e5" x="-139.466" y="440.55" width="150" height="40"/>
+      <rect style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" x="-139.466" y="440.55" width="150" height="40"/>
+      <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="-64.4664" y="464.45">
+        <tspan x="-64.4664" y="464.45">Method*</tspan>
+      </text>
+    </g>
+    <g>
+      <rect style="fill: #ff9292" x="-139.466" y="400.55" width="150" height="40"/>
+      <rect style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" x="-139.466" y="400.55" width="150" height="40"/>
+      <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="-64.4664" y="424.45">
+        <tspan x="-64.4664" y="424.45"></tspan>
+      </text>
+    </g>
+    <g>
+      <rect style="fill: #e5e5e5" x="-139.466" y="480.55" width="150" height="40"/>
+      <rect style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" x="-139.466" y="480.55" width="150" height="40"/>
+      <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="-64.4664" y="504.45">
+        <tspan x="-64.4664" y="504.45">...</tspan>
+      </text>
+    </g>
+    <text font-size="18.0622" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="-139.466" y="380.55">
+      <tspan x="-139.466" y="380.55">CompiledMethod*</tspan>
+    </text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" points="10.5336,460.55 30.132,460.082 69.4712,420.426 88.029,420.167 "/>
+    <polygon style="fill: #000000" points="95.5283,420.062 85.599,425.201 88.029,420.167 85.4595,415.202 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" points="95.5283,420.062 85.599,425.201 88.029,420.167 85.4595,415.202 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" points="100,459.62 76.768,459.764 37.1116,420.108 22.504,420.351 "/>
+    <polygon style="fill: #000000" points="15.0051,420.476 24.9206,415.31 22.504,420.351 25.0868,425.309 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 4; stroke: #000000" points="15.0051,420.476 24.9206,415.31 22.504,420.351 25.0868,425.309 "/>
+  </g>
+  <rect style="fill: none; fill-opacity:0; stroke-width: 14.1111; stroke-linejoin: round; stroke: #ed155b" x="918.166" y="68.9318" width="252.501" height="80.1922" rx="10" ry="10"/>
 </svg>
