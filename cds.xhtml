@@ -256,7 +256,7 @@ $</span> <span class="fragment">JAVA_OPTS="<span class="fragment highlight-curre
   jruby --dev -e 1
 $</span> <span class="fragment">wc jruby_cds.cls</span>
    <span class="fragment"><span class="fragment highlight-border">1480</span>   1480 51716 jruby_cds.cls
-$</span> <span class="fragment">CATALINA_OPTS="-XX:DumpLoadedClassList=jruby_appcds.cls \
+$</span> <span class="fragment">JAVA_OPTS="-XX:DumpLoadedClassList=jruby_appcds.cls \
                  <span class="fragment highlight-current-border">-XX:+UseAppCDS</span>" \
   jruby --dev -e 1
 $</span> <span class="fragment">wc jruby_appcds.cls</span>
