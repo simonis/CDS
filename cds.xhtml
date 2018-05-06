@@ -23,6 +23,14 @@
     <link rel="stylesheet" href="css/local.css" />
 
     <style type="text/css">
+.reveal table th,
+.reveal table td {
+  text-align: left;
+  padding: 0.2em 0.5em 0.2em 0.5em; }
+.reveal table th {
+  border-bottom: 4px solid; }
+.reveal table td {
+  border-bottom: 2px solid; }
     </style>
 
     <!-- Printing and PDF exports -->
@@ -103,17 +111,17 @@
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
 
-        <section>
-          <h1>Class Data Sharing</h1>
-          <h3>Sharing Economy in the HotSpot VM</h3>
+        <section data-background="images/geecon_slide-01.jpg">
+          <h1 style="color:white; text-shadow: -1px -1px 3px #000, 1px -1px 3px #000, -1px  1px 3px #000, 1px  1px 3px #000;">Class Data Sharing</h1>
+          <h3 style="color:white;">Sharing Economy in the HotSpot VM</h3>
           <p>
-            <small>Volker Simonis, SAP / <a href="mailto:volker.simonis@gmail.com">volker.simonis@gmail.com</a></small>
+            <small style="color:black;">Volker Simonis, SAP / <a  style="color:black;" href="mailto:volker.simonis@gmail.com">volker.simonis@gmail.com</a></small>
           </p>
         </section>
 
-        <section>
+        <section data-background="images/geecon_slide-03.jpg">
 
-          <h3 style="text-transform: none;"><a href="https://simonis.github.io/GeeCON2018">https://simonis.github.io/GeeCON2018</a></h3>
+          <h3 style="text-transform: none;"><a  style="color: black;" href="https://simonis.github.io/GeeCON2018/CDS">https://simonis.github.io/GeeCON2018/CDS</a></h3>
 
         </section>
 
@@ -1739,40 +1747,121 @@ $ pmap -XX <mark class="border">1508</mark>
 
         <section>
 
-          <h2><a href="https://bugs.openjdk.java.net/browse/JDK-8194759">8194759: Support caching class mirror objects</a></h2>
-
-          <div width="100%" style="position: relative; margin: 0 0 0 0px;">
-            <div class="" style="position: static; width: 100%">
-              <object data="images/CodeCacheMetaspaceHeap_18.svg" type="image/svg+xml"
-                      style="width: 90%;">&nbsp;</object>
-            </div>
-            <div class="fragment" data-fragment-index="1" style="position: absolute; left: 0; top: 0; width: 100%">
-              <object data="images/CodeCacheMetaspaceHeap_19.svg" type="image/svg+xml"
-                      style="width: 90%;">&nbsp;</object>
-            </div>
-          </div>
-        </section>
-
-        <section>
-
-          <h2><a href="https://bugs.openjdk.java.net/browse/JDK-8194812">8194812: Extend CDS to support the module path</a></h2>
-
-          See <a href="http://cr.openjdk.java.net/~ccheung/8194812/write-up/module-path-design.pdf">module-path-design.pdf</a>
-
-        </section>
-
-        <section>
-
           <h2>AppCDS - Current Limitations</h2>
 
           <ul>
-            <li>Can't share pre 1.5 classes</li>
+            <li>Can't share pre 1.5 classes
+              <ul>
+                <li><a href="https://bugs.openjdk.java.net/browse/JDK-8202556">8202556: Support pre-1.5 classes in CDS</a></li>
+              </ul>
+            </li>
+            <li>Can't share plain classes loaded from files/directories</li>
+            <li>Can't share classes from module path</li>
             <li>Can't share dynamically generated classes</li>
-            <li>Can't share classes loaded from files (only .jar archives)</li>
             <li>Can't share classes modified by the class loader</li>
             <li>Classes loaded by several class loaders can only be shared once</li>
             <li>No bytecode-rewriting (slow interpreter)</li>
           </ul>
+        </section>
+
+        <section>
+          <section>
+
+            <h2>Enhancements in OpenJDK 11</h2>
+
+            <ul>
+              <li style="margin-top: 3ex;">More sharing: <a href="https://bugs.openjdk.java.net/browse/JDK-8194759">8194759: Support caching class mirror objects</a></li>
+              <li style="margin-top: 2ex;">Module path support: <a href="https://bugs.openjdk.java.net/browse/JDK-8194812">8194812: Extend CDS to support the module path</a></li>
+              <li style="margin-top: 2ex;">Better usability: <a href="https://bugs.openjdk.java.net/browse/JDK-8193213">8193213: Make the UseAppCDS option obsolete</a></li>
+            </ul>
+          </section>
+
+          <section>
+
+            <h2><a href="https://bugs.openjdk.java.net/browse/JDK-8194759">8194759: Support caching class mirror objects</a></h2>
+
+            <div width="100%" style="position: relative; margin: 0 0 0 0px;">
+              <div class="" style="position: static; width: 100%">
+                <object data="images/CodeCacheMetaspaceHeap_18.svg" type="image/svg+xml"
+                        style="width: 90%;">&nbsp;</object>
+              </div>
+              <div class="fragment" data-fragment-index="1" style="position: absolute; left: 0; top: 0; width: 100%">
+                <object data="images/CodeCacheMetaspaceHeap_19.svg" type="image/svg+xml"
+                        style="width: 90%;">&nbsp;</object>
+              </div>
+            </div>
+          </section>
+
+          <section>
+
+            <h2><a href="https://bugs.openjdk.java.net/browse/JDK-8194812">8194812: Extend CDS to support the module path</a></h2>
+
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th><code>-Xshare:dump</code></th>
+                  <th><code>-Xshare:{on,auto}</code></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>--module-path</code></td>
+                  <td style="text-align: center;">Allow</td>
+                  <td style="text-align: center;">Allow</td>
+                </tr>
+                <tr>
+                  <td><code>--add-modules</code></td>
+                  <td style="text-align: center;">Allow</td>
+                  <td style="text-align: center;">Allow</td>
+                </tr>
+                <tr>
+                  <td><code>--module</code></td>
+                  <td style="text-align: center;">Allow</td>
+                  <td style="text-align: center;">Allow</td>
+                </tr>
+                <tr>
+                  <td><code>--limit-modules</code></td>
+                  <td style="text-align: center;">Disallow (exit if specified)</td>
+                  <td style="text-align: center;">Allow (disable CDS)</td>
+                </tr>
+                <tr>
+                  <td><code>--patch-module</code></td>
+                  <td style="text-align: center;">Disallow (exit if specified)</td>
+                  <td style="text-align: center;">Allow (disable CDS)</td>
+                </tr>
+                <tr>
+                  <td><code>--upgrade-module-path</code></td>
+                  <td style="text-align: center;">Disallow (exit if specified)</td>
+                  <td style="text-align: center;">Allow (disable CDS)</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <p>
+              For more details see <a href="http://cr.openjdk.java.net/~ccheung/8194812/write-up/module-path-design.pdf">module-path-design.pdf</a>
+            </p>
+          </section>
+
+          <section>
+
+            <h2><a href="https://bugs.openjdk.java.net/browse/JDK-8193213">8193213: Make the UseAppCDS option obsolete</a></h2>
+
+            <ul>
+              <li><code>-XX:+UseAppCDS</code> will be enabled by default</li>
+              <li style="margin-top: 1ex;">Application classes..
+                <ul>
+                  <li>..in <code>SharedClassListFile</code> will be written to the archive at dump time</li>
+                  <li>..from the archive will be used transparently at run time</li>
+                </ul>
+              </li>
+              <li style="margin-top: 1ex;"><code>-XX:SharedArchiveFile</code> becomes a product flag
+                <ul>
+                  <li>No need to specify <code>-XX:+UnlockDiagnosticVMOptions</code> any more</li>
+                </ul>
+              </li>
+            </ul>
+          </section>
         </section>
 
         <section>
@@ -1852,7 +1941,7 @@ Cache is 39% full</span>
 
         <section>
 
-          <h3 style="text-transform: none;"><a href="https://simonis.github.io/GeeCon2018">https://simonis.github.io/GeeCON2018</a></h3>
+          <h3 style="text-transform: none;"><a href="https://simonis.github.io/GeeCON2018/CDS">https://simonis.github.io/GeeCON2018/CDS</a></h3>
 
         </section>
 
