@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="44cm" height="32cm" viewBox="40 -640 880 640" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <rect style="fill: none; fill-opacity:0; stroke-width: 2.35099e-37; stroke: #000000" x="40" y="-640" width="880" height="640"/>
+  <g>
+    <g>
+      <rect style="fill: #ffffff" x="70" y="-60" width="780" height="40"/>
+      <path style="fill: #ffffff" d="M 70,-60 A 10,10 0 0 0 60,-50 L 70,-50 z"/>
+      <path style="fill: #ffffff" d="M 860,-50 A 10,10 0 0 0 850,-60 L 850,-50 z"/>
+      <rect style="fill: #ffffff" x="60" y="-50" width="800" height="20"/>
+      <path style="fill: #ffffff" d="M 60,-30 A 10,10 0 0 0 70,-20 L 70,-30 z"/>
+      <path style="fill: #ffffff" d="M 850,-20 A 10,10 0 0 0 860,-30 L 850,-30 z"/>
+      <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="70" y1="-60" x2="850" y2="-60"/>
+      <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="70" y1="-20" x2="850" y2="-20"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 70,-60 A 10,10 0 0 0 60,-50"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 860,-50 A 10,10 0 0 0 850,-60"/>
+      <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="60" y1="-50" x2="60" y2="-30"/>
+      <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="860" y1="-50" x2="860" y2="-30"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 60,-30 A 10,10 0 0 0 70,-20"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 850,-20 A 10,10 0 0 0 860,-30"/>
+      <text font-size="18.0622" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="460" y="-34.4889">
+        <tspan x="460" y="-34.4889">CPU / Hardware</tspan>
+      </text>
+    </g>
+    <g>
+      <rect style="fill: #ffffff" x="70" y="-100" width="780" height="40"/>
+      <path style="fill: #ffffff" d="M 70,-100 A 10,10 0 0 0 60,-90 L 70,-90 z"/>
+      <path style="fill: #ffffff" d="M 860,-90 A 10,10 0 0 0 850,-100 L 850,-90 z"/>
+      <rect style="fill: #ffffff" x="60" y="-90" width="800" height="20"/>
+      <path style="fill: #ffffff" d="M 60,-70 A 10,10 0 0 0 70,-60 L 70,-70 z"/>
+      <path style="fill: #ffffff" d="M 850,-60 A 10,10 0 0 0 860,-70 L 850,-70 z"/>
+      <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="70" y1="-100" x2="850" y2="-100"/>
+      <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="70" y1="-60" x2="850" y2="-60"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 70,-100 A 10,10 0 0 0 60,-90"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 860,-90 A 10,10 0 0 0 850,-100"/>
+      <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="60" y1="-90" x2="60" y2="-70"/>
+      <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="860" y1="-90" x2="860" y2="-70"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 60,-70 A 10,10 0 0 0 70,-60"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 850,-60 A 10,10 0 0 0 860,-70"/>
+      <text font-size="18.0622" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="460" y="-74.4889">
+        <tspan x="460" y="-74.4889">Linux Kernel</tspan>
+      </text>
+    </g>
+    <g>
+      <rect style="fill: #ffffff" x="70" y="-140" width="780" height="40"/>
+      <path style="fill: #ffffff" d="M 70,-140 A 10,10 0 0 0 60,-130 L 70,-130 z"/>
+      <path style="fill: #ffffff" d="M 860,-130 A 10,10 0 0 0 850,-140 L 850,-130 z"/>
+      <rect style="fill: #ffffff" x="60" y="-130" width="800" height="20"/>
+      <path style="fill: #ffffff" d="M 60,-110 A 10,10 0 0 0 70,-100 L 70,-110 z"/>
+      <path style="fill: #ffffff" d="M 850,-100 A 10,10 0 0 0 860,-110 L 850,-110 z"/>
+      <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="70" y1="-140" x2="850" y2="-140"/>
+      <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="70" y1="-100" x2="850" y2="-100"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 70,-140 A 10,10 0 0 0 60,-130"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 860,-130 A 10,10 0 0 0 850,-140"/>
+      <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="60" y1="-130" x2="60" y2="-110"/>
+      <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="860" y1="-130" x2="860" y2="-110"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 60,-110 A 10,10 0 0 0 70,-100"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 850,-100 A 10,10 0 0 0 860,-110"/>
+      <text font-size="18.0622" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="460" y="-114.489">
+        <tspan x="460" y="-114.489">Root File System</tspan>
+      </text>
+    </g>
+  </g>
+</svg>
