@@ -275,11 +275,11 @@ $ </span><span class="fragment">java -Xshare:on <span class="fragment highlight-
 <span class="fragment">[class,load] io.simonis.HelloCDS2 source: <span class="fragment highlight-current-border">file:/examples/bin/</span>
 HelloCDS</span>
 <span class="fragment">$ java -Xshare:on -Xlog:class+load io.simonis.HelloCDS \
-      | <span class="fragment highlight-current-border">grep "shared objects file"</span> | wc</span>
-    <span class="fragment">477    2862   40977
+      | <span class="fragment highlight-current-border">grep "shared objects file"</span> | wc -l</span>
+    <span class="fragment">477
 $ </span><span class="fragment">java -Xshare:on -Xlog:class+load io.simonis.HelloCDS \
-      | <span class="fragment highlight-current-border">grep -v "shared objects file"</span> | wc</span>
-      <span class="fragment">5      17     424</span>
+      | <span class="fragment highlight-current-border">grep -v "shared objects file"</span> | wc -l</span>
+      <span class="fragment">5</span>
               </code>
             </pre>
           </section>
@@ -328,19 +328,19 @@ $ export VERIFY_JRUBY=1
 $ <span class="fragment">JAVA_OPTS="<span class="fragment highlight-current-border">-Xshare:on</span> \
              <span class="fragment highlight-current-border">-Xlog:class+load:file=jruby_cds.classtrace</span>" \
   <span class="fragment highlight-current-border">jruby --dev -e 1</span>
-$</span> <span class="fragment">wc jruby.classtrace</span>
-  <span class="fragment"><span class="fragment highlight-border">6621</span>   28511 806148 jruby.classtrace
-$</span> <span class="fragment">grep "<span class="fragment highlight-current-border">shared objects file</span>" jruby.classtrace | wc</span>
-   <span class="fragment"><span class="fragment highlight-border">1008</span>    6048  89449
+$</span> <span class="fragment">wc -l jruby.classtrace</span>
+   <span class="fragment"><span class="fragment highlight-border">6621</span>   jruby.classtrace
+$</span> <span class="fragment">grep "<span class="fragment highlight-current-border">shared objects file</span>" jruby.classtrace | wc -l</span>
+   <span class="fragment"><span class="fragment highlight-border">1008</span>
 $</span> <span class="fragment">JAVA_OPTS="<span class="fragment highlight-current-border">-XX:DumpLoadedClassList=jruby_cds.cls</span>" \
   jruby --dev -e 1
-$</span> <span class="fragment">wc jruby_cds.cls</span>
-   <span class="fragment"><span class="fragment highlight-border">1480</span>   1480 51716 jruby_cds.cls
+$</span> <span class="fragment">wc -l jruby_cds.cls</span>
+   <span class="fragment"><span class="fragment highlight-border">1480</span>   jruby_cds.cls
 $</span> <span class="fragment">JAVA_OPTS="-XX:DumpLoadedClassList=jruby_appcds.cls \
                  <span class="fragment highlight-current-border">-XX:+UseAppCDS</span>" \
   jruby --dev -e 1
-$</span> <span class="fragment">wc jruby_appcds.cls</span>
-   <span class="fragment"><span class="fragment highlight-border">6504</span>   6504 262466 jruby_appcds.cls</span>
+$</span> <span class="fragment">wc -l jruby_appcds.cls</span>
+   <span class="fragment"><span class="fragment highlight-border">6504</span>   jruby_appcds.cls</span>
               </code>
             </pre>
           </section>
@@ -363,10 +363,10 @@ $</span> <span class="fragment">JAVA_OPTS="<span class="fragment highlight-curre
              <span class="fragment highlight-current-border">-XX:SharedArchiveFile=jruby_appcds.jsa</span> \
              <span class="fragment highlight-current-border">-Xlog:class+load:file=jruby_appcds.clstrace</span>" \
   jruby --dev -e 1
-$</span><span class="fragment"> wc jruby_appcds.clstrace</span>
-  <span class="fragment"><span class="fragment highlight-border">6591</span>   39257 630637 jruby_appcds.clstrace
-$</span><span class="fragment"> grep "shared objects " jruby_appcds.clstrace | wc</span>
-   <span class="fragment"><span class="fragment highlight-border">6447</span>   38682  615284</span>
+$</span><span class="fragment"> wc -l jruby_appcds.clstrace</span>
+   <span class="fragment"><span class="fragment highlight-border">6591</span>   jruby_appcds.clstrace
+$</span><span class="fragment"> grep "shared objects " jruby_appcds.clstrace | wc -l</span>
+   <span class="fragment"><span class="fragment highlight-border">6447</span></span>
 
               </code>
             </pre>
@@ -393,7 +393,7 @@ $</span> <span class="fragment">JAVA_OPTS="<span class="fragment highlight-curre
 
             <p class="fragment">About <b>30%</b> startup performance improvement!!!</p>
 
-            <p class="fragment"><a href="https://twitter.com/headius/status/968988277071020032">Charly is quite happy about this :)</a></p>
+            <p class="fragment"><a href="https://twitter.com/headius/status/968988277071020032">Charlie (@headius) is quite happy about this :)</a></p>
           </section>
         </section>
 
@@ -408,19 +408,19 @@ $</span> <span class="fragment">JAVA_OPTS="<span class="fragment highlight-curre
 $ CATALINA_OPTS="<span class="fragment highlight-current-border">-Xshare:on</span> \
                  <span class="fragment highlight-current-border">-Xlog:class+load:file=/tmp/tomcat.classtrace</span>" \
   catalina.sh start
-$ <span class="fragment">wc /tmp/tomcat.classtrace</span>
-  <span class="fragment"><span class="fragment highlight-border">12644</span>   50575 2075264 /tmp/tomcat.classtrace
-$</span> <span class="fragment">grep "<span class="fragment highlight-current-border">shared objects file</span>" /tmp/tomcat.classtrace | wc</span>
-   <span class="fragment"><span class="fragment highlight-border">1156</span>    6936  103052
+$ <span class="fragment">wc -l /tmp/tomcat.classtrace</span>
+  <span class="fragment"><span class="fragment highlight-border">12644</span>   /tmp/tomcat.classtrace
+$</span> <span class="fragment">grep "<span class="fragment highlight-current-border">shared objects file</span>" /tmp/tomcat.classtrace | wc -l</span>
+   <span class="fragment"><span class="fragment highlight-border">1156</span>
 $</span> <span class="fragment">CATALINA_OPTS="<span class="fragment highlight-current-border">-XX:DumpLoadedClassList=/tmp/tomcat.cls</span>" \
   catalina.sh start
-$</span> <span class="fragment">wc /tmp/tomcat.cls</span>
-   <span class="fragment"><span class="fragment highlight-border">3261</span>   3261 125647 /tmp/tomcat.cls
+$</span> <span class="fragment">wc -l /tmp/tomcat.cls</span>
+   <span class="fragment"><span class="fragment highlight-border">3261</span>   /tmp/tomcat.cls
 $</span> <span class="fragment">CATALINA_OPTS="-XX:DumpLoadedClassList=/tmp/tomcat_appcds.cls \
                  <span class="fragment highlight-current-border">-XX:+UseAppCDS</span>" \
   catalina.sh start
-$</span> <span class="fragment">wc /tmp/tomcat_appcds.cls</span>
-   <span class="fragment"><span class="fragment highlight-border">3520</span>   3520 133431 /tmp/tomcat_appcds.cls</span>
+$</span> <span class="fragment">wc -l /tmp/tomcat_appcds.cls</span>
+   <span class="fragment"><span class="fragment highlight-border">3520</span>   /tmp/tomcat_appcds.cls</span>
               </code>
             </pre>
           </section>
@@ -443,10 +443,10 @@ $</span> <span class="fragment">CATALINA_OPTS="<span class="fragment highlight-c
                  <span class="fragment highlight-current-border">-XX:SharedArchiveFile=/tmp/tomcat_appcds.jsa</span> \
                  <span class="fragment highlight-current-border">-Xlog:class+load:file=/tmp/tomcat_appcds.clstrace</span>" \
   catalina.sh start
-$</span><span class="fragment"> wc /tmp/tomcat_appcds.clstrace</span>
-  <span class="fragment"><span class="fragment highlight-border">12645</span>   57615 2088947 /tmp/tomcat_appcds.clstrace
-$</span><span class="fragment"> grep "shared objects " /tmp/tomcat_appcds.clstrace | wc</span>
-   <span class="fragment"><span class="fragment highlight-border">3518</span>   21108  327511</span>
+$</span><span class="fragment"> wc -l /tmp/tomcat_appcds.clstrace</span>
+  <span class="fragment"><span class="fragment highlight-border">12645</span>   /tmp/tomcat_appcds.clstrace
+$</span><span class="fragment"> grep "shared objects " /tmp/tomcat_appcds.clstrace | wc -l</span>
+   <span class="fragment"><span class="fragment highlight-border">3518</span></span>
 
               </code>
             </pre>
@@ -558,10 +558,10 @@ $</span><span class="fragment"> CATALINA_OPTS="<span class="fragment highlight-c
                  <span class="fragment highlight-current-border">-XX:SharedArchiveFile=tomcat_cl4cds.jsa</span> \
                  <span class="fragment highlight-current-border">-Xlog:class+load:file=tomcat_cl4cds.clstrace</span>" \
   catalina.sh start
-$</span><span class="fragment"> wc tomcat_cl4cds.clstrace</span>
-  <span class="fragment"><span class="fragment highlight-border">12644</span>   69335 1531203 tomcat_cl4cds.clstrace
-$</span><span class="fragment"> grep "shared objects " tomcat_cl4cds.clstrace | wc</span>
-   <span class="fragment"><span class="fragment highlight-border">9380</span>   56280  963418</span>
+$</span><span class="fragment"> wc -l tomcat_cl4cds.clstrace</span>
+  <span class="fragment"><span class="fragment highlight-border">12644</span>   tomcat_cl4cds.clstrace
+$</span><span class="fragment"> grep "shared objects " tomcat_cl4cds.clstrace | wc -l</span>
+   <span class="fragment"><span class="fragment highlight-border">9380</span></span>
                   </code>
                 </pre>
           </section>
