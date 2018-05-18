@@ -468,8 +468,8 @@ $ <span class="fragment highlight-current-border">CATALINA_OPTS</span>="-Xshare:
               <thead>
                 <tr>
                   <th></th>
-                  <th>Total nr. of classes</th>
                   <th>Nr. of shared classes</th>
+                  <th>Total nr. of classes</th>
                 </tr>
               </thead>
               <tbody>
@@ -1480,18 +1480,18 @@ StringTable::intern(Symbol *, Thread *) : oop - /jdk-hs/share/classfile/stringTa
 
           <section class="demo">
 
-            <h2>Sharing additional Strings and Symbols</h2>
+            <h2>Sharing interned Strings and Symbols</h2>
 
             <ul>
               <li>Extension of <a href="http://openjdk.java.net/jeps/250">JEP 250: Store Interned Strings in CDS Archives</a></li>
               <li>Added with AppCDS to the OpenJDK</li>
-              <li>Documentation is sparse:
+              <li class="fragment">Documentation is sparse:
                 <ul>
                   <li><a href="https://bugs.openjdk.java.net/browse/JDK-8134448">JDK-8134448 Document XX:SharedArchiveConfigFile=&lt;shared_input_file&gt;</a></li>
                   <li>Oracle commercial feature documentation: "<a href='https://docs.oracle.com/javase/9/tools/java.htm#JSWOR-GUID-31503FCE-93D0-4175-9B4F-F6A738B2F4C4'>Sharing a Shared Archive...</a>"</li>
                   </ul>
               </li>
-              <li>Have to manually assemble the <code>SharedArchiveConfigFile</code> file from the<br/>
+              <li class="fragment">Have to manually assemble the <code>SharedArchiveConfigFile</code> file from the<br/>
                 <code>jcmd &lt;pid&gt; VM.stringtable -verbose</code> and<br/><code>jcmd &lt;pid&gt; VM.symboltable -verbose</code> output</li>
             </ul>
           </section>
@@ -1535,13 +1535,13 @@ $ vi string_symbol.cfg
 
             <pre class="big noshadow" style="height:100%; margin: 0;" data-trim="true">
               <code class="terminal" data-trim="true" data-noescape="true" style="height:100%;">
-$<span class="fragment"> CATALINA_OPTS="<span class="fragment highlight-current-border">-Xshare:dump</span> -XX:+UseAppCDS \
-                 <span class="fragment highlight-current-border">-XX:SharedClassListFile=tomcat_cl4cds.cls</span> \
+$<span> CATALINA_OPTS="<span>-Xshare:dump</span> -XX:+UseAppCDS \
+                 <span>-XX:SharedClassListFile=tomcat_cl4cds.cls</span> \
                  -XX:+UnlockDiagnosticVMOptions \
-                 <span class="fragment highlight-current-border">-XX:SharedArchiveFile=tomcat_cl4cds.jsa</span>" \
+                 <span>-XX:SharedArchiveFile=tomcat_cl4cds.jsa</span>" \
   catalina.sh start
-$</span><span class="fragment"> ll tomcat_cl4cds.jsa</span>
-<span class="fragment">-r--r----- 1 <span class="fragment highlight-border">102.305.792</span> Feb  3 01:48 tomcat_cl4cds.jsa
+$</span><span> ll tomcat_cl4cds.jsa</span>
+<span>-r--r----- 1 <span class="fragment highlight-border">102.305.792</span> Feb  3 01:48 tomcat_cl4cds.jsa
 $</span><span class="fragment"> CATALINA_OPTS="-Xshare:dump -XX:+UseAppCDS \
                  -XX:SharedClassListFile=tomcat_cl4cds.cls \
                  <span class="fragment highlight-current-border">-XX:SharedArchiveConfigFile=string_symbol.cfg</span> \
@@ -1808,7 +1808,7 @@ $ java -Xshare:dump<span class="fragment" data-fragment-index="0">
 <span class="fragment highlight-current-border border-no-bottom" data-fragment-index="7">Dumping symbol table ...                                </span>
 <span class="fragment highlight-current-border border-no-top   " data-fragment-index="7">Dumping String objects to closed archive heap region ...</span>
 <span class="fragment highlight-current-border" data-fragment-index="8">Dumping objects to open archive heap region ...</span>
-<span class="fragment highlight-current-border" data-fragment-index="9">Removing java_mirror ... done.</span> <span class="fragment" data-fragment-index="8"> // java.lang.Class&lt;?&gt;</span>
+<span class="fragment highlight-current-border" data-fragment-index="9">Removing java_mirror ... done.</span> <span class="fragment" data-fragment-index="9"> // java.lang.Class&lt;?&gt;</span>
 mc  space:     21832 [  0,1% ] ... at 0x0000000800000000
 <span class="fragment highlight-current-border" data-fragment-index="10">rw  space:   4093816 [ 22,2% ] ... at 0x0000000800006000</span>
 <span class="fragment highlight-current-border" data-fragment-index="11">ro  space:   7313320 [ 39,7% ] ... at 0x00000008003ee000</span>
