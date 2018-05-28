@@ -274,7 +274,7 @@ $ </span><span class="fragment">java -Xshare:on <span class="fragment highlight-
 ...</span>
 <span class="fragment">[class,load] j.i.l.URLClassPath$FileLoader <span class="fragment highlight-current-border">source: jrt:/java.base</span>
 ...</span>
-<span class="fragment">[class,load] io.simonis.HelloCDS2 source: <span class="fragment highlight-current-border">file:/examples/bin/</span>
+<span class="fragment">[class,load] io.simonis.HelloCDS source: <span class="fragment highlight-current-border">file:/examples/bin/</span>
 HelloCDS</span>
 <span class="fragment">$ java -Xshare:on -Xlog:class+load io.simonis.HelloCDS \
       | <span class="fragment highlight-current-border">grep "shared objects file"</span> | wc -l</span>
@@ -544,10 +544,9 @@ CLASSNAME <span class="fragment highlight-current-border" data-fragment-index="6
 
                 <pre class="fragment big noshadow" data-fragment-index="8" style="height:100%; margin: 0;" data-trim="true">
                   <code class="terminal" data-trim="true" data-noescape="true" style="height:100%;">
-<span class="fragment highlight-current-border" data-fragment-index="9">java/lang/Object</span>           <span class="fragment highlight-current-border" data-fragment-index="9"><span class="fragment highlight-current-border" data-fragment-index="11">id: 0x100000eb0</span></span>
+<span class="fragment highlight-current-border" data-fragment-index="9">java/lang/Object</span>           <span class="fragment highlight-current-border" data-fragment-index="9"><span class="fragment highlight-current-border" data-fragment-index="11">id: 1</span></span>
 ...
-<span class="fragment highlight-border" data-fragment-index="10">org/apache/catalina/Server</span> <span class="fragment highlight-current-border" data-fragment-index="10">id: 0x1000e6410</span> <span class="fragment highlight-current-border" data-fragment-index="11">super: 0x100000eb0</span> \
-                           <span class="fragment highlight-current-border" data-fragment-index="12">interfaces: 0x1000e6238</span> <span class="fragment highlight-current-border" data-fragment-index="13">source: catalina.jar</span>
+<span class="fragment highlight-border" data-fragment-index="10">org/apache/catalina/Server</span> <span class="fragment highlight-current-border" data-fragment-index="10">id: 9</span> <span class="fragment highlight-current-border" data-fragment-index="11">super: 1</span> <span class="fragment highlight-current-border" data-fragment-index="12">interfaces: 5</span> <span class="fragment highlight-current-border" data-fragment-index="13">source: catalina.jar</span>
                   </code>
                 </pre>
 
@@ -565,27 +564,27 @@ CLASSNAME <span class="fragment highlight-current-border" data-fragment-index="6
                 <pre class="big noshadow fragment" data-fragment-index="2" style="height:100%; margin: 0;" data-trim="true">
                   <code class="terminal" data-trim="true" data-noescape="true" style="height:100%;">
 $ CATALINA_OPTS="-Xlog:class+load=debug" catalina.sh start
-<span class="fragment" data-fragment-index="3">[info ] <span class="fragment highlight-current-border" data-fragment-index="5">java.lang.Object</span> <span class="fragment highlight-current-border" data-fragment-index="5">source: jrt:/java.base</span>
-[debug]  klass: <span class="fragment highlight-current-border" data-fragment-index="11">0x100000eb0</span> super: 0x000000000 <span class="fragment highlight-current-border" data-fragment-index="4">loader: [NULL class loader]</span>
+<span class="fragment" data-fragment-index="3">[info ] <span class="fragment highlight-current-border" data-fragment-index="4"><span class="fragment highlight-current-border" data-fragment-index="18">java.lang.Object</span></span> <span class="fragment highlight-current-border" data-fragment-index="4">source: jrt:/java.base</span>
+[debug]  <span class="fragment highlight-current-border" data-fragment-index="5">klass: <span class="fragment highlight-current-border" data-fragment-index="14"><span class="fragment highlight-current-border" data-fragment-index="18">0x100000eb0</span></span></span> <span class="fragment highlight-current-border" data-fragment-index="6">super: 0x000000000</span> <span class="fragment highlight-current-border" data-fragment-index="7">loader: [NULL class loader]</span>
 ....
-[info ] <span class="fragment highlight-current-border" data-fragment-index="7">java.sql.Timestamp</span> <span class="fragment highlight-current-border" data-fragment-index="7">source: jrt:/java.sql</span>
-[debug]  klass: 0x100096c30 super: 0x100091a00 \
-         <span class="fragment highlight-current-border" data-fragment-index="6">loader: [0xff0172600 a 'ClassLoaders$PlatformClassLoader']</span>
+[info ] <span class="fragment highlight-current-border" data-fragment-index="8"><span class="fragment highlight-current-border" data-fragment-index="19">java.sql.Timestamp</span></span> <span class="fragment highlight-current-border" data-fragment-index="8">source: jrt:/java.sql</span>
+[debug]  <span class="fragment highlight-current-border" data-fragment-index="9"><span class="fragment highlight-current-border" data-fragment-index="19">klass: 0x100096c30</span></span> <span class="fragment highlight-current-border" data-fragment-index="10">super: 0x100091a00</span> \
+         <span class="fragment highlight-current-border" data-fragment-index="11">loader: [0xff0172600 a 'ClassLoaders$PlatformClassLoader']</span>
 ....
-[info ] <span class="fragment highlight-current-border" data-fragment-index="9">org.apache.catalina.Server</span> <span class="fragment highlight-current-border" data-fragment-index="9">source: file:catalina.jar</span>
-[debug]  <span class="fragment highlight-current-border" data-fragment-index="10">klass: 0x1000e6410</span> <span class="fragment highlight-current-border" data-fragment-index="11">super: 0x100000eb0</span> <span class="fragment highlight-current-border" data-fragment-index="12">interfaces: 0x1000e6238</span> \
-         <span class="fragment highlight-current-border" data-fragment-index="8">loader: [0xff0310fb0 a 'java/net/URLClassLoader']</span></span>
+[info ] <span class="fragment highlight-current-border" data-fragment-index="12"><span class="fragment highlight-current-border" data-fragment-index="20">org.apache.catalina.Server</span></span> <span class="fragment highlight-current-border" data-fragment-index="12">source: file:catalina.jar</span>
+[debug]  <span class="fragment highlight-current-border" data-fragment-index="13">klass: 0x1000e6410</span> <span class="fragment highlight-current-border" data-fragment-index="14">super: 0x100000eb0</span> <span class="fragment highlight-current-border" data-fragment-index="15">interfaces: 0x1000e6238</span> \
+         <span class="fragment highlight-current-border" data-fragment-index="16">loader: [0xff0310fb0 a 'java/net/URLClassLoader']</span></span>
                   </code>
                 </pre>
               </li>
-              <li class="fragment" data-fragment-index="13">From this output we can "<em>easily</em>" create:<br/>
+              <li class="fragment" data-fragment-index="17">From this output we can "<em>easily</em>" create:<br/>
 
                 <pre class="big noshadow" style="height:100%; margin: 0;" data-trim="true">
                   <code class="terminal" data-trim="true" data-noescape="true" style="height:100%;">
-<span class="fragment highlight-current-border" data-fragment-index="14">java/lang/Object</span>           <span class="fragment highlight-current-border" data-fragment-index="14">id: 0x100000eb0</span>
-<span class="fragment highlight-current-border" data-fragment-index="15">java/sql/Timestamp </span>        <span class="fragment highlight-current-border" data-fragment-index="15">id: 0x100096c30</span>
-<span class="fragment highlight-current-border" data-fragment-index="16">org/apache/catalina/Server</span> <span class="fragment highlight-current-border border-no-bottom" data-fragment-index="16">id: 0x1000e6410 super: 0x100000eb0 \        </span>
-                           <span class="fragment highlight-current-border border-no-top   " data-fragment-index="16">interfaces: 0x1000e6238 source: catalina.jar</span>
+<span class="fragment highlight-current-border" data-fragment-index="18">java/lang/Object</span>           <span class="fragment highlight-current-border" data-fragment-index="18">id: 0x100000eb0</span>
+<span class="fragment highlight-current-border" data-fragment-index="19">java/sql/Timestamp </span>        <span class="fragment highlight-current-border" data-fragment-index="19">id: 0x100096c30</span>
+<span class="fragment highlight-current-border" data-fragment-index="20">org/apache/catalina/Server</span> <span class="fragment highlight-current-border border-no-bottom" data-fragment-index="20">id: 0x1000e6410 super: 0x100000eb0 \        </span>
+                           <span class="fragment highlight-current-border border-no-top   " data-fragment-index="20">interfaces: 0x1000e6238 source: catalina.jar</span>
                   </code>
                 </pre>
               </li>
