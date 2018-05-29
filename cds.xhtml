@@ -333,8 +333,7 @@ $</span> <span class="fragment">java <span class="fragment highlight-current-bor
             <pre class="big noshadow" style="height:100%; margin: 0;" data-trim="true">
               <code class="terminal" data-trim="true" data-noescape="true" style="height:100%;">
 $ export VERIFY_JRUBY=1
-$ <span class="fragment">JAVA_OPTS="<span class="fragment highlight-current-border">-Xshare:on</span> \
-             <span class="fragment highlight-current-border">-Xlog:class+load:file=jruby_cds.classtrace</span>" \
+$ <span class="fragment">JAVA_OPTS="<span class="fragment highlight-current-border">-Xshare:on</span> <span class="fragment highlight-current-border">-Xlog:class+load:file=jruby_cds.classtrace</span>" \
   <span class="fragment highlight-current-border">jruby --dev -e 1</span>
 $</span> <span class="fragment">wc -l jruby.classtrace</span>
    <span class="fragment"><span class="fragment highlight-border">6621</span>   jruby.classtrace
@@ -344,8 +343,7 @@ $</span> <span class="fragment">JAVA_OPTS="<span class="fragment highlight-curre
   jruby --dev -e 1
 $</span> <span class="fragment">wc -l jruby_cds.cls</span>
    <span class="fragment"><span class="fragment highlight-border">1480</span>   jruby_cds.cls
-$</span> <span class="fragment">JAVA_OPTS="-XX:DumpLoadedClassList=jruby_appcds.cls \
-                 <span class="fragment highlight-current-border">-XX:+UseAppCDS</span>" \
+$</span> <span class="fragment">JAVA_OPTS="-XX:DumpLoadedClassList=jruby_appcds.cls <span class="fragment highlight-current-border">-XX:+UseAppCDS</span>" \
   jruby --dev -e 1
 $</span> <span class="fragment">wc -l jruby_appcds.cls</span>
    <span class="fragment"><span class="fragment highlight-border">6504</span>   jruby_appcds.cls</span>
