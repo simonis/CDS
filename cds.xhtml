@@ -238,7 +238,7 @@
           <h2>Short History of CDS in the HotSpot VM</h2>
 
           <ul>
-            <li class="fragment">Introduced 2004 with <a href="https://docs.oracle.com/javase/1.5.0/docs/guide/vm/class-data-sharing.html">JDK 1.5</a>
+            <li class="fragment">Introduced 2004 with <a href="https://docs.oracle.com/javase/1.5.0/docs/guide/vm/class-data-sharing.html">Sun JDK 1.5</a>
               <ul>
                 <li>Only for Client VM, only Serial GC</li>
                 <li>Only system classes</li>
@@ -298,27 +298,27 @@ $ </span><span class="fragment">java -Xshare:on -Xlog:class+load io.simonis.Hell
 
             <pre class="big noshadow" style="height:100%; margin: 0;" data-trim="true">
               <code class="terminal" data-trim="true" data-noescape="true" style="height:100%;">
-$ time -f "%e sec\n" java <span class="fragment highlight-current-border">-Xshare:off</span> io.simonis.HelloCDS
+$ /usr/bin/time -f "%e sec\n" java <span class="fragment highlight-current-border">-Xshare:off</span> io.simonis.HelloCDS
 <span class="fragment">Hello CDS
 0.162 sec
-$</span> <span class="fragment">time -f "%e sec\n" java <span class="fragment highlight-current-border">-Xshare:on</span>  io.simonis.HelloCDS          </span>
+$</span> <span class="fragment">/usr/bin/time -f "%e sec\n" java <span class="fragment highlight-current-border">-Xshare:on</span>  io.simonis.HelloCDS          </span>
 <span class="fragment">Hello CDS
-0.148 sec</span>
+0.142 sec</span>
               </code>
             </pre>
 
-            <p class="fragment">About 9% overall performance improvement</p>
+            <p class="fragment">About <span style="font-weight: bold; color: #1B91FF;">13%</span> (Java 10) / <span style="font-weight: bold; color: #1B91FF;">22%</span> (Java 11) overall performance improvement</p>
 
             <pre class="big noshadow fragment" style="height:100%; margin: 0;" data-trim="true">
               <code class="terminal" data-trim="true" data-noescape="true" style="height:100%;">
-$ java <span class="fragment highlight-current-border">-Xshare:off</span> <span class="fragment highlight-current-border">-Xlog:class+load</span> io.simonis.HelloCDS
-<span class="fragment">[0,164s][class,load] io.simonis.HelloCDS source: file:/examples/bin
-$</span> <span class="fragment">java <span class="fragment highlight-current-border">-Xshare:on</span>  -Xlog:class+load io.simonis.HelloCDS</span>
-<span class="fragment">[0,143s][class,load] io.simonis.HelloCDS source: file:/examples/bin</span>
+$ java <span class="fragment highlight-current-border">-Xshare:off</span> <span class="fragment highlight-current-border">-Xlog:class+load</span> io.simonis.HelloCDS | grep HelloCDS
+<span class="fragment">[0,159s][class,load] io.simonis.HelloCDS source: file:/examples/bin
+$</span> <span class="fragment">java <span class="fragment highlight-current-border">-Xshare:on</span>  -Xlog:class+load io.simonis.HelloCDS | grep HelloCDS</span>
+<span class="fragment">[0,136s][class,load] io.simonis.HelloCDS source: file:/examples/bin</span>
               </code>
             </pre>
 
-            <p class="fragment">Application class loads about 13% faster</p>
+            <p class="fragment">Application class loads about <span style="font-weight: bold; color: #1B91FF;">15%</span> (Java 10) / <span style="font-weight: bold; color: #1B91FF;">23%</span> (Java 11) faster</p>
           </section>
 
         </section>
@@ -397,9 +397,33 @@ $</span> <span class="fragment">JAVA_OPTS="<span class="fragment highlight-curre
               </code>
             </pre>
 
-            <p class="fragment">About <b>30%</b> startup performance improvement!!!</p>
+            <p class="fragment">About <span style="font-weight: bold; color: #1B91FF;">30%</span> startup performance improvement!!!</p>
 
             <p class="fragment"><a href="https://twitter.com/headius/status/968988277071020032">Charlie (@headius) is quite happy about this :)</a></p>
+          </section>
+
+          <section class="demo">
+
+            <h2>AppCDS Performance with <a href="http://jruby.org/">JRuby 9.1.16</a></h2>
+
+            <pre class="big noshadow" style="height:100%; margin: 0;" data-trim="true">
+              <code class="terminal" data-trim="true" data-noescape="true" style="height:100%;">
+$ JAVA_OPTS="\
+             \
+             -XX:SharedArchiveFile=/tmp/jruby_appcds.jsa" \
+  /usr/bin/time -f "%e sec\n" ./bin/jruby --dev -e 1
+<span><mark class="border">2.02 sec</mark>
+$</span> <span>JAVA_OPTS="<span>-Xshare:off</span> \
+             \
+             -XX:SharedArchiveFile=/tmp/jruby_appcds.jsa" \
+  /usr/bin/time -f "%e sec\n" ./bin/jruby --dev -e 1</span>
+<span><mark class="border">3.05 sec</mark></span>
+              </code>
+            </pre>
+
+            <p>About <span style="font-weight: bold; color: #1B91FF;">30%</span> startup performance improvement!!!</p>
+
+            <p><a href="https://twitter.com/headius/status/968988277071020032">Charlie (@headius) is quite happy about this :)</a></p>
           </section>
         </section>
 
@@ -1844,8 +1868,8 @@ $ docker run -p 8080:8080 --rm -m 500m cds_demo_ojdk
 <span class="fragment highlight-current-border                      " data-fragment-index="5">800000000 rwxp      16     16            0             0            16</span> tomcat_cl4cds.jsa
 <span class="fragment highlight-current-border                      " data-fragment-index="6">800004000 rw-p   22340  22340            0          1640         20700</span> tomcat_cl4cds.jsa
 <span class="fragment highlight-current-border                      " data-fragment-index="7">8015d5000 r--p   39320  39320            0         39320             0</span> tomcat_cl4cds.jsa
-803c3b000 rw-p       8      8            0             0             8 tomcat_cl4cds.jsa
-<span class="fragment highlight-current-border                      " data-fragment-index="8">803c3d000 r--p   35840  35840            0         35840             0</span> tomcat_cl4cds.jsa</span>
+<span class="fragment highlight-current-border                      " data-fragment-index="8">803c3b000 rw-p       8      8            0             0             8</span> tomcat_cl4cds.jsa
+<span class="fragment highlight-current-border                      " data-fragment-index="9">803c3d000 r--p   35840  35840            0         35840             0</span> tomcat_cl4cds.jsa</span>
               </code>
             </pre>
           </section>
