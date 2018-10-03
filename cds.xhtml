@@ -410,10 +410,10 @@ $</span> <span class="fragment">JAVA_OPTS="<span class="fragment highlight-curre
               <code class="terminal" data-trim="true" data-noescape="true" style="height:100%;">
 $ JAVA_OPTS="\
              \
-             -XX:SharedArchiveFile=/tmp/jruby_appcds.jsa" \
+             <span class="fragment highlight-current-border">-XX:SharedArchiveFile=/tmp/jruby_appcds.jsa</span>" \
   /usr/bin/time -f "%e sec\n" ./bin/jruby --dev -e 1
 <span><mark class="border">2.02 sec</mark>
-$</span> <span>JAVA_OPTS="<span>-Xshare:off</span> \
+$</span> <span>JAVA_OPTS="<span class="fragment highlight-current-border">-Xshare:off</span>" \
              \
              \
   /usr/bin/time -f "%e sec\n" ./bin/jruby --dev -e 1</span>
@@ -2040,7 +2040,7 @@ $ pmap -XX <mark class="border">1508</mark>
 
             <ul>
               <li>Introduced in <a href="https://www.ibm.com/support/knowledgecenter/en/SSYKE2_6.0.0/com.ibm.java.doc.user.lnx.60/user/shc_overview.html">IBM SDK 6.0</a></li>
-              <li>JIT and AOT artifacts can be shared as well!</li>
+              <li>Combined with JIT and AOT artifacts in one archive!</li>
               <li>Supports custom class loaders through an <a href="https://www.ibm.com/support/knowledgecenter/SSYKE2_9.0.0/com.ibm.java.multiplatform.90.doc/user/adaptingclassloaders.html">API</a>
                 <ul>
                   <li>Class loaders extending <code><a href="https://github.com/ibmruntimes/openj9-openjdk-jdk9/blob/openj9/jdk/src/java.base/share/classes/java/net/URLClassLoader.java">URLClassLoader</a></code> work out of the box</li>
@@ -2064,7 +2064,7 @@ JVMSHRC236I Created shared classes persistent cache tomcat
 JVMSHRC246I Attached shared classes persistent cache tomcat
 JVMSHRC168I Total shared class bytes read=3738038. Total bytes stored=47196956
 $</span><span class="fragment"> ls -l /tmp/tomcat
--rw-r----- 1 simonis simonis 134217728 Feb 23 17:44 C290M5F1A64P_tomcat_G35
+-rw-r----- 1 simonis simonis <span class="fragment highlight-current-border">134217728</span> Feb 23 17:44 C290M5F1A64P_tomcat_G35
 $</span><span class="fragment"> java -Xshareclasses:cacheDir=/tmp/tomcat,name=tomcat,<span class="fragment highlight-current-border">printStats</span></span>
 <span class="fragment">Current statistics for cache "tomcat":
 cache size                           = 134_217_120
@@ -2105,6 +2105,122 @@ Cache is 39% full</span>
                -Xshareclasses:cacheDir=/opt/tomcat,name=tomcat,noaot,nojitdata -Xnoaot -Xnojit" catalina.sh start</pre>
             </div>
           </section>
+
+<!--
+
+$ JAVA_HOME=/share/software/Java/openJ9_jdk9-b181 JAVA_OPTS="-Xscmx128m -Xshareclasses:cacheDir=/tmp,name=jruby_appcds_j9,verbose" /usr/bin/time -f "%e sec\n" /share/software/Java/jruby-9.1.16.0/bin/jruby - -dev -e 1
+[-Xshareclasses persistent cache enabled]
+[-Xshareclasses verbose output enabled]
+JVMSHRC236I Created shared classes persistent cache jruby_appcds_j9
+JVMSHRC246I Attached shared classes persistent cache jruby_appcds_j9
+JVMSHRC765I Memory page protection on runtime data, string read-write data and partially filled pages is successfully enabled
+JVMSHRC168I Total shared class bytes read=1725211. Total bytes stored=6715232
+JVMSHRC818I Total unstored bytes due to the setting of shared cache soft max is 0. Unstored AOT bytes due to the setting of -Xscmaxaot is 0. Unstored JIT bytes due to the setting of -Xscmaxjitdata is 0.
+7.76 sec
+
+$ JAVA_HOME=/share/software/Java/openJ9_jdk9-b181 JAVA_OPTS="-Xscmx128m -Xshareclasses:cacheDir=/tmp,name=jruby_appcds_j9,none" /usr/bin/time -f "%e sec\n" /share/software/Java/jruby-9.1.16.0/bin/jruby - -dev -e 1
+6.35 sec
+$ JAVA_HOME=/share/software/Java/openJ9_jdk9-b181 JAVA_OPTS="-Xscmx128m -Xshareclasses:cacheDir=/tmp,name=jruby_appcds_j9,none" /usr/bin/time -f "%e sec\n" /share/software/Java/jruby-9.1.16.0/bin/jruby - -dev -e 1
+6.70 sec
+$ JAVA_HOME=/share/software/Java/openJ9_jdk9-b181 JAVA_OPTS="-Xscmx128m -Xshareclasses:cacheDir=/tmp,name=jruby_appcds_j9,none" /usr/bin/time -f "%e sec\n" /share/software/Java/jruby-9.1.16.0/bin/jruby - -dev -e 1
+6.86 sec
+
+$ JAVA_HOME=/share/software/Java/openJ9_jdk9-b181 JAVA_OPTS="-Xscmx128m -Xshareclasses:cacheDir=/tmp,name=jruby_appcds_j9_nojit_noaot,noaot,nojitdata" /usr/bin/time -f "%e sec\n" /share/software/Java/jruby-9.1.16.0/bin/jruby - -dev -e 1
+
+ ** sc disabled **
+6.25 sec
+$ JAVA_HOME=/share/software/Java/openJ9_jdk9-b181 JAVA_OPTS="-Xscmx128m -Xshareclasses:cacheDir=/tmp,name=jruby_appcds_j9_nojit_noaot,noaot,nojitdata" /usr/bin/time -f "%e sec\n" /share/software/Java/jruby-9.1.16.0/bin/jruby - -dev -e 1
+
+ ** sc disabled **
+6.42 sec
+$ JAVA_HOME=/share/software/Java/openJ9_jdk9-b181 JAVA_OPTS="-Xscmx128m -Xshareclasses:cacheDir=/tmp,name=jruby_appcds_j9_nojit_noaot,noaot,nojitdata" /usr/bin/time -f "%e sec\n" /share/software/Java/jruby-9.1.16.0/bin/jruby - -dev -e 1
+
+ ** sc disabled **
+6.43 sec
+
+
+$ JAVA_HOME=/share/software/Java/openJ9_jdk9-b181 JAVA_OPTS="-Xscmx128m -Xshareclasses:cacheDir=/tmp,name=jruby_appcds_j9,verbose" /usr/bin/time -f "%e sec\n" /share/software/Java/jruby-9.1.16.0/bin/jruby - -dev -e 1
+[-Xshareclasses persistent cache enabled]
+[-Xshareclasses verbose output enabled]
+JVMSHRC237I Opened shared classes persistent cache jruby_appcds_j9
+JVMSHRC246I Attached shared classes persistent cache jruby_appcds_j9
+JVMSHRC765I Memory page protection on runtime data, string read-write data and partially filled pages is successfully enabled
+JVMSHRC168I Total shared class bytes read=6947409. Total bytes stored=7148
+JVMSHRC818I Total unstored bytes due to the setting of shared cache soft max is 0. Unstored AOT bytes due to the setting of -Xscmaxaot is 0. Unstored JIT bytes due to the setting of -Xscmaxjitdata is 0.
+4.93 sec
+$ JAVA_HOME=/share/software/Java/openJ9_jdk9-b181 JAVA_OPTS="-Xscmx128m -Xshareclasses:cacheDir=/tmp,name=jruby_appcds_j9,verbose" /usr/bin/time -f "%e sec\n" /share/software/Java/jruby-9.1.16.0/bin/jruby - -dev -e 1
+[-Xshareclasses persistent cache enabled]
+[-Xshareclasses verbose output enabled]
+JVMSHRC237I Opened shared classes persistent cache jruby_appcds_j9
+JVMSHRC246I Attached shared classes persistent cache jruby_appcds_j9
+JVMSHRC765I Memory page protection on runtime data, string read-write data and partially filled pages is successfully enabled
+JVMSHRC168I Total shared class bytes read=6936917. Total bytes stored=5228
+JVMSHRC818I Total unstored bytes due to the setting of shared cache soft max is 0. Unstored AOT bytes due to the setting of -Xscmaxaot is 0. Unstored JIT bytes due to the setting of -Xscmaxjitdata is 0.
+4.87 sec
+$ JAVA_HOME=/share/software/Java/openJ9_jdk9-b181 JAVA_OPTS="-Xscmx128m -Xshareclasses:cacheDir=/tmp,name=jruby_appcds_j9,verbose" /usr/bin/time -f "%e sec\n" /share/software/Java/jruby-9.1.16.0/bin/jruby - -dev -e 1
+[-Xshareclasses persistent cache enabled]
+[-Xshareclasses verbose output enabled]
+JVMSHRC237I Opened shared classes persistent cache jruby_appcds_j9
+JVMSHRC246I Attached shared classes persistent cache jruby_appcds_j9
+JVMSHRC765I Memory page protection on runtime data, string read-write data and partially filled pages is successfully enabled
+JVMSHRC168I Total shared class bytes read=6951133. Total bytes stored=5688
+JVMSHRC818I Total unstored bytes due to the setting of shared cache soft max is 0. Unstored AOT bytes due to the setting of -Xscmaxaot is 0. Unstored JIT bytes due to the setting of -Xscmaxjitdata is 0.
+4.92 sec
+
+-->
+
+          <section class="demo">
+
+            <h2>Eclipse OpenJ9 CDS with JRuby 9.1.16</h2>
+
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>No CDS</th>
+                  <th>CDS</th>
+                  <th>AppCDS</th>
+                  <th>CDS &amp; AOT</th>
+                  <th>Speedup</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>OpenJDK 11</td>
+                  <td style="text-align: center;">3.6s</td>
+                  <td style="text-align: center;">3.5s</td>
+                  <td style="text-align: center;"></td>
+                  <td style="text-align: center;">-</td>
+                  <td style="text-align: right;">3%</td>
+                </tr>
+                <tr class="fragment">
+                  <td>OpenJDK 11</td>
+                  <td style="text-align: center;">3.6s</td>
+                  <td style="text-align: center;">-</td>
+                  <td style="text-align: center;">2.6s</td>
+                  <td style="text-align: center;">-</td>
+                  <td style="text-align: right;">28%</td>
+                </tr>
+                <tr class="fragment">
+                  <td>OpenJ9 9</td>
+                  <td style="text-align: center;">6.3s</td>
+                  <td style="text-align: center;">-</td>
+                  <td style="text-align: center;">6.2s</td>
+                  <td style="text-align: center;">-</td>
+                  <td style="text-align: right;">2%</td>
+                </tr>
+                <tr class="fragment">
+                  <td>OpenJ9 9</td>
+                  <td style="text-align: center;">6.3s</td>
+                  <td style="text-align: center;">-</td>
+                  <td style="text-align: center;">-</td>
+                  <td style="text-align: center;">4.9</td>
+                  <td style="text-align: right;">23%</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
         </section>
 
 
